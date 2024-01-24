@@ -68,6 +68,7 @@ class CategoriesController extends Controller
     {
         $this->authorize('create', Category::class);
         $category = new Category();
+        $category->code = $request->input('code');
         $category->name = $request->input('name');
         $category->category_type = $request->input('category_type');
         $category->eula_text = $request->input('eula_text');
@@ -125,6 +126,7 @@ class CategoriesController extends Controller
         }
 
         // Update the category data
+        $category->code = $request->input('code');
         $category->name = $request->input('name');
         // If the item count is > 0, we disable the category type in the edit. Disabled items
         // don't POST, so if the category_type is blank we just set it to the default.

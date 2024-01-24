@@ -40,6 +40,7 @@ class Category extends SnipeModel
      */
     public $rules = [
         'user_id' => 'numeric|nullable',
+        'code'   => 'required|min:3|max:3',
         'name'   => 'required|min:1|max:255|two_column_unique_undeleted:category_type',
         'require_acceptance'   => 'boolean',
         'use_default_eula'   => 'boolean',
@@ -67,6 +68,7 @@ class Category extends SnipeModel
         'category_type',
         'checkin_email',
         'eula_text',
+        'code',
         'name',
         'require_acceptance',
         'use_default_eula',
@@ -80,7 +82,7 @@ class Category extends SnipeModel
      *
      * @var array
      */
-    protected $searchableAttributes = ['name', 'category_type'];
+    protected $searchableAttributes = ['code', 'name', 'category_type'];
 
     /**
      * The relations and their attributes that should be included when searching the model.

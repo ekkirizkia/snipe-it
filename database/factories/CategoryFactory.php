@@ -23,6 +23,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
+            'code' => $this->faker->lexify('???'),
             'name' => $this->faker->catchPhrase(),
             'category_type' => 'asset',
             'checkin_email' => $this->faker->boolean(),

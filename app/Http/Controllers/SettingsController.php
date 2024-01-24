@@ -721,8 +721,9 @@ class SettingsController extends Controller
             return redirect()->to('admin')->with('error', trans('admin/settings/message.update.error'));
         }
 
+        $setting->use_formatted_id = $request->input('use_formatted_id', '0');
         $setting->auto_increment_prefix = $request->input('auto_increment_prefix');
-        $setting->auto_increment_assets = $request->input('auto_increment_assets', '0');
+        $setting->auto_increment_assets = $request->input('use_formatted_id') == 1 ? 0 : $request->input('auto_increment_assets', '0');
         $setting->zerofill_count = $request->input('zerofill_count');
         $setting->next_auto_tag_base = $request->input('next_auto_tag_base');
 

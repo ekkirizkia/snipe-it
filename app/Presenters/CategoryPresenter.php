@@ -22,6 +22,12 @@ class CategoryPresenter extends Presenter
                 'title' => trans('general.id'),
                 'visible' => false,
             ], [
+                'field' => 'code',
+                'searchable' => true,
+                'sortable' => true,
+                'title' => 'Code',
+                'visible' => true,
+            ],[
                 'field' => 'name',
                 'searchable' => true,
                 'sortable' => true,

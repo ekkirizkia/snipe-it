@@ -48,6 +48,7 @@ class CategoriesTransformer
         if ($category) {
             $array = [
                 'id' => (int) $category->id,
+                'code' => e($category->code),
                 'name' => e($category->name),
                 'image' =>   ($category->image) ? Storage::disk('public')->url('categories/'.e($category->image)) : null,
                 'category_type' => Helper::categoryTypeList($category->category_type),

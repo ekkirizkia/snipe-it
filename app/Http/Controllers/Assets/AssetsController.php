@@ -81,7 +81,8 @@ class AssetsController extends Controller
         $view = View::make('hardware/edit')
             ->with('statuslabel_list', Helper::statusLabelList())
             ->with('item', new Asset)
-            ->with('statuslabel_types', Helper::statusTypeList());
+            ->with('statuslabel_types', Helper::statusTypeList())
+            ->with('settings', Setting::getSettings());
 
         if ($request->filled('model_id')) {
             $selected_model = AssetModel::find($request->input('model_id'));
@@ -122,8 +123,14 @@ class AssetsController extends Controller
                 $asset->serial = $serials[$a];
             }
 
+            $masterModel = AssetModel::with('category')->find($request->input('model_id'));
+
             if (($asset_tags) && (array_key_exists($a, $asset_tags))) {
-                $asset->asset_tag = $asset_tags[$a];
+                if ($settings->use_formatted_id == '1') {
+                    $asset->asset_tag = Asset::generateNewFormattedAssetTag($masterModel->category->code, $request->input('purchase_date'));
+                }else{
+                    $asset->asset_tag = $asset_tags[$a];
+                }
             }
 
             $asset->company_id              = Company::getIdForCurrentUser($request->input('company_id'));
@@ -598,7 +605,8 @@ class AssetsController extends Controller
         return view('hardware/edit')
             ->with('statuslabel_list', Helper::statusLabelList())
             ->with('statuslabel_types', Helper::statusTypeList())
-            ->with('item', $asset);
+            ->with('item', $asset)
+            ->with('settings', Setting::getSettings());
     }
 
     /**

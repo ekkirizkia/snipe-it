@@ -43,6 +43,17 @@
                         <!-- auto ids -->
                         <div class="form-group">
                             <div class="col-md-5">
+                                <strong>Use Formatted ID</strong>
+                            </div>
+                            <div class="col-md-7">
+                                <label class="form-control">
+                                    {{ Form::checkbox('use_formatted_id', '1', old('use_formatted_id', $setting->use_formatted_id),array('aria-label'=>'use_formatted_id')) }}
+                                    {{ trans('admin/settings/general.enabled') }}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-5">
                                 <strong>{{  trans('admin/settings/general.auto_increment_assets') }}</strong>
                             </div>
                             <div class="col-md-7">
@@ -109,3 +120,20 @@
     {{Form::close()}}
 
 @stop
+
+@push('js')
+<script>
+    $(function(){
+        $('input[name=use_formatted_id]').on('change', function(){
+            if ($(this).is(':checked')) {
+                $('input[name=auto_increment_assets]').prop('checked', false);
+            }
+        });
+        $('input[name=auto_increment_assets]').on('change', function(){
+            if ($(this).is(':checked')) {
+                $('input[name=use_formatted_id]').prop('checked', false);
+            }
+        });
+    });
+</script>
+@endpush

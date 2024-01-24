@@ -99,7 +99,7 @@ class Asset extends Depreciable
         'expected_checkin' => 'nullable|date',
         'location_id'      => 'nullable|exists:locations,id',
         'rtd_location_id'  => 'nullable|exists:locations,id',
-        'purchase_date'    => 'nullable|date|date_format:Y-m-d',
+        'purchase_date'    => 'required|date|date_format:Y-m-d',
         'serial'           => 'nullable|unique_undeleted:assets,serial',
         'purchase_cost'    => 'nullable|numeric|gte:0',
         'supplier_id'      => 'nullable|exists:suppliers,id',
@@ -819,6 +819,8 @@ class Asset extends Depreciable
             }
 
             return $settings->auto_increment_prefix.($settings->next_auto_tag_base + $additional_increment);
+        } elseif ($settings->use_formatted_id == '1') {
+            return 'Will be generated automatically';
         } else {
             return false;
         }
@@ -1785,6 +1787,29 @@ class Asset extends Depreciable
         return $query->join('models', 'assets.model_id', '=', 'models.id')
             ->join('depreciations', 'models.depreciation_id', '=', 'depreciations.id')->where('models.depreciation_id', '=', $search);
 
+    }
+
+    /**
+     * Generate new asset tag based on formatting
+     *
+     * @return string
+     */
+    public static function generateNewFormattedAssetTag($categoryCode, $purchaseDate)
+    {
+        $zerofill = 3;
+        $purchaseDate = \Carbon\Carbon::parse($purchaseDate)->format('Ym');
+        $query = DB::selectOne('select max(asset_tag) as last_tag from assets where (left(asset_tag, 3) = ? and substr(asset_tag, 4, 6) = ?)', [$categoryCode, $purchaseDate]);
+
+        if ($query->last_tag === null) {
+            return $categoryCode . $purchaseDate . str_pad(1, $zerofill, '0', STR_PAD_LEFT);
+        }
+
+        $nextid = ((int) substr($query->last_tag, $zerofill * -1)) + 1;
+        if ($nextid > ((int) str_repeat('9', $zerofill))) {
+            $nextid = 1;
+        }
+
+        return $categoryCode . $purchaseDate . str_pad($nextid, $zerofill, '0', STR_PAD_LEFT);
     }
 
 

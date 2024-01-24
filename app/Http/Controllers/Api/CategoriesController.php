@@ -26,6 +26,7 @@ class CategoriesController extends Controller
         $this->authorize('view', Category::class);
         $allowed_columns = [
             'id',
+            'code',
             'name',
             'category_type',
             'category_type',
@@ -43,6 +44,7 @@ class CategoriesController extends Controller
 
         $categories = Category::select([
             'id',
+            'code',
             'created_at',
             'updated_at',
             'name', 'category_type',
@@ -69,6 +71,10 @@ class CategoriesController extends Controller
 
         if ($request->filled('search')) {
             $categories = $categories->TextSearch($request->input('search'));
+        }
+
+        if ($request->filled('code')) {
+            $categories->where('code', '=', $request->input('code'));
         }
 
         if ($request->filled('name')) {
