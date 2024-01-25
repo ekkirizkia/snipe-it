@@ -8,6 +8,8 @@
 <body>
 
 <?php
+use Illuminate\Support\Str;
+
 $settings->labels_width = $settings->labels_width - $settings->labels_display_sgutter;
 $settings->labels_height = $settings->labels_height - $settings->labels_display_bgutter;
 // Leave space on bottom for 1D barcode if necessary
@@ -79,11 +81,15 @@ $qr_size = ($settings->alt_barcode_enabled=='1') && ($settings->alt_barcode!='')
         width: 100%;
         display: inline;
         overflow: hidden;
+        padding-bottom: 5px;
     }
     .next-padding {
         margin: {{ $settings->labels_pmargin_top }}in {{ $settings->labels_pmargin_right }}in {{ $settings->labels_pmargin_bottom }}in {{ $settings->labels_pmargin_left }}in;
     }
     @media print {
+        .label {
+            border: .02in solid black;
+        }
         .noprint {
             display: none !important;
         }
@@ -150,7 +156,7 @@ $qr_size = ($settings->alt_barcode_enabled=='1') && ($settings->alt_barcode!='')
             @endif
             @if (($settings->labels_display_model=='1') && ($asset->model->name!=''))
                 <div class="pull-left">
-                    M: {{ $asset->model->name }} {{ $asset->model->model_number }}
+                    M: {{ Str::limit($asset->model->name . $asset->model->model_number, 35) }}
                 </div>
             @endif
 

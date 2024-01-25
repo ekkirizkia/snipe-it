@@ -768,6 +768,7 @@ class SettingsController extends Controller
         }
 
         $setting->qr_code = $request->input('qr_code', '0');
+        $setting->use_asset_tag_as_qr = $request->input('use_asset_tag_as_qr', '0');
         $setting->alt_barcode = $request->input('alt_barcode');
         $setting->alt_barcode_enabled = $request->input('alt_barcode_enabled', '0');
         $setting->barcode_type = $request->input('barcode_type');

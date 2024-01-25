@@ -50,6 +50,14 @@
                                     </label>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="col-md-9 col-md-offset-3">
+                                    <label class="form-control">
+                                        {{ Form::checkbox('use_asset_tag_as_qr', '1', old('use_asset_tag_as_qr', $setting->use_asset_tag_as_qr),array('aria-label'=>'use_asset_tag_as_qr')) }}
+                                        Use asset tag instead of URL link
+                                    </label>
+                                </div>
+                            </div>
 
                             <!-- square barcode type -->
                             <div class="form-group{{ $errors->has('barcode_type') ? ' has-error' : '' }}">
