@@ -50,12 +50,15 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-9 col-md-offset-3">
-                                    <label class="form-control">
-                                        {{ Form::checkbox('use_asset_tag_as_qr', '1', old('use_asset_tag_as_qr', $setting->use_asset_tag_as_qr),array('aria-label'=>'use_asset_tag_as_qr')) }}
-                                        Use asset tag instead of URL link
-                                    </label>
+
+                            <!-- qr value -->
+                            <div class="form-group{{ $errors->has('use_asset_tag_as_qr') ? ' has-error' : '' }}">
+                                <div class="col-md-3">
+                                    {{ Form::label('use_asset_tag_as_qr', 'QR Code Value') }}
+                                </div>
+                                <div class="col-md-9">
+                                    {!! Form::qr_value('use_asset_tag_as_qr', old('use_asset_tag_as_qr', $setting->use_asset_tag_as_qr), 'select2 col-md-4') !!}
+                                    {!! $errors->first('use_asset_tag_as_qr', '<span class="alert-msg" aria-hidden="true"><i class="fas fa-times" aria-hidden="true"></i> :message</span>') !!}
                                 </div>
                             </div>
 

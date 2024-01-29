@@ -257,6 +257,17 @@
                         @else
 
                             <!-- Legacy settings -->
+                            <!-- qr value -->
+                            <div class="form-group">
+                                <div class="col-md-3 text-right">
+                                    {{ Form::label('qr_size', 'QR Code Size') }}
+                                </div>
+                                <div class="col-md-9">
+                                    {!! Form::qr_size('qr_size', old('qr_size', $setting->qr_size), 'select2 col-md-4') !!}
+                                    {!! $errors->first('qr_size', '<span class="alert-msg" aria-hidden="true"><i class="fas fa-times" aria-hidden="true"></i> :message</span>') !!}
+                                </div>
+                            </div>
+
                             <div class="form-group{{ $errors->has('labels_per_page') ? ' has-error' : '' }}">
                                 <div class="col-md-3 text-right">
                                     {{ Form::label('labels_per_page', trans('admin/settings/general.labels_per_page'), ['class'=>'control-label']) }}
@@ -430,3 +441,39 @@
     {{Form::close()}}
 
 @stop
+
+@push('js')
+    <script>
+        $(function(){
+            $('select[name=qr_size]').on('change', function(){
+                let chosen = $(this).val();
+                let labelWidth = 0;
+                let labelHeight = 0;
+                let labelFontSize = 5;
+
+                if (chosen == 0) {
+                    labelWidth = 1.57480;
+                    labelHeight = 0.47244;
+                    labelFontSize = 5;
+                }else if(chosen == 1) {
+                    labelWidth = 2.2;
+                    labelHeight = 0.66;
+                    labelFontSize = 6;
+                }else if(chosen == 2) {
+                    labelWidth = 3.2;
+                    labelHeight = 0.96;
+                    labelFontSize = 7;
+                }else if (chosen == 3) {
+                    labelWidth = 4.0;
+                    labelHeight = 1.2;
+                    labelFontSize = 9;
+                }
+
+                $('input[name=labels_fontsize]').val(labelFontSize);
+                $('input[name=labels_width]').val(labelWidth);
+                $('input[name=labels_height]').val(labelHeight);
+            });
+            $('select[name=qr_size]').trigger('change');
+        });
+    </script>
+@endpush

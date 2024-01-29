@@ -505,7 +505,14 @@ class AssetsController extends Controller
                         return response()->file($qr_file, $header);
                     } else {
                         $barcode = new \Com\Tecnick\Barcode\Barcode();
-                        $barcode_obj = $barcode->getBarcodeObj($settings->barcode_type, $settings->use_asset_tag_as_qr == 1 ? $asset->asset_tag:route('hardware.show', $asset->id), $size['height'], $size['width'], 'black', [-2, -2, -2, -2]);
+                        if ($settings->use_asset_tag_as_qr == 1) {
+                            $barcode_value = $asset->asset_tag;
+                        }elseif ($settings->use_asset_tag_as_qr == 0) {
+                            $barcode_value = route('hardware.show', $asset->id);
+                        }else{
+                            $barcode_value = route('asset_public', $asset->asset_tag);
+                        }
+                        $barcode_obj = $barcode->getBarcodeObj($settings->barcode_type, $barcode_value, $size['height'], $size['width'], 'black', [-2, -2, -2, -2]);
                         file_put_contents($qr_file, $barcode_obj->getPngData());
 
                         return response($barcode_obj->getPngData())->header('Content-type', 'image/png');

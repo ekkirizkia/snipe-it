@@ -291,3 +291,38 @@ Form::macro('user_skin', function ($name = 'skin', $selected = null, $class = nu
 
     return $select;
 });
+
+Form::macro('qr_value', function ($name = 'use_asset_tag_as_qr', $selected = null, $class = null) {
+    $options = [
+        0 => 'Use Private URL',
+        1 => 'Use Asset Tag',
+        2 => 'Use Public URL',
+    ];
+
+    $select = '<select name="'.$name.'" class="'.$class.'" aria-label="'.$name.'">';
+    foreach ($options as $key => $value) {
+        $select .= '<option value="'.$key.'"'.($selected == $key ? ' selected="selected" role="option" aria-selected="true"' : ' aria-selected="false"').'>'.$value.'</option> ';
+    }
+
+    $select .= '</select>';
+
+    return $select;
+});
+
+Form::macro('qr_size', function ($name = 'qr_size', $selected = null, $class = null) {
+    $options = [
+        0 => 'Small (1.57480 x 0.47244)',
+        1 => 'Medium (2.2 x 0.66)',
+        2 => 'Large (3.2 x 0.96)',
+        3 => 'Xtra Large (4.0 x 1.2)',
+    ];
+
+    $select = '<select name="'.$name.'" class="'.$class.'" aria-label="'.$name.'">';
+    foreach ($options as $key => $value) {
+        $select .= '<option value="'.$key.'"'.($selected == $key ? ' selected="selected" role="option" aria-selected="true"' : ' aria-selected="false"').'>'.$value.'</option> ';
+    }
+
+    $select .= '</select>';
+
+    return $select;
+});
