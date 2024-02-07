@@ -179,6 +179,8 @@ $qr_size = ($settings->alt_barcode_enabled=='1') && ($settings->alt_barcode!='')
 
 @endforeach
 
-
+<div class="noprint">
+    <button type="button" onclick="window.print()">Cetak</button>
+</div>
 </body>
 </html>
