@@ -24,6 +24,7 @@
     "ext-mbstring": "*",
     "ext-pdo": "*",
     "alek13/slack": "^2.0",
+    "arcanedev/log-viewer": "^8.3",
     "arietimmerman/laravel-scim-server": "dev-master",
     "bacon/bacon-qr-code": "^2.0",
     "barryvdh/laravel-debugbar": "^3.6",
