@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use TCPDF;
 use TCPDF_STATIC;
 use TypeError;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Model for Labels.
@@ -23,6 +24,17 @@ abstract class Label
      * @return string
      */
     public abstract function getUnit();
+
+    /**
+     * Returns the PDF rotation.
+     * 0, 90, 180, 270
+     * 0 is a sane default. Override when necessary.
+     *
+     * @return int
+     */
+    public function getRotation() {
+        return 0;
+    }
 
     /**
      * Returns the label's width in getUnit() units
@@ -374,7 +386,7 @@ abstract class Label
         try {
             $pdf->write1DBarcode($value, $type, $x, $y, $width, $height, null, ['stretch'=>true]);
         } catch (\Exception|TypeError $e) {
-            \Log::debug('The 1D barcode ' . $value . ' is not compliant with the barcode type '. $type);
+            Log::debug('The 1D barcode ' . $value . ' is not compliant with the barcode type '. $type);
         }
     }
 
@@ -399,14 +411,14 @@ abstract class Label
     /**
      * Checks the template is internally valid
      */
-    public final function validate() {
+    public final function validate() : void {
         $this->validateUnits();
         $this->validateSize();
         $this->validateMargins();
         $this->validateSupport();
     }
 
-    private function validateUnits() {
+    private function validateUnits() : void {
         $validUnits = [ 'pt', 'mm', 'cm', 'in' ];
         $unit = $this->getUnit();
         if (!in_array(strtolower($unit), $validUnits)) {
@@ -418,7 +430,7 @@ abstract class Label
         }
     }
 
-    private function validateSize() {
+    private function validateSize() : void {
         $width = $this->getWidth();
         if (!is_numeric($width) || is_string($width)) {
             throw new \UnexpectedValueException(trans('admin/labels/message.invalid_return_type', [
@@ -438,7 +450,7 @@ abstract class Label
         }
     }
 
-    private function validateMargins() {
+    private function validateMargins() : void {
         $marginTop = $this->getMarginTop();
         if (!is_numeric($marginTop) || is_string($marginTop)) {
             throw new \UnexpectedValueException(trans('admin/labels/message.invalid_return_type', [
@@ -476,7 +488,7 @@ abstract class Label
         }
     }
 
-    private function validateSupport() {
+    private function validateSupport() : void {
         $support1D = $this->getSupport1DBarcode();
         if (!is_bool($support1D)) {
             throw new \UnexpectedValueException(trans('admin/labels/message.invalid_return_type', [

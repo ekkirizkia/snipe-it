@@ -24,10 +24,11 @@ class ManufacturerFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->company(),
-            'user_id' => User::factory()->superuser(),
+            'created_by' => User::factory()->superuser(),
             'support_phone' => $this->faker->phoneNumber(),
             'url' => $this->faker->url(),
             'support_email' => $this->faker->safeEmail(),
+            'notes'   => 'Created by DB seeder',
         ];
     }
 

@@ -17,14 +17,15 @@ return array(
     'delete' => array(
         'confirm'   => 'Bạn có chắc chắn muốn xoá thành phần này?',
         'error'   => 'Đã xảy ra sự cố khi xóa thành phần này. Vui lòng thử lại.',
-        'success' => 'Thành phần đã được xóa thành công.'
+        'success' => 'Thành phần đã được xóa thành công.',
+        'error_qty'   => 'Some components of this type are still checked out. Please check them in and try again.',
     ),
 
      'checkout' => array(
         'error'   		=> 'Hợp phần đã không được kiểm tra, hãy thử lại',
         'success' 		=> 'Thành phần được kiểm tra thành công.',
         'user_does_not_exist' => 'Người dùng đó không hợp lệ. Vui lòng thử lại.',
-        'unavailable'      => 'Not enough components remaining: :remaining remaining, :requested requested ',
+        'unavailable'      => 'Không đủ thành phần còn lại: :remaining, Yêu cầu :requested ',
     ),
 
     'checkin' => array(

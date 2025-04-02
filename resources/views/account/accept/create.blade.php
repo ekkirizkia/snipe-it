@@ -64,13 +64,22 @@
                             </label>
 
                         </div>
+                        <div class="col-md-12">
+                            <br>
+                            <div class="col-md-12" style="display:block;">
+                                <label id="note_label" for="note" style="text-align:center;" >{{trans('admin/settings/general.acceptance_note')}}</label>
+                            </div>
+                            <div class="col-md-12">
+                                <textarea id="note" name="note" rows="4" cols="50" value="note" style="width:100%" ></textarea>
+                            </div>
+                        </div>
 
                         @if ($snipeSettings->require_accept_signature=='1')
                             <div class="col-md-12">
                                 <h3 style="padding-top: 20px">{{trans('general.sign_tos')}}</h3>
                                 <div id="signature-pad" class="m-signature-pad">
                                     <div class="m-signature-pad--body col-md-12 col-sm-12 col-lg-12 col-xs-12">
-                                        <canvas></canvas>
+                                        <canvas style="width:100%;"></canvas>
                                         <input type="hidden" name="signature_output" id="signature_output">
                                     </div>
                                     <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 text-center">
@@ -94,29 +103,31 @@
 @section('moar_scripts')
 
     <script nonce="{{ csrf_token() }}">
+
         var wrapper = document.getElementById("signature-pad"),
             clearButton = wrapper.querySelector("[data-action=clear]"),
             saveButton = wrapper.querySelector("[data-action=save]"),
             canvas = wrapper.querySelector("canvas"),
             signaturePad;
 
+        signaturePad = new SignaturePad(canvas);
+
         // Adjust canvas coordinate space taking into account pixel ratio,
-        // to make it look crisp on mobile devices.
-        // This also causes canvas to be cleared.
+        // to make it look crisp on smaller screens.
+        // https://github.com/szimek/signature_pad#handling-high-dpi-screens
+        // (This also causes canvas to be cleared.)
         function resizeCanvas() {
             // When zoomed out to less than 100%, for some very strange reason,
             // some browsers report devicePixelRatio as less than 1
             // and only part of the canvas is cleared then.
-            var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+            var ratio = Math.max(window.devicePixelRatio || 1, 1);
             canvas.width = canvas.offsetWidth * ratio;
             canvas.height = canvas.offsetHeight * ratio;
             canvas.getContext("2d").scale(ratio, ratio);
+            signaturePad.clear(); // otherwise isEmpty() might return incorrect value
         }
-
         window.onresize = resizeCanvas;
         resizeCanvas();
-
-        signaturePad = new SignaturePad(canvas);
 
         $('#clear_button').on("click", function (event) {
             signaturePad.clear();
@@ -130,6 +141,7 @@
                 $('#signature_output').val(signaturePad.toDataURL());
             }
         });
+
 
     </script>
 @stop

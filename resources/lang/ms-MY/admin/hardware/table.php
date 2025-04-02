@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Tag Harta',
     'asset_model'       => 'Model',
+    'assigned_to'   => 'Ditugaskan untuk',
     'book_value'  	=> 'Current Value',
     'change' 		=> 'Masuk/Keluar',
     'checkout_date' => 'Tarikh Agihan',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Imej Peranti',
     'days_without_acceptance' => 'Hari Tanpa Penerimaan',
     'monthly_depreciation' => 'Susut Nilai Bulanan',
-    'assigned_to'    => 'Ditugaskan untuk',
     'requesting_user' => 'Requesting User',
     'requested_date' => 'Requested Date',
     'changed'       => 'Berubah',

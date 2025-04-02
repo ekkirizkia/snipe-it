@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 $settings->labels_width = $settings->labels_width - $settings->labels_display_sgutter;
 $settings->labels_height = $settings->labels_height - $settings->labels_display_bgutter;
 // Leave space on bottom for 1D barcode if necessary
-$qr_size = ($settings->alt_barcode_enabled=='1') && ($settings->alt_barcode!='') ? $settings->labels_height - .3 : $settings->labels_height - 0.1;
+$qr_size = ($settings->alt_barcode_enabled=='1') && ($settings->label2_1d_type!='') ? $settings->labels_height - .3 : $settings->labels_height - 0.1;
 ?>
 
 <style>
@@ -162,7 +162,7 @@ $qr_size = ($settings->alt_barcode_enabled=='1') && ($settings->alt_barcode!='')
 
         </div>
 
-        @if ((($settings->alt_barcode_enabled=='1') && $settings->alt_barcode!=''))
+        @if ((($settings->alt_barcode_enabled=='1') && $settings->label2_1d_type!=''))
             <div class="barcode_container">
                 <img src="{{ config('app.url') }}/hardware/{{ $asset->id }}/barcode" class="barcode">
             </div>

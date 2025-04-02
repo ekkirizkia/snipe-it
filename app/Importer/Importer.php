@@ -6,11 +6,13 @@ use App\Models\CustomField;
 use App\Models\Department;
 use App\Models\Setting;
 use App\Models\User;
+use Carbon\CarbonImmutable;
 use ForceUTF8\Encoding;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use League\Csv\Reader;
+use Illuminate\Support\Facades\Log;
 
 abstract class Importer
 {
@@ -19,8 +21,7 @@ abstract class Importer
      * Id of User performing import
      * @var
      */
-    
-    protected $user_id;
+    protected $created_by;
     /**
      * Are we updating items in the import
      * @var bool
@@ -38,6 +39,7 @@ abstract class Importer
      * @var array
      */
     private $defaultFieldMap = [
+        'id' => 'id',
         'asset_tag' => 'asset tag',
         'activated' => 'activated',
         'category' => 'category',
@@ -147,21 +149,28 @@ abstract class Importer
     {
         $headerRow = $this->csv->fetchOne();
         $this->csv->setHeaderOffset(0); //explicitly sets the CSV document header record
-        $results = $this->normalizeInputArray($this->csv->getRecords($headerRow));
 
         $this->populateCustomFields($headerRow);
 
-        DB::transaction(function () use (&$results) {
+        DB::transaction(function () use ($headerRow) {
+            $importedItemsCount = 0;
             Model::unguard();
-            $resultsCount = count($results);
-            foreach ($results as $row) {
+
+            foreach ($this->csv->getRecords($headerRow) as $row) {
+                //Lowercase header values to ensure we're comparing values properly.
+                $row = array_change_key_case($row, CASE_LOWER);
+
                 $this->handle($row);
+
+                $importedItemsCount++;
+
                 if ($this->progressCallback) {
-                    call_user_func($this->progressCallback, $resultsCount);
+                    call_user_func($this->progressCallback, $importedItemsCount);
                 }
 
                 $this->log('------------- Action Summary ----------------');
             }
+            Model::reguard();
         });
     }
 
@@ -235,22 +244,6 @@ abstract class Importer
     }
 
     /**
-     * Used to lowercase header values to ensure we're comparing values properly.
-     *
-     * @param $results
-     * @return array
-     */
-    public function normalizeInputArray($results)
-    {
-        $newArray = [];
-        foreach ($results as $index => $arrayToNormalize) {
-            $newArray[$index] = array_change_key_case($arrayToNormalize);
-        }
-
-        return $newArray;
-    }
-
-    /**
      * Figure out the fieldname of the custom field
      *
      * @author A. Gianotto <snipe@snipe.net>
@@ -276,6 +269,13 @@ abstract class Importer
     {
         if ($this->errorCallback) {
             call_user_func($this->errorCallback, $item, $field, $item->getErrors());
+        }
+    }
+
+    protected function addErrorToBag($item, $field,  $error_message)
+    {
+        if ($this->errorCallback) {
+            call_user_func($this->errorCallback, $item, $field, [$field => [$error_message]]);
         }
     }
 
@@ -323,9 +323,9 @@ abstract class Importer
         // If the full name and username is empty, bail out--we need this to extract first name (at the very least)
         if ((empty($user_array['username'])) && (empty($user_array['full_name'])) && (empty($user_array['first_name']))) {
             $this->log('Insufficient user data provided (Full name, first name or username is required) - skipping user creation.');
-            \Log::debug('User array: ');
-            \Log::debug(print_r($user_array, true));
-            \Log::debug(print_r($row, true));
+            Log::debug('User array: ');
+            Log::debug(print_r($user_array, true));
+            Log::debug(print_r($row, true));
             return false;
         }
 
@@ -364,6 +364,7 @@ abstract class Importer
 
         // No luck finding a user on username or first name, let's create one.
         $user = new User;
+
         $user->first_name = $user_array['first_name'];
         $user->last_name = $user_array['last_name'];
         $user->username = $user_array['username'];
@@ -373,7 +374,7 @@ abstract class Importer
         $user->activated = 1;
         $user->password = $this->tempPassword;
 
-        \Log::debug('Creating a user with the following attributes: '.print_r($user_array, true));
+        Log::debug('Creating a user with the following attributes: '.print_r($user_array, true));
 
         if ($user->save()) {
             $this->log('User '.$user_array['username'].' created');
@@ -386,7 +387,7 @@ abstract class Importer
     }
 
     /**
-     * Matches a user by user_id if user_name provided is a number
+     * Matches a user by created_by if user_name provided is a number
      * @param  string $user_name users full name from csv
      * @return User           User Matching ID
      */
@@ -403,13 +404,13 @@ abstract class Importer
     /**
      * Sets the Id of User performing import.
      *
-     * @param mixed $user_id the user id
+     * @param mixed $created_by the user id
      *
      * @return self
      */
-    public function setUserId($user_id)
+    public function setCreatedBy($created_by)
     {
-        $this->user_id = $user_id;
+        $this->created_by = $created_by;
 
         return $this;
     }
@@ -493,6 +494,16 @@ abstract class Importer
 
     public function fetchHumanBoolean($value)
     {
+        $true = [
+            'yes',
+            'y',
+            'true',
+        ];
+
+        if (in_array(strtolower($value), $true)) {
+            return 1;
+        }
+
         return (int) filter_var($value, FILTER_VALIDATE_BOOLEAN);
     }
 
@@ -529,6 +540,7 @@ abstract class Importer
         return null;
     }
 
+
     /**
      * Fetch an existing manager
      *
@@ -548,6 +560,37 @@ abstract class Importer
         }
         $this->log('No matching Manager '.$user_manager_first_name.' '.$user_manager_last_name.' found. If their user account is being created through this import, you should re-process this file again. ');
 
+        return null;
+    }
+
+    /**
+     * Parse a date or return null
+     *
+     * @author A. Gianotto
+     * @since 7.0.0
+     * @param $field
+     * @param $format
+     * @return string|null
+
+     */
+    public function parseOrNullDate($field, $format = 'date') {
+
+        $date_format = 'Y-m-d';
+
+        if ($format == 'datetime') {
+            $date_format = 'Y-m-d H:i:s';
+        }
+
+        if (array_key_exists($field, $this->item) && $this->item[$field] != '') {
+
+            try {
+                $value = CarbonImmutable::parse($this->item[$field])->format($date_format);
+                return $value;
+            } catch (\Exception $e) {
+                $this->log('Unable to parse date: ' . $this->item[$field]);
+                return null;
+            }
+        }
         return null;
     }
 }

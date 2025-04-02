@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Тег',
     'asset_model'       => 'Модель',
+    'assigned_to'   => 'Назначенный На',
     'book_value'  	=> 'Текущее значение',
     'change' 		=> 'Отвязан/Привязан',
     'checkout_date' => 'Дата привязки',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Изображение устройства',
     'days_without_acceptance' => 'Дней без принятия',
     'monthly_depreciation' => 'Ежемесячная амортизация',
-    'assigned_to'    => 'Назначенный На',
     'requesting_user' => 'Запрашивающий пользователь',
     'requested_date' => 'Запрошенная дата',
     'changed'       => 'Измененный',

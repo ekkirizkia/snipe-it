@@ -4,8 +4,8 @@ namespace App\Http\Transformers;
 
 use App\Helpers\Helper;
 use App\Models\User;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Gate;
 
 class UsersTransformer
 {
@@ -21,9 +21,10 @@ class UsersTransformer
 
     public function transformUser(User $user)
     {
+
         $array = [
                 'id' => (int) $user->id,
-                'avatar' => e($user->present()->gravatar),
+                'avatar' => e($user->present()->gravatar) ?? null,
                 'name' => e($user->getFullNameAttribute()),
                 'first_name' => e($user->first_name),
                 'last_name' => e($user->last_name),
@@ -64,6 +65,8 @@ class UsersTransformer
                 'licenses_count' => (int) $user->licenses_count,
                 'accessories_count' => (int) $user->accessories_count,
                 'consumables_count' => (int) $user->consumables_count,
+                'manages_users_count' => (int) $user->manages_users_count,
+                'manages_locations_count' => (int) $user->manages_locations_count,
                 'company' => ($user->company) ? ['id' => (int) $user->company->id, 'name'=> e($user->company->name)] : null,
                 'created_by' => ($user->createdBy) ? [
                     'id' => (int) $user->createdBy->id,
@@ -99,6 +102,37 @@ class UsersTransformer
         } else {
             $array['groups'] = null;
         }
+
+        return $array;
+    }
+
+    /**
+     * This gives a compact view of the user data without any additional relational queries,
+     * allowing us to 1) deliver a smaller payload and 2) avoid additional queries on relations that
+     * have not been easy/lazy loaded already
+     *
+     * @param User $user
+     * @return array
+     * @throws \Exception
+     */
+    public function transformUserCompact(User $user) : array
+    {
+
+        $array = [
+            'id' => (int) $user->id,
+            'image' => e($user->present()->gravatar) ?? null,
+            'type' => 'user',
+            'name' => e($user->getFullNameAttribute()),
+            'first_name' => e($user->first_name),
+            'last_name' => e($user->last_name),
+            'username' => e($user->username),
+            'created_by' => $user->adminuser ? [
+                'id' => (int) $user->adminuser->id,
+                'name'=> e($user->adminuser->present()->fullName),
+            ]: null,
+            'created_at' => Helper::getFormattedDateObject($user->created_at, 'datetime'),
+            'deleted_at' => ($user->deleted_at) ? Helper::getFormattedDateObject($user->deleted_at, 'datetime') : null,
+        ];
 
         return $array;
     }

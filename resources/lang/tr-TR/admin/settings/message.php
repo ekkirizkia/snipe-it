@@ -14,6 +14,9 @@ return [
         'restore_warning'       => 'Evet, geri yükleyin. Bunun, şu anda veritabanında bulunan mevcut verilerin üzerine yazılacağını kabul ediyorum. Bu aynı zamanda (siz dahil) tüm mevcut kullanıcılarınızın oturumunu kapatacaktır.',
         'restore_confirm'       => 'Veritabanınızı :filename\'den geri yüklemek istediğinizden emin misiniz?'
     ],
+    'restore' => [
+        'success'               => 'Your system backup has been restored. Please log in again.'
+    ],
     'purge' => [
         'error'     => 'Temizleme sırasında bir hata oluştu. ',
         'validation_failed'     => 'Temizle onay kodu yanlıştır. Lütfen onay kutusuna "DELETE" yazın.',
@@ -33,6 +36,9 @@ return [
         'testing_authentication' => 'LDAP kimlik doğrulaması deneniyor...',
         'authentication_success' => 'LDAP kullanıcı kimliği başarıyla doğrulandı!'
     ],
+    'labels' => [
+        'null_template' => 'Label template not found. Please select a template.',
+        ],
     'webhook' => [
         'sending' => ':app test mesajı gönderiliyor...',
         'success' => ':webhook_name entegrasyonunuz çalışıyor!',
@@ -42,5 +48,7 @@ return [
         'error' => 'Bir şeyler yanlış gitti. :app bu şekilde yanıt verdi: :error_message',
         'error_redirect' => 'HATA: 301/302: bağlantı başka bir yere yönlendiriyor. Güvenlik nedeniyle yönlendirmeleri takip etmiyoruz. Lütfen direk adresi kullanın.',
         'error_misc' => 'Bir şeyler yanlış gitti. :( ',
+        'webhook_fail' => ' webhook notification failed: Check to make sure the URL is still valid.',
+        'webhook_channel_not_found' => ' webhook channel not found.'
     ]
 ];

@@ -14,6 +14,9 @@ return [
         'restore_warning'       => 'Ja, gendanne den. Jeg anerkender, at dette vil overskrive alle eksisterende data i databasen. Dette vil også logge ud alle dine eksisterende brugere (inklusive dig).',
         'restore_confirm'       => 'Er du sikker på, at du vil gendanne din database fra :filnavn?'
     ],
+    'restore' => [
+        'success'               => 'Your system backup has been restored. Please log in again.'
+    ],
     'purge' => [
         'error'     => 'Der opstod en fejl under udrensning.',
         'validation_failed'     => 'Din udrensningsbekræftelse er forkert. Indtast ordet "DELETE" i bekræftelsesboksen.',
@@ -33,6 +36,9 @@ return [
         'testing_authentication' => 'Test LDAP Autentificering...',
         'authentication_success' => 'Bruger godkendt mod LDAP!'
     ],
+    'labels' => [
+        'null_template' => 'Label template not found. Please select a template.',
+        ],
     'webhook' => [
         'sending' => 'Sender :app test besked...',
         'success' => 'Dine :webhook_name Integration virker!',
@@ -42,5 +48,7 @@ return [
         'error' => 'Noget gik galt. :app svarede med: :error_message',
         'error_redirect' => 'FEJL: 301/302: endpoint returnerer en omdirigering. Af sikkerhedsmæssige årsager følger vi ikke omdirigeringer. Brug det faktiske slutpunkt.',
         'error_misc' => 'Noget gik galt. :( ',
+        'webhook_fail' => ' webhook notification failed: Check to make sure the URL is still valid.',
+        'webhook_channel_not_found' => ' webhook channel not found.'
     ]
 ];

@@ -14,6 +14,9 @@ return [
         'restore_warning'       => 'Sim, restaurar. Eu reconheço que isso irá sobrescrever quaisquer dados existentes atualmente no banco de dados. Isto também desconectará todos os usuários existentes (incluindo você).',
         'restore_confirm'       => 'Tem certeza que deseja restaurar seu banco de dados a partir de :filename?'
     ],
+    'restore' => [
+        'success'               => 'Seu backup do sistema foi restaurado. Por favor, faça login novamente.'
+    ],
     'purge' => [
         'error'     => 'Ocorreu um erro ao excluir os registros. ',
         'validation_failed'     => 'Sua confirmação de exclusão está incorreta. Por favor, digite a palavra "DELETE" na caixa de confirmação.',
@@ -33,6 +36,9 @@ return [
         'testing_authentication' => 'Testando Autenticação LDAP...',
         'authentication_success' => 'Usuário autenticado no LDAP com sucesso!'
     ],
+    'labels' => [
+        'null_template' => 'Label template not found. Please select a template.',
+        ],
     'webhook' => [
         'sending' => 'Enviando mensagem :app de teste...',
         'success' => 'Sua integração com :webhook_name funciona!',
@@ -42,5 +48,7 @@ return [
         'error' => 'Algo deu errado. :app respondeu com: :error_message',
         'error_redirect' => 'ERRO: 301/302 :endpoint retorna um redirecionamento. Por razões de segurança, não seguimos redirecionamentos. Por favor, use o ponto de extremidade atual.',
         'error_misc' => 'Algo deu errado. :( ',
+        'webhook_fail' => ' webhook notification failed: Check to make sure the URL is still valid.',
+        'webhook_channel_not_found' => ' webhook channel not found.'
     ]
 ];

@@ -87,5 +87,60 @@ trait CustomTestMacros
                 return $this;
             }
         );
+
+        TestResponse::macro(
+            'assertMessagesAre',
+            function (string $message) {
+                Assert::assertEquals(
+                    $message,
+                    $this['messages'],
+                    "Response messages was not {$message}"
+                );
+
+                return $this;
+            }
+        );
+
+        TestResponse::macro(
+            'assertMessagesContains',
+            function (array|string $keys) {
+                Assert::assertArrayHasKey('messages', $this, 'Response did not contain any messages');
+
+                if (is_string($keys)) {
+                    $keys = [$keys];
+                }
+
+                foreach ($keys as $key) {
+                    Assert::assertArrayHasKey(
+                        $key,
+                        $this['messages'],
+                        "Response messages did not contain the key: {$key}"
+                    );
+                }
+
+                return $this;
+            }
+        );
+
+        TestResponse::macro(
+            'assertPayloadContains',
+            function (array|string $keys) {
+                Assert::assertArrayHasKey('payload', $this, 'Response did not contain a payload');
+
+                if (is_string($keys)) {
+                    $keys = [$keys];
+                }
+
+                foreach ($keys as $key) {
+                    Assert::assertArrayHasKey(
+                        $key,
+                        $this['payload'],
+                        "Response messages did not contain the key: {$key}"
+                    );
+                }
+
+                return $this;
+            }
+        );
     }
 }

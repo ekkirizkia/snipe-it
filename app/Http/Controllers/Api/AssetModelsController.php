@@ -4,14 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAssetModelRequest;
 use App\Http\Transformers\AssetModelsTransformer;
 use App\Http\Transformers\AssetsTransformer;
 use App\Http\Transformers\SelectlistTransformer;
 use App\Models\Asset;
 use App\Models\AssetModel;
 use Illuminate\Http\Request;
-use App\Http\Requests\ImageUploadRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\JsonResponse;
 
 /**
  * This class controls all actions related to asset models for
@@ -27,9 +29,8 @@ class AssetModelsController extends Controller
      *
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @since [v4.0]
-     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request) : JsonResponse | array
     {
         $this->authorize('view', AssetModel::class);
         $allowed_columns =
@@ -47,34 +48,53 @@ class AssetModelsController extends Controller
                 'assets_count',
                 'category',
                 'fieldset',
+                'deleted_at',
+                'updated_at',
             ];
 
         $assetmodels = AssetModel::select([
             'models.id',
             'models.image',
             'models.name',
-            'model_number',
-            'min_amt',
-            'eol',
-            'requestable',
+            'models.model_number',
+            'models.min_amt',
+            'models.eol',
+            'models.created_by',
+            'models.requestable',
             'models.notes',
             'models.created_at',
-            'category_id',
-            'manufacturer_id',
-            'depreciation_id',
-            'fieldset_id',
+            'models.category_id',
+            'models.manufacturer_id',
+            'models.depreciation_id',
+            'models.fieldset_id',
             'models.deleted_at',
             'models.updated_at',
          ])
-            ->with('category', 'depreciation', 'manufacturer', 'fieldset.fields.defaultValues')
+            ->with('category', 'depreciation', 'manufacturer', 'fieldset.fields.defaultValues', 'adminuser')
             ->withCount('assets as assets_count');
 
         if ($request->input('status')=='deleted') {
             $assetmodels->onlyTrashed();
         }
 
+        if ($request->filled('name')) {
+            $assetmodels = $assetmodels->where('models.name', '=', $request->input('name'));
+        }
+
+        if ($request->filled('model_number')) {
+            $assetmodels = $assetmodels->where('models.model_number', '=', $request->input('model_number'));
+        }
+
+        if ($request->filled('notes')) {
+            $assetmodels = $assetmodels->where('models.notes', '=', $request->input('notes'));
+        }
+
         if ($request->filled('category_id')) {
             $assetmodels = $assetmodels->where('models.category_id', '=', $request->input('category_id'));
+        }
+
+        if ($request->filled('depreciation_id')) {
+            $assetmodels = $assetmodels->where('models.depreciation_id', '=', $request->input('depreciation_id'));
         }
 
         if ($request->filled('search')) {
@@ -88,7 +108,7 @@ class AssetModelsController extends Controller
         $order = $request->input('order') === 'asc' ? 'asc' : 'desc';
         $sort = in_array($request->input('sort'), $allowed_columns) ? $request->input('sort') : 'models.created_at';
 
-        switch ($sort) {
+        switch ($request->input('sort')) {
             case 'manufacturer':
                 $assetmodels->OrderManufacturer($order);
                 break;
@@ -97,6 +117,9 @@ class AssetModelsController extends Controller
                 break;
             case 'fieldset':
                 $assetmodels->OrderFieldset($order);
+                break;
+            case 'created_by':
+                $assetmodels->OrderByCreatedByName($order);
                 break;
             default:
                 $assetmodels->orderBy($sort, $order);
@@ -115,10 +138,9 @@ class AssetModelsController extends Controller
      *
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @since [v4.0]
-     * @param  \App\Http\Requests\ImageUploadRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\StoreAssetModelRequest  $request
      */
-    public function store(ImageUploadRequest $request)
+    public function store(StoreAssetModelRequest $request) : JsonResponse
     {
         $this->authorize('create', AssetModel::class);
         $assetmodel = new AssetModel;
@@ -139,9 +161,8 @@ class AssetModelsController extends Controller
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @since [v4.0]
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) :  array
     {
         $this->authorize('view', AssetModel::class);
         $assetmodel = AssetModel::withCount('assets as assets_count')->findOrFail($id);
@@ -155,9 +176,8 @@ class AssetModelsController extends Controller
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @since [v4.0]
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function assets($id)
+    public function assets($id) : array
     {
         $this->authorize('view', AssetModel::class);
         $assets = Asset::where('model_id', '=', $id)->get();
@@ -175,7 +195,7 @@ class AssetModelsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ImageUploadRequest $request, $id)
+    public function update(StoreAssetModelRequest $request, $id) : JsonResponse
     {
         $this->authorize('update', AssetModel::class);
         $assetmodel = AssetModel::findOrFail($id);
@@ -208,9 +228,8 @@ class AssetModelsController extends Controller
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @since [v4.0]
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) : JsonResponse
     {
         $this->authorize('delete', AssetModel::class);
         $assetmodel = AssetModel::findOrFail($id);
@@ -224,7 +243,7 @@ class AssetModelsController extends Controller
             try {
                 Storage::disk('public')->delete('assetmodels/'.$assetmodel->image);
             } catch (\Exception $e) {
-                \Log::info($e);
+                Log::info($e);
             }
         }
 
@@ -240,7 +259,7 @@ class AssetModelsController extends Controller
      * @since [v4.0.16]
      * @see \App\Http\Transformers\SelectlistTransformer
      */
-    public function selectlist(Request $request)
+    public function selectlist(Request $request) : array
     {
 
         $this->authorize('view.selectlists');

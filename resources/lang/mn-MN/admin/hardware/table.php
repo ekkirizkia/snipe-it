@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Хөрөнгийн шошго',
     'asset_model'       => 'Загвар',
+    'assigned_to'   => 'Томилогдсон',
     'book_value'  	=> 'Current Value',
     'change' 		=> 'Гадуур нь',
     'checkout_date' => 'Тооцоо хийх өдөр',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Төхөөрөмжийн дүрс',
     'days_without_acceptance' => 'Хүлээн зөвшөөрөхгүй өдрүүд',
     'monthly_depreciation' => 'Monthly Depreciation',
-    'assigned_to'    => 'Томилогдсон',
     'requesting_user' => 'Requesting User',
     'requested_date' => 'Requested Date',
     'changed'       => 'Changed',

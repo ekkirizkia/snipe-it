@@ -2,22 +2,32 @@
 
 return [
 
-    'undeployable' 		=> '<strong>Warning: </strong> Kua tohua tenei taonga i te mea kaore i te rongonui. Mena kua hurihia tenei mana, whakahouhia te mana o te taonga.',
-    'does_not_exist' 	=> 'Kaore he tahua.',
+    'undeployable' 		 => '<strong>Warning: </strong> This asset has been marked as currently undeployable. If this status has changed, please update the asset status.',
+    'does_not_exist' 	 => 'Kaore he tahua.',
+    'does_not_exist_var' => 'Asset with tag :asset_tag not found.',
+    'no_tag' 	         => 'No asset tag provided.',
     'does_not_exist_or_not_requestable' => 'That asset does not exist or is not requestable.',
-    'assoc_users'	 	=> 'Kei te tirohia tenei taonga i tetahi kaiwhakamahi me te kore e taea te muku. Tirohia koa te taonga i te tuatahi, a ka ngana ki te muku ano.',
+    'assoc_users'	 	 => 'Kei te tirohia tenei taonga i tetahi kaiwhakamahi me te kore e taea te muku. Tirohia koa te taonga i te tuatahi, a ka ngana ki te muku ano.',
+    'warning_audit_date_mismatch' 	=> 'This asset\'s next audit date (:next_audit_date) is before the last audit date (:last_audit_date). Please update the next audit date.',
+    'labels_generated'   => 'Labels were successfully generated.',
+    'error_generating_labels' => 'Error while generating labels.',
+    'no_assets_selected' => 'No assets selected.',
 
     'create' => [
         'error'   		=> 'Kaore i hangaia te tahua, tēnā whakamātau anō. :(',
         'success' 		=> 'Kua waihangatia te tahua. :)',
         'success_linked' => 'Asset with tag :tag was created successfully. <strong><a href=":link" style="color: white;">Click here to view</a></strong>.',
+        'multi_success_linked' => 'Asset with tag :links was created successfully.|:count assets were created succesfully. :links.',
+        'partial_failure' => 'An asset was unable to be created. Reason: :failures|:count assets were unable to be created. Reasons: :failures',
     ],
 
     'update' => [
         'error'   			=> 'Kāore i te whakahouhia te tahua, tēnā whakamātau anō',
         'success' 			=> 'Kua whakahoutia te tahua.',
+        'encrypted_warning' => 'Asset updated successfully, but encrypted custom fields were not due to permissions',
         'nothing_updated'	=>  'Kaore i whiriwhiria he mahinga, na reira kaore i whakahoutia.',
         'no_assets_selected'  =>  'No assets were selected, so nothing was updated.',
+        'assets_do_not_exist_or_are_invalid' => 'Selected assets cannot be updated.',
     ],
 
     'restore' => [
@@ -28,7 +38,7 @@ return [
     ],
 
     'audit' => [
-        'error'   		=> 'Kaore i te angitu te arotake o te tahua. Tena ngana ano.',
+        'error'   		=> 'Asset audit unsuccessful: :error ',
         'success' 		=> 'Kua pai te takiuru o te kaute.',
     ],
 
@@ -46,12 +56,14 @@ return [
     ],
 
     'import' => [
+        'import_button'         => 'Process Import',
         'error'                 => 'Kāore i tika te kawemai o etahi o nga mea.',
         'errorDetail'           => 'Ko nga mea e whai ake nei kihai i kawemai no te mea he hapa.',
         'success'               => 'I kawemai to kōnae',
         'file_delete_success'   => 'Kua mukua pai to kōnae',
         'file_delete_error'      => 'Kāore i taea te mukua te kōnae',
         'file_missing' => 'The file selected is missing',
+        'file_already_deleted' => 'The file selected was already deleted',
         'header_row_has_malformed_characters' => 'One or more attributes in the header row contain malformed UTF-8 characters',
         'content_row_has_malformed_characters' => 'One or more attributes in the first row of content contain malformed UTF-8 characters',
     ],
@@ -60,6 +72,7 @@ return [
     'delete' => [
         'confirm'   	=> 'Kei te hiahia koe ki te muku i tenei taonga?',
         'error'   		=> 'He raru kei te whakakore i te taonga. Tena ngana ano.',
+        'assigned_to_error' => '{1}Asset Tag: :asset_tag is currently checked out. Check in this device before deletion.|[2,*]Asset Tags: :asset_tag are currently checked out. Check in these devices before deletion.',
         'nothing_updated'   => 'Kaore he rawa i tohua, na reira kaore i whakakorehia.',
         'success' 		=> 'Kua mukua te taonga.',
     ],
@@ -70,6 +83,11 @@ return [
         'user_does_not_exist' => 'He muhu te kaiwhakamahi. Tena ngana ano.',
         'not_available' => 'Kaore i te wātea te taonga mo te takitaki!',
         'no_assets_selected' => 'You must select at least one asset from the list',
+    ],
+
+    'multi-checkout' => [
+        'error'   => 'Asset was not checked out, please try again|Assets were not checked out, please try again',
+        'success' => 'Asset checked out successfully.|Assets checked out successfully.',
     ],
 
     'checkin' => [

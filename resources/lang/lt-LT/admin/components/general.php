@@ -2,15 +2,15 @@
 
 return array(
     'component_name'                  => 'Komponento pavadinimas',
-    'checkin'                             => 'Checkin komponentas',
-    'checkout'                             => 'Checkout komponentas',
-    'cost'				=> 'Pirkimo kaina',
+    'checkin'                             => 'Paimti komponentą',
+    'checkout'                             => 'Išduoti komponentą',
+    'cost'				=> 'Įsigijimo kaina',
     'create'                             => 'Sukurti komponentą',
     'edit'                             => 'Redaguoti komponentą',
-    'date'					=> 'Pirkimo data',
+    'date'					=> 'Įsigijimo data',
     'order'					=> 'Užsakymo numeris',
     'remaining' 			             => 'Likutis',
     'total' 			                 => 'Iš viso',
     'update'                            => 'Atnaujinti komponentą',
-    'checkin_limit'            => 'Priregistruotas kiekis turi būti lygus arba nemažesnis nei :assigned_qty'
+    'checkin_limit'            => 'Paimamas kiekis turi būti lygus arba mažesnis nei :assigned_qty'
 );

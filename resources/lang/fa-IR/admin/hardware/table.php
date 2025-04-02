@@ -4,6 +4,8 @@ return [
 
     'asset_tag'   	=> 'برچسب دارایی',
     'asset_model'       => 'مدل',
+    'assigned_to'   => 'اختصاص یافته به
+',
     'book_value'  	=> 'ارزش فعلی
 ',
     'change' 		=> '/ خارج',
@@ -27,8 +29,6 @@ return [
 ',
     'days_without_acceptance' => 'روز بدون پذیرش',
     'monthly_depreciation' => 'استهلاک ماهانه
-',
-    'assigned_to'    => 'اختصاص یافته به
 ',
     'requesting_user' => 'کاربر درخواست کننده
 ',

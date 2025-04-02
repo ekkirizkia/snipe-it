@@ -26,6 +26,11 @@ class GroupsTransformer
             'name' => e($group->name),
             'permissions' => json_decode($group->permissions),
             'users_count' => (int) $group->users_count,
+            'notes' => Helper::parseEscapedMarkedownInline($group->notes),
+            'created_by' => ($group->adminuser) ? [
+                'id' => (int) $group->adminuser->id,
+                'name'=> e($group->adminuser->present()->fullName()),
+            ] : null,
             'created_at' => Helper::getFormattedDateObject($group->created_at, 'datetime'),
             'updated_at' => Helper::getFormattedDateObject($group->updated_at, 'datetime'),
         ];

@@ -40,8 +40,8 @@
                     }'>
                 <thead>
                     <tr role="row">
-                        <th class="col-md-1">Image</th>
-                        <th class="col-md-2">Item Name</th>
+                        <th class="col-md-1">{{ trans('general.image') }}</th>
+                        <th class="col-md-2">{{ trans('general.name') }}</th>
                         <th class="col-md-2" data-sortable="true">{{ trans('admin/hardware/table.location') }}</th>
                         <th class="col-md-2" data-sortable="true">{{ trans('admin/hardware/form.expected_checkin') }}</th>
                         <th class="col-md-3" data-sortable="true">{{ trans('admin/hardware/table.requesting_user') }}</th>
@@ -100,12 +100,19 @@
                             </td>
                             <td>{{ App\Helpers\Helper::getFormattedDateObject($request->created_at, 'datetime', false) }}</td>
                             <td>
-                                {{ Form::open([
-                                    'method' => 'POST',
-                                    'route' => ['account/request-item', $request->itemType(), $request->requestable->id, true, $request->requestingUser()->id],
-                                    ]) }}
+                                <form
+                                    method="POST"
+                                    action="{{ route('account/request-item', [
+                                        $request->itemType(),
+                                        $request->requestable->id,
+                                         true,
+                                         $request->requestingUser()->id
+                                    ]) }}"
+                                    accept-charset="UTF-8"
+                                >
+                                    @csrf
                                     <button class="btn btn-warning btn-sm" data-tooltip="true" title="{{ trans('general.cancel_request') }}">{{ trans('button.cancel') }}</button>
-                                {{ Form::close() }}
+                                </form>
                             </td>
                             <td>
                                 @if ($request->itemType() == "asset")

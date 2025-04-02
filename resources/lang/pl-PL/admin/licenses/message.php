@@ -3,7 +3,7 @@
 return array(
 
     'does_not_exist' => 'Licencja nie istnieje lub nie masz uprawnień do jej przeglądania.',
-    'user_does_not_exist' => 'Użytkownik nie istnieje.',
+    'user_does_not_exist' => 'Użytkownik nie istnieje lub nie masz uprawnień do ich przeglądania.',
     'asset_does_not_exist' 	=> 'Aktywa, które chcesz skojarzyć z licencją nie istnieją.',
     'owner_doesnt_match_asset' => 'Aktywa, które chcesz skojarzyć z tą licencją są własnością kogoś innego niż osoba wskazana z rozwijanej listy.',
     'assoc_users'	 => 'Ten nabytek/zasób jest przypisany do użytkownika i nie może być usunięty. Proszę sprawdzić przypisanie nabytków/zasobów a następnie spróbować ponownie. ',
@@ -44,10 +44,13 @@ return array(
         'error'   => 'Nastąpił problem podczas weryfikacji licencji. Spróbuj ponownie',
         'success' => 'Licencja poprawna',
         'not_enough_seats' => 'Za mało dostępnych miejsc do zamówienia',
+        'mismatch' => 'Podane miejsce licencji nie jest zgodne z licencją',
+        'unavailable' => 'To miejsce nie jest dostępne do wydania.',
     ),
 
     'checkin' => array(
         'error'   => 'Nastąpił problem podczas weryfikacji licencji. Spróbuj ponownie',
+        'not_reassignable' => 'Licencja nie może zostać ponownie przypisana',
         'success' => 'Licencja poprawna'
     ),
 

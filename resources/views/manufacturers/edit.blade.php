@@ -12,7 +12,7 @@
 @include ('partials.forms.edit.name', ['translated_name' => trans('admin/manufacturers/table.name')])
     <!-- URL -->
     <div class="form-group {{ $errors->has('url') ? ' has-error' : '' }}">
-        <label for="url" class="col-md-3 control-label">{{ trans('admin/manufacturers/table.url') }}
+        <label for="url" class="col-md-3 control-label">{{ trans('general.url') }}
         </label>
         <div class="col-md-6">
             <input class="form-control" type="text" name="url" id="url" value="{{ old('url', $item->url) }}" />
@@ -62,6 +62,21 @@
     </div>
 
 @include ('partials.forms.edit.image-upload', ['image_path' => app('manufacturers_upload_path')])
+
+<div class="form-group{!! $errors->has('notes') ? ' has-error' : '' !!}">
+    <label for="notes" class="col-md-3 control-label">{{ trans('general.notes') }}</label>
+    <div class="col-md-8">
+        <x-input.textarea
+                name="notes"
+                id="notes"
+                :value="old('notes', $item->notes)"
+                placeholder="{{ trans('general.placeholders.notes') }}"
+                aria-label="notes"
+                rows="5"
+        />
+        {!! $errors->first('notes', '<span class="alert-msg" aria-hidden="true"><i class="fas fa-times" aria-hidden="true"></i> :message</span>') !!}
+    </div>
+</div>
 
 
 

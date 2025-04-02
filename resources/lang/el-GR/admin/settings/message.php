@@ -14,6 +14,9 @@ return [
         'restore_warning'       => 'Ναι, να το αποκαταστήσω, αναγνωρίζω ότι αυτό θα αντικαταστήσει όλα τα υπάρχοντα δεδομένα που υπάρχουν αυτή τη στιγμή στη βάση δεδομένων. Αυτό θα αποσυνδεθεί επίσης από όλους τους υπάρχοντες χρήστες (συμπεριλαμβανομένων και εσείς).',
         'restore_confirm'       => 'Είστε βέβαιοι ότι θέλετε να επαναφέρετε τη βάση δεδομένων σας από :filename?'
     ],
+    'restore' => [
+        'success'               => 'Your system backup has been restored. Please log in again.'
+    ],
     'purge' => [
         'error'     => 'Παρουσιάστηκε ένα σφάλμα κατά την εκκαθάριση. ',
         'validation_failed'     => 'Η επιβεβαίωση καθαρισμού είναι εσφαλμένη. Παρακαλούμε πληκτρολογήστε τη λέξη «Διαγραφή» στο πλαίσιο επιβεβαίωσης.',
@@ -33,6 +36,9 @@ return [
         'testing_authentication' => 'Δοκιμή Πιστοποίησης Ldap...',
         'authentication_success' => 'Ο χρήστης πιστοποιήθηκε με επιτυχία στο LDAP!'
     ],
+    'labels' => [
+        'null_template' => 'Label template not found. Please select a template.',
+        ],
     'webhook' => [
         'sending' => 'Αποστολή δοκιμαστικού μηνύματος :app...',
         'success' => 'Το :webhook_name σας λειτουργεί!',
@@ -42,5 +48,7 @@ return [
         'error' => 'Κάτι πήγε στραβά. :app απάντησε με: :error_message',
         'error_redirect' => 'ΣΦΑΛΜΑ: 301/302:endpoint επιστρέφει μια ανακατεύθυνση. Για λόγους ασφαλείας, δεν ακολουθούμε ανακατευθύνσεις. Παρακαλούμε χρησιμοποιήστε το πραγματικό τελικό σημείο.',
         'error_misc' => 'Κάτι πήγε στραβά. :( ',
+        'webhook_fail' => ' webhook notification failed: Check to make sure the URL is still valid.',
+        'webhook_channel_not_found' => ' webhook channel not found.'
     ]
 ];

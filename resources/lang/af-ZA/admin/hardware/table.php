@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Bate-tag',
     'asset_model'       => 'model',
+    'assigned_to'   => 'Toevertrou aan',
     'book_value'  	=> 'Current Value',
     'change' 		=> 'In uit',
     'checkout_date' => 'Checkout Datum',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Toestelbeeld',
     'days_without_acceptance' => 'Dae sonder aanvaarding',
     'monthly_depreciation' => 'Monthly Depreciation',
-    'assigned_to'    => 'Toevertrou aan',
     'requesting_user' => 'Requesting User',
     'requested_date' => 'Requested Date',
     'changed'       => 'Changed',

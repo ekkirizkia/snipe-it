@@ -3,6 +3,7 @@
 namespace App\Importer;
 
 use App\Models\Location;
+use Illuminate\Support\Facades\Log;
 
 /**
  * When we are importing users via an Asset/etc import, we use createOrFetchUser() in
@@ -37,7 +38,15 @@ class LocationImporter extends ItemImporter
     {
 
         $editingLocation = false;
+
         $location = Location::where('name', '=', $this->findCsvMatch($row, 'name'))->first();
+
+        if ($this->findCsvMatch($row, 'id')!='') {
+            // Override location if an ID was given
+            \Log::debug('Finding location by ID: '.$this->findCsvMatch($row, 'id'));
+            $location = Location::find($this->findCsvMatch($row, 'id'));
+        }
+
 
         if ($location) {
             if (! $this->updating) {
@@ -50,6 +59,7 @@ class LocationImporter extends ItemImporter
         } else {
             $this->log('No Matching Location, Create a new one');
             $location = new Location;
+            $location->created_by = auth()->id();
         }
 
         // Pull the records from the CSV to determine their values
@@ -64,7 +74,8 @@ class LocationImporter extends ItemImporter
         $this->item['ldap_ou'] = trim($this->findCsvMatch($row, 'ldap_ou'));
         $this->item['manager'] = trim($this->findCsvMatch($row, 'manager'));
         $this->item['manager_username'] = trim($this->findCsvMatch($row, 'manager_username'));
-        $this->item['user_id'] = \Auth::user()->id;
+        $this->item['notes'] = trim($this->findCsvMatch($row, 'notes'));
+
 
         if ($this->findCsvMatch($row, 'parent_location')) {
             $this->item['parent_id'] = $this->createOrFetchLocation(trim($this->findCsvMatch($row, 'parent_location')));
@@ -76,15 +87,15 @@ class LocationImporter extends ItemImporter
             }
         }
 
-        \Log::debug('Item array is: ');
-        \Log::debug(print_r($this->item, true));
+        Log::debug('Item array is: ');
+        Log::debug(print_r($this->item, true));
 
 
         if ($editingLocation) {
-            \Log::debug('Updating existing location');
+            Log::debug('Updating existing location');
             $location->update($this->sanitizeItemForUpdating($location));
         } else {
-            \Log::debug('Creating location');
+            Log::debug('Creating location');
             $location->fill($this->sanitizeItemForStoring($location));
         }
 
@@ -93,7 +104,8 @@ class LocationImporter extends ItemImporter
             return $location;
 
         } else {
-            \Log::debug($location->getErrors());
+            Log::debug($location->getErrors());
+            $this->logError($location, 'Location "'.$this->item['name'].'"');
             return $location->errors;
         }
 

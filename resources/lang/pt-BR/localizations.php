@@ -2,7 +2,7 @@
 
 return [
 
-    'select_language' => 'Selecionar um idioma',
+    'select_language' => 'Selecione um Idioma',
     'languages' => [
         'en-US'=> 'Inglês, EUA',
         'en-GB'=> 'Inglês, Reino Unido',
@@ -12,7 +12,7 @@ return [
         'bg-BG'=> 'Búlgaro',
         'zh-CN'=> 'Chinês Simplificado',
         'zh-TW'=> 'Chinês Tradicional',
-        'ca-ES' => 'Catalan',
+        'ca-ES' => 'catalão',
         'hr-HR'=> 'Croata',
         'cs-CZ'=> 'Tcheco',
         'da-DK'=> 'Dinamarquês',
@@ -40,7 +40,9 @@ return [
         'ms-MY'=> 'Malaio',
         'mi-NZ'=> 'Maori',
         'mn-MN'=> 'Mongol',
-        'no-NO'=> 'Norueguês',
+        //'no-NO'=> 'Norwegian',
+        'nb-NO'=> 'Norueguês Bokmål',
+        //'nn-NO'=> 'Norwegian Nynorsk',
         'fa-IR'=> 'Persa',
         'pl-PL'=> 'Polonês',
         'pt-PT'=> 'Português',
@@ -48,8 +50,9 @@ return [
         'ro-RO'=> 'Romeno',
         'ru-RU'=> 'Russo',
         'sr-CS' => 'Sérvio (Latim)',
-        'sk-SK'=> 'Slovak',
+        'sk-SK'=> 'Eslovaco',
         'sl-SI'=> 'Esloveno',
+        'so-SO'=> 'Somali',
         'es-ES'=> 'Espanhol',
         'es-CO'=> 'Espanhol da Colômbia',
         'es-MX'=> 'Espanhol do México',
@@ -65,7 +68,7 @@ return [
         'zu-ZA'=> 'Zulu',
     ],
 
-    'select_country' => 'Selecione um país',
+    'select_country' => 'Selecione um País',
     
     'countries' => [
         'AC'=>'Ilha de Ascensão',
@@ -132,6 +135,7 @@ return [
         'EC'=>'Equador',
         'EE'=>'Estónia',
         'EG'=>'Egito',
+        'GB-ENG'=>'Inglaterra',
         'ER'=>'Eritreia',
         'ES'=>'Espanha',
         'ET'=>'Etiópia',
@@ -230,6 +234,7 @@ return [
         'NG'=>'Nigéria',
         'NI'=>'Nicarágua',
         'NL'=>'Países Baixos',
+        'GB-NIR' => 'Irlanda do Norte',
         'NO'=>'Noruega',
         'NP'=>'Nepal',
         'NR'=>'Nauru',
@@ -257,7 +262,7 @@ return [
         'RU'=>'Federação Russa',
         'RW'=>'Ruanda',
         'SA'=>'Arábia Saudita',
-        'UK'=>'Escócia',
+        'GB-SCT'=>'Escócia',
         'SB'=>'Ilhas Salomão',
         'SC'=>'Seicheles',
         'SS'=>'Sudão do Sul',
@@ -309,6 +314,7 @@ return [
         'VI'=>'Ilhas Virgens (Americanas)',
         'VN'=>'Vietnã',
         'VU'=>'Vanuatu',
+        'GB-WLS' =>'País de Gales',
         'WF'=>'Ilhas Wallis e Futuna',
         'WS'=>'Samoa',
         'YE'=>'Iêmen',

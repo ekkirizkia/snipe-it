@@ -14,6 +14,9 @@ return [
         'restore_warning'       => 'نعم، استعادة. أقر بأن هذا سوف يستبدل أي بيانات موجودة حاليا في قاعدة البيانات. سيؤدي هذا أيضا إلى تسجيل جميع المستخدمين الحاليين (بما في ذلك أنت).',
         'restore_confirm'       => 'هل أنت متأكد من رغبتك في استعادة قاعدة البيانات الخاصة بك من :filename؟'
     ],
+    'restore' => [
+        'success'               => 'Your system backup has been restored. Please log in again.'
+    ],
     'purge' => [
         'error'     => 'حدث خطأ أثناء التطهير.',
         'validation_failed'     => 'تأكيد التطهير غير صحيح. الرجاء كتابة الكلمة "ديليت" في مربع التأكيد.',
@@ -33,6 +36,9 @@ return [
         'testing_authentication' => 'اختبار مصادقة LDAP...',
         'authentication_success' => 'تمت المصادقة على المستخدم ضد LDAP بنجاح!'
     ],
+    'labels' => [
+        'null_template' => 'Label template not found. Please select a template.',
+        ],
     'webhook' => [
         'sending' => 'إرسال رسالة اختبار :app ...',
         'success' => 'يعمل تكامل :webhook_name الخاص بك!',
@@ -42,5 +48,7 @@ return [
         'error' => 'حدث خطأ ما. استجاب :app :error_message',
         'error_redirect' => 'خطأ: 301/302 :endpoint يرجع إعادة توجيه. لأسباب أمنية، نحن لا نتابع إعادة التوجيه. الرجاء استخدام نقطة النهاية الفعلية.',
         'error_misc' => 'حدث خطأ ما. :( ',
+        'webhook_fail' => ' webhook notification failed: Check to make sure the URL is still valid.',
+        'webhook_channel_not_found' => ' webhook channel not found.'
     ]
 ];

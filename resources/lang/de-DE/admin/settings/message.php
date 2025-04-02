@@ -14,6 +14,9 @@ return [
         'restore_warning'       => 'Ja, wiederherstellen. Ich bestätige, dass dies alle vorhandenen Daten überschreibt, die derzeit in der Datenbank vorhanden sind. Diese Aktion wird auch alle bestehenden Benutzer abmelden (einschließlich Ihnen).',
         'restore_confirm'       => 'Sind Sie sicher, dass Sie Ihre Datenbank aus :filename wiederherstellen möchten?'
     ],
+    'restore' => [
+        'success'               => 'Ihr Systembackup wurde wiederhergestellt. Bitte melden Sie sich erneut an.'
+    ],
     'purge' => [
         'error'     => 'Beim Bereinigen ist ein Fehler augetreten. ',
         'validation_failed'     => 'Falsche Bereinigungsbestätigung. Bitte geben Sie das Wort "DELETE" im Bestätigungsfeld ein.',
@@ -33,6 +36,9 @@ return [
         'testing_authentication' => 'LDAP-Authentifizierung wird getestet...',
         'authentication_success' => 'Benutzer wurde erfolgreich gegen LDAP authentifiziert!'
     ],
+    'labels' => [
+        'null_template' => 'Etikettenvorlage nicht gefunden. Bitte wählen Sie eine Vorlage aus.',
+        ],
     'webhook' => [
         'sending' => ':app Testnachricht wird gesendet...',
         'success' => 'Ihre :webhook_name Integration funktioniert!',
@@ -42,5 +48,7 @@ return [
         'error' => 'Etwas ist schief gelaufen. :app antwortete mit: :error_message',
         'error_redirect' => 'FEHLER: 301/302 :endpoint gibt eine Umleitung zurück. Aus Sicherheitsgründen folgen wir keinen Umleitungen. Bitte verwenden Sie den aktuellen Endpunkt.',
         'error_misc' => 'Etwas ist schiefgelaufen. :( ',
+        'webhook_fail' => ' Webhook-Benachrichtigung fehlgeschlagen: Überprüfen Sie, ob die URL noch gültig ist.',
+        'webhook_channel_not_found' => ' Webhook-Channel nicht gefunden.'
     ]
 ];

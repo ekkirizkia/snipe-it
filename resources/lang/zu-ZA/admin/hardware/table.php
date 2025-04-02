@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Ithegi lefa',
     'asset_model'       => 'Isibonelo',
+    'assigned_to'   => 'Kwabiwa Ku',
     'book_value'  	=> 'Current Value',
     'change' 		=> 'In / Out',
     'checkout_date' => 'Usuku lokuhlola',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Isithombe sedivayisi',
     'days_without_acceptance' => 'Izinsuku Ngaphandle Kwemukelwa',
     'monthly_depreciation' => 'Monthly Depreciation',
-    'assigned_to'    => 'Kwabiwa Ku',
     'requesting_user' => 'Requesting User',
     'requested_date' => 'Requested Date',
     'changed'       => 'Changed',

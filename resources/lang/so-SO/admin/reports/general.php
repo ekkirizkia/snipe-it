@@ -1,17 +1,22 @@
 <?php
 
 return [
-    'info'   => 'Select the options you want for your asset report.',
-    'deleted_user' => 'Deleted user',
-    'send_reminder' => 'Send reminder',
-    'reminder_sent' => 'Reminder sent',
-    'acceptance_deleted' => 'Acceptance request deleted',
-    'acceptance_request' => 'Acceptance request',
+    'info'   => 'Dooro xulashooyinka aad rabto warbixinta hantidaada.',
+    'deleted_user' => 'Isticmaale la tirtiray',
+    'send_reminder' => 'Soo dir xasuusin',
+    'reminder_sent' => 'Xusuusin la diray',
+    'acceptance_deleted' => 'Codsiga aqbalaadda waa la tirtiray',
+    'acceptance_request' => 'Codsiga aqbalida',
     'custom_export' => [
-        'user_address' => 'User Address',
-        'user_city' => 'User City',
-        'user_state' => 'User State',
-        'user_country' => 'User Country',
-        'user_zip' => 'User Zip'
-    ]
+        'user_address' => 'Cinwaanka Isticmaalaha',
+        'user_city' => 'Isticmaalka Magaalada',
+        'user_state' => 'Gobolka Isticmaalaha',
+        'user_country' => 'Dalka Isticmaalaha',
+        'user_zip' => 'Isticmaalaha Zip'
+    ],
+    'open_saved_template' => 'Open Saved Template',
+    'save_template' =>  'Save Template',
+    'select_a_template' => 'Select a Template',
+    'template_name' => 'Template Name',
+    'update_template' => 'Update Template',
 ];

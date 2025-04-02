@@ -14,6 +14,9 @@ return [
         'restore_warning'       => 'Da, restaurează. Confirm suprascrierea tuturor datelor existente în baza de date. Acest lucru va deconecta și pe toți utilizatorii curenți (inclusiv pe tine).',
         'restore_confirm'       => 'Sunteți sigur că doriți restaurarea bazei de date din fișierul :filename?'
     ],
+    'restore' => [
+        'success'               => 'Your system backup has been restored. Please log in again.'
+    ],
     'purge' => [
         'error'     => 'A apărut o eroare în timpul epurării.',
         'validation_failed'     => 'Confirmarea dvs. de purjare este incorectă. Introduceți cuvântul "DELETE" în caseta de confirmare.',
@@ -33,6 +36,9 @@ return [
         'testing_authentication' => 'Testare autentificare LDAP...',
         'authentication_success' => 'Utilizatorul s-a autentificat cu succes împotriva LDAP!'
     ],
+    'labels' => [
+        'null_template' => 'Label template not found. Please select a template.',
+        ],
     'webhook' => [
         'sending' => 'Se trimite mesajul de testare :app...',
         'success' => 'Integrarea ta :webhook_name funcționează!',
@@ -42,5 +48,7 @@ return [
         'error' => 'Ceva nu a funcționat. :app a răspuns cu: :error_message',
         'error_redirect' => 'EROARE: 301/302 :endpoint returnează o redirecționare. Din motive de securitate, nu urmărim redirecționările. Vă rugăm să folosiți obiectivul final.',
         'error_misc' => 'Ceva nu a mers bine. :( ',
+        'webhook_fail' => ' webhook notification failed: Check to make sure the URL is still valid.',
+        'webhook_channel_not_found' => ' webhook channel not found.'
     ]
 ];

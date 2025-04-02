@@ -21,12 +21,29 @@ class Settings
 
     public function enableAlertEmail(string $email = 'notifications@afcrichmond.com'): Settings
     {
-        return $this->update(['alert_email' => $email]);
+        return $this->update([
+            'alert_email' => $email,
+            'alerts_enabled' => 1,
+        ]);
     }
-
+    public function setAlertInterval(int $days): Settings
+    {
+        return $this->update([
+            'alert_threshold' => $days,
+        ]);
+    }
+    public function setAuditWarningDays(int $days): Settings
+    {
+        return $this->update([
+            'audit_warning_days' => $days,
+        ]);
+    }
     public function disableAlertEmail(): Settings
     {
-        return $this->update(['alert_email' => null]);
+        return $this->update([
+            'alert_email' => null,
+            'alerts_enabled' => 0,
+        ]);
     }
 
     public function enableMultipleFullCompanySupport(): Settings
@@ -39,18 +56,20 @@ class Settings
         return $this->update(['full_multiple_companies_support' => 0]);
     }
 
-    public function enableWebhook(): Settings
+    public function enableSlackWebhook(): Settings
     {
         return $this->update([
+            'webhook_selected' => 'slack',
             'webhook_botname' => 'SnipeBot5000',
             'webhook_endpoint' => 'https://hooks.slack.com/services/NZ59/Q446/672N',
             'webhook_channel' => '#it',
         ]);
     }
 
-    public function disableWebhook(): Settings
+    public function disableSlackWebhook(): Settings
     {
         return $this->update([
+            'webhook_selected' => '',
             'webhook_botname' => '',
             'webhook_endpoint' => '',
             'webhook_channel' => '',
@@ -118,6 +137,10 @@ class Settings
             'ldap_pword' => "badly_encrypted_password!",
             'ldap_basedn' => 'CN=Users,DC=ad,DC=example,Dc=com'
         ]);
+    }
+    public function setEula($text = 'Default EULA text')
+    {
+        return $this->update(['default_eula_text' => $text]);
     }
 
     /**

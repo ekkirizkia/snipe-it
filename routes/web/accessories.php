@@ -13,7 +13,7 @@ Route::group(['prefix' => 'accessories', 'middleware' => ['auth']], function () 
     )->name('accessories.checkout.show');
 
     Route::post(
-        '{accessoryID}/checkout',
+        '{accessory}/checkout',
         [Accessories\AccessoryCheckoutController::class, 'store']
     )->name('accessories.checkout.store');
 
@@ -53,6 +53,5 @@ Route::group(['prefix' => 'accessories', 'middleware' => ['auth']], function () 
 });
 
 Route::resource('accessories', Accessories\AccessoriesController::class, [
-    'middleware' => ['auth'],
-    'parameters' => ['accessory' => 'accessory_id'],
+    'middleware' => ['auth']
 ]);

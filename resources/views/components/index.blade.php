@@ -8,7 +8,7 @@
 
 @section('header_right')
   @can('create', \App\Models\Component::class)
-    <a href="{{ route('components.create') }}" accesskey="n" class="btn btn-primary pull-right"> {{ trans('general.create') }}</a>
+    <a href="{{ route('components.create') }}" {{$snipeSettings->shortcuts_enabled == 1 ? "accesskey=n" : ''}} class="btn btn-primary pull-right"> {{ trans('general.create') }}</a>
   @endcan
 @stop
 
@@ -25,6 +25,7 @@
                 data-id-table="componentsTable"
                 data-search="true"
                 data-side-pagination="server"
+                data-footer-style="footerStyle"
                 data-show-columns="true"
                 data-show-fullscreen="true"
                 data-show-export="true"

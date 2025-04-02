@@ -2,13 +2,14 @@
 
 return array(
 
-    'assigned_to'   	=> 'Assigned To',
+    'assigned_to'   	=> 'ចាត់តាំងទៅ',
     'checkout'   		=> 'In/Out',
+    'deleted_at'        => 'Deleted at',
     'id'      			=> 'លេខសម្គាល់',
     'license_email'   	=> 'License Email',
     'license_name'   	=> 'Licensed To',
     'purchase_date'   	=> 'កាលបរិច្ឆេទទិញ',
-    'purchased'   		=> 'Purchased',
+    'purchased'   		=> 'បានទិញ',
     'seats'   			=> 'កៅអី',
     'hardware'   		=> 'Hardware',
     'serial'   			=> 'Serial',

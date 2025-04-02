@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Asset Tag',
     'asset_model'       => 'Model',
+    'assigned_to'   => 'Tildelt',
     'book_value'  	=> 'Nuværende Værdi',
     'change' 		=> 'Ind ud',
     'checkout_date' => 'Checkout dato',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Enhedsbillede',
     'days_without_acceptance' => 'Dage uden accept',
     'monthly_depreciation' => 'Månedlig afskrivning',
-    'assigned_to'    => 'Tildelt',
     'requesting_user' => 'Anmoder Om Bruger',
     'requested_date' => 'Anmodningsdato',
     'changed'       => 'Ændret',

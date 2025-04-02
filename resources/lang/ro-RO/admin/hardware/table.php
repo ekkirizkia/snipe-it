@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Eticheta activ',
     'asset_model'       => 'Model',
+    'assigned_to'   => 'Desemnat către',
     'book_value'  	=> 'Valoarea Curentă',
     'change' 		=> 'Predat/Primit',
     'checkout_date' => 'Data predare',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Imagine dispozitiv',
     'days_without_acceptance' => 'Zile fără acceptare',
     'monthly_depreciation' => 'Depreciere lunară',
-    'assigned_to'    => 'Desemnat către',
     'requesting_user' => 'Utilizatorul solicitant',
     'requested_date' => 'Data solicitării',
     'changed'       => 'Modificat',

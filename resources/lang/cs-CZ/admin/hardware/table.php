@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Označení majetku',
     'asset_model'       => 'Model',
+    'assigned_to'   => 'Přiděleno',
     'book_value'  	=> 'Aktuální hodnota',
     'change' 		=> 'Příjem/Výdej',
     'checkout_date' => 'Datum vydání',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Obrázek zařízení',
     'days_without_acceptance' => 'Dní bez schválení',
     'monthly_depreciation' => 'Měsíční odpisy',
-    'assigned_to'    => 'Přiděleno',
     'requesting_user' => 'Požaduje uživatel',
     'requested_date' => 'Požadované datum',
     'changed'       => 'Upraveno',

@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Http\Requests\ImageUploadRequest;
-use App\Models\Category as Category;
-use Auth;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Str;
+use Illuminate\Http\RedirectResponse;
+use \Illuminate\Contracts\View\View;
 
 /**
  * This class controls all actions related to Categories for
@@ -25,10 +26,8 @@ class CategoriesController extends Controller
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @see CategoriesController::getDatatable() method that generates the JSON response
      * @since [v1.0]
-     * @return \Illuminate\Contracts\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index() : View
     {
         // Show the page
         $this->authorize('view', Category::class);
@@ -42,10 +41,8 @@ class CategoriesController extends Controller
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @see CategoriesController::store() method that stores the data
      * @since [v1.0]
-     * @return \Illuminate\Contracts\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function create()
+    public function create() : View
     {
         // Show the page
         $this->authorize('create', Category::class);
@@ -61,10 +58,8 @@ class CategoriesController extends Controller
      * @see CategoriesController::create() method that makes the form.
      * @since [v1.0]
      * @param ImageUploadRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(ImageUploadRequest $request)
+    public function store(ImageUploadRequest $request) : RedirectResponse
     {
         $this->authorize('create', Category::class);
         $category = new Category();
@@ -75,7 +70,8 @@ class CategoriesController extends Controller
         $category->use_default_eula = $request->input('use_default_eula', '0');
         $category->require_acceptance = $request->input('require_acceptance', '0');
         $category->checkin_email = $request->input('checkin_email', '0');
-        $category->user_id = Auth::id();
+        $category->notes = $request->input('notes');
+        $category->created_by = auth()->id();
 
         $category = $request->handleImages($category);
         if ($category->save()) {
@@ -92,17 +88,11 @@ class CategoriesController extends Controller
      * @see CategoriesController::postEdit() method saves the data
      * @param int $categoryId
      * @since [v1.0]
-     * @return \Illuminate\Contracts\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function edit($categoryId = null)
+    public function edit(Category $category) : RedirectResponse | View
     {
         $this->authorize('update', Category::class);
-        if (is_null($item = Category::find($categoryId))) {
-            return redirect()->route('categories.index')->with('error', trans('admin/categories/message.does_not_exist'));
-        }
-
-        return view('categories/edit', compact('item'))
+        return view('categories/edit')->with('item', $category)
         ->with('category_types', Helper::categoryTypeList());
     }
 
@@ -113,11 +103,9 @@ class CategoriesController extends Controller
      * @see CategoriesController::getEdit() method that makes the form.
      * @param ImageUploadRequest $request
      * @param int $categoryId
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      * @since [v1.0]
      */
-    public function update(ImageUploadRequest $request, $categoryId = null)
+    public function update(ImageUploadRequest $request, Category $category) : RedirectResponse
     {
         $this->authorize('update', Category::class);
         if (is_null($category = Category::find($categoryId))) {
@@ -128,13 +116,21 @@ class CategoriesController extends Controller
         // Update the category data
         $category->code = $request->input('code');
         $category->name = $request->input('name');
-        // If the item count is > 0, we disable the category type in the edit. Disabled items
-        // don't POST, so if the category_type is blank we just set it to the default.
+
+        // Don't allow the user to change the category_type once it's been created
+        if (($request->filled('category_type') && ($category->itemCount() > 0))) {
+            $request->validate(['category_type' => 'in:'.$category->category_type]);
+        }
+        
         $category->category_type = $request->input('category_type', $category->category_type);
+
+        $category->fill($request->all());
+
         $category->eula_text = $request->input('eula_text');
         $category->use_default_eula = $request->input('use_default_eula', '0');
         $category->require_acceptance = $request->input('require_acceptance', '0');
         $category->checkin_email = $request->input('checkin_email', '0');
+        $category->notes = $request->input('notes');
 
         $category = $request->handleImages($category);
 
@@ -152,10 +148,8 @@ class CategoriesController extends Controller
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @since [v1.0]
      * @param int $categoryId
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy($categoryId)
+    public function destroy($categoryId) : RedirectResponse
     {
         $this->authorize('delete', Category::class);
         // Check if the category exists
@@ -180,14 +174,12 @@ class CategoriesController extends Controller
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @see CategoriesController::getDataView() method that generates the JSON response
      * @param $id
-     * @return \Illuminate\Contracts\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      * @since [v1.8]
      */
-    public function show($id)
+    public function show(Category $category) : View | RedirectResponse
     {
         $this->authorize('view', Category::class);
-        if ($category = Category::find($id)) {
+
             if ($category->category_type == 'asset') {
                 $category_type = 'hardware';
                 $category_type_route = 'assets';
@@ -202,8 +194,5 @@ class CategoriesController extends Controller
             return view('categories/view', compact('category'))
                 ->with('category_type', $category_type)
                 ->with('category_type_route', $category_type_route);
-        }
-
-        return redirect()->route('categories.index')->with('error', trans('admin/categories/message.does_not_exist'));
     }
 }

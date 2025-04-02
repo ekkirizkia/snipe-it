@@ -32,6 +32,7 @@ return [
 ',
     'default_location'	=> ' پیش فرض محل سکونت
 ',
+    'default_location_phone' => 'Default Location Phone',
     'eol_date'			=> ' تاریخ EOL
 ',
     'eol_rate'			=> ' نرخ EOL',
@@ -50,6 +51,9 @@ return [
     'qr'				=> 'کیو آر کد',
     'requestable'		=> 'کاربران ممکن است این دارایی هارا درخواست کنند
 ',
+    'redirect_to_all'   => 'Return to all :type',
+    'redirect_to_type'   => 'Go to :type',
+    'redirect_to_checked_out_to'   => 'Go to Checked Out to',
     'select_statustype'	=> 'انتخاب نوع وضعیت',
     'serial'			=> 'سریال',
     'status'			=> 'وضعیت',
@@ -65,10 +69,12 @@ return [
     'asset_location_update_default' => 'فقط بروزرسانی مکان پیش‌فرض',
     'asset_location_update_actual' => 'Update only actual location',
     'asset_not_deployable' => 'این وضعیت دارایی قابل استقرار نیست. این دارایی قابل پذیرش نیست.',
+    'asset_not_deployable_checkin' => 'That asset status is not deployable. Using this status label will checkin the asset.',
     'asset_deployable' => 'این وضعیت دارایی قابل استقرار است. این دارایی قابل پذیرش است.',
     'processing_spinner' => 'Processing... (This might take a bit of time on large files)',
     'optional_infos'  => 'اطلاعات دلخواه
 ',
     'order_details'   => 'اطلاعات مربوط به سفارش
-'
+',
+    'calc_eol'    => 'If nulling the EOL date, use automatic EOL calculation based on the purchase date and EOL rate.',
 ];

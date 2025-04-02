@@ -2,28 +2,34 @@
 
 return array(
 
-    'does_not_exist' => 'Location does not exist.',
-    'assoc_users'	 => 'This location is currently associated with at least one user and cannot be deleted. Please update your users to no longer reference this location and try again. ',
-    'assoc_assets'	 => 'This location is currently associated with at least one asset and cannot be deleted. Please update your assets to no longer reference this location and try again. ',
-    'assoc_child_loc'	 => 'This location is currently the parent of at least one child location and cannot be deleted. Please update your locations to no longer reference this location and try again. ',
-    'assigned_assets' => 'Assigned Assets',
-    'current_location' => 'Current Location',
+    'does_not_exist' => 'Goobtu ma jirto.',
+    'assoc_users'    => 'This location is not currently deletable because it is the location of record for at least one asset or user, has assets assigned to it, or is the parent location of another location. Please update your records to no longer reference this location and try again. ',
+    'assoc_assets'	 => 'Goobtan waxaa hadda ku xiran hal isticmaale suurogalna maahan in latiro. Fadlan cusboonaysii hantidaada si aanay meeshan u tixraacin mar kalena isku day. ',
+    'assoc_child_loc'	 => 'Goobtan waxay xarun rasmi ah u tahay farac kale ugu yaraan suuragalna maahan in la tir-tiro. Fadlan cusbooneysii goobtaada si aaney markale usoo tilmaamin mowqican iskuna day markale. ',
+    'assigned_assets' => 'Hantida la qoondeeyay',
+    'current_location' => 'Goobta xilligan',
+    'open_map' => 'Open in :map_provider_icon Maps',
 
 
     'create' => array(
-        'error'   => 'Location was not created, please try again.',
-        'success' => 'Location created successfully.'
+        'error'   => 'Goobta lama abuurin, fadlan isku day mar kale.',
+        'success' => 'Goobta waa lagu guuleystay in la sameeyo.'
     ),
 
     'update' => array(
-        'error'   => 'Location was not updated, please try again',
-        'success' => 'Location updated successfully.'
+        'error'   => 'Goobta lama cusboonaysiin, fadlan isku day mar kale',
+        'success' => 'Goobta waa lagu guuleystay in la cusbooneysiiyo.'
+    ),
+
+    'restore' => array(
+        'error'   => 'Location was not restored, please try again',
+        'success' => 'Location restored successfully.'
     ),
 
     'delete' => array(
-        'confirm'   	=> 'Are you sure you wish to delete this location?',
-        'error'   => 'There was an issue deleting the location. Please try again.',
-        'success' => 'The location was deleted successfully.'
+        'confirm'   	=> 'Ma hubtaa inaad rabto inaad tirtirto goobtan?',
+        'error'   => 'Waxaa jirtay arrin meesha ka saareysa goobtan. Fadlan isku day mar kale.',
+        'success' => 'Goobta si guul leh ayaa loo tirtiray.'
     )
 
 );

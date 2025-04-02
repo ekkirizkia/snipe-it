@@ -14,6 +14,9 @@ return [
         'restore_warning'       => 'Igen, állítsa vissza. Tudomásul veszem, hogy ez felülírja az adatbázisban jelenleg meglévő adatokat. Ez egyben az összes meglévő felhasználó (beleértve Önt is) kijelentkezik.',
         'restore_confirm'       => 'Biztos, hogy vissza szeretné állítani az adatbázisát a :filename -ből?'
     ],
+    'restore' => [
+        'success'               => 'Your system backup has been restored. Please log in again.'
+    ],
     'purge' => [
         'error'     => 'Hiba történt a tisztítás során.',
         'validation_failed'     => 'A tisztítás megerősítése helytelen. Kérjük, írja be a "DELETE" szót a megerősítő mezőbe.',
@@ -33,14 +36,19 @@ return [
         'testing_authentication' => 'LDAP-hitelesítés tesztelése...',
         'authentication_success' => 'A felhasználó sikeresen hitelesített az LDAP-nál!'
     ],
+    'labels' => [
+        'null_template' => 'Label template not found. Please select a template.',
+        ],
     'webhook' => [
         'sending' => ':app tesztüzenet küldése...',
-        'success' => 'Your :webhook_name Integration works!',
+        'success' => 'A :webhook_name integráció működik!',
         'success_pt1' => 'Siker! Ellenőrizze a ',
         'success_pt2' => ' csatornát a tesztüzenethez, és ne felejtsen el a MENTÉS gombra kattintani a beállítások tárolásához.',
         '500' => '500 Szerverhiba.',
         'error' => 'Valami hiba történt. A Slack a következő üzenettel válaszolt: :error_message',
         'error_redirect' => 'ERROR: 301/302 :endpoint returns a redirect. For security reasons, we don’t follow redirects. Please use the actual endpoint.',
         'error_misc' => 'Valami hiba történt :( ',
+        'webhook_fail' => ' webhook notification failed: Check to make sure the URL is still valid.',
+        'webhook_channel_not_found' => ' webhook channel not found.'
     ]
 ];

@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'תג נכס',
     'asset_model'       => 'דֶגֶם',
+    'assigned_to'   => 'שוייך ל',
     'book_value'  	=> 'הערך הנוכחי',
     'change' 		=> 'בפנים בחוץ',
     'checkout_date' => 'תבדוק את התאריך',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'תמונה של מכשיר',
     'days_without_acceptance' => 'ימים ללא קבלה',
     'monthly_depreciation' => 'פחות חודשי',
-    'assigned_to'    => 'שוייך ל',
     'requesting_user' => 'דרישה של',
     'requested_date' => 'תאריך דרישה',
     'changed'       => 'שונה',

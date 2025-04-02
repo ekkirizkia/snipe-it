@@ -7,6 +7,7 @@ use App\Models\Department;
 use App\Models\Setting;
 use App\Models\User;
 use App\Notifications\WelcomeNotification;
+use Illuminate\Support\Facades\Log;
 
 /**
  * This is ONLY used for the User Import. When we are importing users
@@ -66,6 +67,7 @@ class UserImporter extends ItemImporter
         $this->item['vip'] = ($this->fetchHumanBoolean(trim($this->findCsvMatch($row, 'vip'))) ==1 ) ? '1' : 0;
         $this->item['autoassign_licenses'] = ($this->fetchHumanBoolean(trim($this->findCsvMatch($row, 'autoassign_licenses'))) ==1 ) ? '1' : 0;
 
+        $this->handleEmptyStringsForDates();
 
         $user_department = trim($this->findCsvMatch($row, 'department'));
         if ($this->shouldUpdateField($user_department)) {
@@ -88,7 +90,7 @@ class UserImporter extends ItemImporter
         if ($user) {
 
             if (! $this->updating) {
-                \Log::debug('A matching User '.$this->item['name'].' already exists.  ');
+                Log::debug('A matching User '.$this->item['name'].' already exists.  ');
                 return;
             }
             $this->log('Updating User');
@@ -100,7 +102,7 @@ class UserImporter extends ItemImporter
                 ->where('assigned_to', $user->id)
                 ->update(['location_id' => $user->location_id]);
             
-            // \Log::debug('UserImporter.php Updated User ' . print_r($user, true));
+            // Log::debug('UserImporter.php Updated User ' . print_r($user, true));
             return;
         }
 
@@ -112,6 +114,7 @@ class UserImporter extends ItemImporter
 
         $this->log('No matching user, creating one');
         $user = new User();
+        $user->created_by = auth()->id();
         $user->fill($this->sanitizeItemForStoring($user));
 
         if ($user->save()) {
@@ -163,7 +166,7 @@ class UserImporter extends ItemImporter
 
         $department = new department();
         $department->name = $department_name;
-        $department->user_id = $this->user_id;
+        $department->created_by = $this->created_by;
 
         if ($department->save()) {
             $this->log('department ' . $department_name . ' was created');
@@ -177,5 +180,23 @@ class UserImporter extends ItemImporter
     public function sendWelcome($send = true)
     {
         $this->send_welcome = $send;
+    }
+
+    /**
+     * Since the findCsvMatch() method will set '' for columns that are present but empty,
+     * we need to set those empty strings to null to avoid passing bad data to the database
+     * (ie ending up with 0000-00-00 instead of the intended null).
+     *
+     * @return void
+     */
+    private function handleEmptyStringsForDates(): void
+    {
+        if ($this->item['start_date'] === '') {
+            $this->item['start_date'] = null;
+        }
+
+        if ($this->item['end_date'] === '') {
+            $this->item['end_date'] = null;
+        }
     }
 }

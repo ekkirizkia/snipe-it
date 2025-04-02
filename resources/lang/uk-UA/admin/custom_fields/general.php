@@ -35,7 +35,7 @@ return [
     'create_field_title' => 'Створіть нове спеціальне поле',
     'value_encrypted'      	        => 'Значення цього поля зашифровано в базі даних. Тільки адміністратори зможуть переглядати значення розшифрованого',
     'show_in_email'     => 'Включити значення цього поля в листа для перевірки, які відправляються користувачу? Зашифровані поля не можуть бути включені в листи',
-    'show_in_email_short'     => 'Включити до email.',
+    'show_in_email_short' => 'Включити до email',
     'help_text' => 'Текст довідки',
     'help_text_description' => 'Це необов\'язковий текст, який буде відображатися під елементами форм під час редагування медіафайла для надання контексту в полі.',
     'about_custom_fields_title' => 'Про індивідуальні поля',
@@ -45,7 +45,7 @@ return [
     'make_required' => 'Необов\'язково - натисніть, щоб зробити необхідне',
     'reorder' => 'Змінити порядок',
     'db_field' => 'БД поле',
-    'db_convert_warning' => 'WARNING. This field is in the custom fields table as <code>:db_column</code> but should be <code>:expected</code>.',
+    'db_convert_warning' => 'УВАГА. Це поле міститься в таблиці спеціальних полів як <code>:db_column</code>, але має бути <code>:expected</code>.',
     'is_unique' => 'Ця величина повинна бути унікальною для всіх активів',
     'unique' => 'Унікальний',
     'display_in_user_view' => 'Дозволити відзначеному користувачеві переглядати ці значення у їх Перегляд призначені для додавання активів',
@@ -57,5 +57,7 @@ return [
     'show_in_requestable_list_short' => 'Показати в списку активів',
     'show_in_requestable_list' => 'Показувати значення в списку активів, які запитуються. Зашифровані поля не будуть показані',
     'encrypted_options' => 'Це поле зашифроване, так що деякі параметри відображення не будуть доступні.',
+    'display_checkin' => 'Display in checkin forms',
+    'display_checkout' => 'Display in checkout forms',
 
 ];
