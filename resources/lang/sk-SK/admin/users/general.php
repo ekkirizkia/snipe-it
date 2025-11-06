@@ -24,7 +24,6 @@ return [
     'auto_assign_label' => 'Zahrnúť tohto používateľa do automatického priraďovania licencií',
     'auto_assign_help'  => 'Nezaradiť tohto používateľa do automatického priraďovania licencií',
     'software_user'     => 'Software priradený :name',
-    'send_email_help'   => 'Pre zaslanie prístupových údajov musíte zadať e-mailovú adresu používateľa. Zaslanie prístupových údajov je možné iba v procese vytvárania nového používateľa. Heslá sú ukladané šifrované, nie je ich možné prečítať po uložení.',
     'view_user'         => 'Zobraziť používateľa :name',
     'usercsv'           => 'CSV súbor',
     'two_factor_admin_optin_help' => 'Vaše súčasné nastavenie administrátora umožňujú selektívne vynútenie dvojfaktorovej autentifikácie.  ',
@@ -53,4 +52,5 @@ return [
     'next_save_user' => 'Ďalej: Uložiť používateľa',
     'all_assigned_list_generation' => 'Generované dňa:',
     'email_user_creds_on_create' => 'Zaslať tomuto používateľovi prihlasovacie údaje mailom?',
+    'department_manager' => 'Department Manager',
 ];

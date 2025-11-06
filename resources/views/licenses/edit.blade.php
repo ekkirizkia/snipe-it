@@ -5,6 +5,7 @@
     'formAction' => ($item->id) ? route('licenses.update', ['license' => $item->id]) : route('licenses.store'),
      'index_route' => 'licenses.index',
     'options' => [
+                'back' => trans('admin/hardware/form.redirect_to_type',['type' => trans('general.previous_page')]),
                 'index' => trans('admin/hardware/form.redirect_to_all', ['type' => 'licenses']),
                 'item' => trans('admin/hardware/form.redirect_to_type', ['type' => trans('general.license')]),
                ]
@@ -34,7 +35,7 @@
     <div class="form-group {{ $errors->has('serial') ? ' has-error' : '' }}">
         <label for="serial" class="col-md-3 control-label">{{ trans('admin/licenses/form.license_key') }}</label>
         <div class="col-md-7">
-            <textarea class="form-control" type="text" name="serial" id="serial"{{  (Helper::checkIfRequired($item, 'serial')) ? ' required' : '' }}>{{ old('serial', $item->serial) }}</textarea>
+            <textarea class="form-control" type="text" name="serial" id="serial" rows="5"{{  (Helper::checkIfRequired($item, 'serial')) ? ' required' : '' }}>{{ old('serial', $item->serial) }}</textarea>
             {!! $errors->first('serial', '<span class="alert-msg" aria-hidden="true"><i class="fas fa-times" aria-hidden="true"></i> :message</span>') !!}
         </div>
     </div>
@@ -78,7 +79,7 @@
 @include ('partials.forms.edit.supplier-select', ['translated_name' => trans('general.supplier'), 'fieldname' => 'supplier_id'])
 @include ('partials.forms.edit.order_number')
 @include ('partials.forms.edit.purchase_cost')
-@include ('partials.forms.edit.purchase_date')
+@include ('partials.forms.edit.datepicker', ['translated_name' => trans('general.purchase_date'),'fieldname' => 'purchase_date'])
 
 <!-- Expiration Date -->
 <div class="form-group {{ $errors->has('expiration_date') ? ' has-error' : '' }}">
@@ -111,7 +112,7 @@
 <!-- Purchase Order -->
 <div class="form-group {{ $errors->has('purchase_order') ? ' has-error' : '' }}">
     <label for="purchase_order" class="col-md-3 control-label">{{ trans('admin/licenses/form.purchase_order') }}</label>
-    <div class="col-md-3">
+    <div class="col-md-3 text-right">
         <input class="form-control" type="text" name="purchase_order" id="purchase_order" value="{{ old('purchase_order', $item->purchase_order) }}" maxlength="191" />
         {!! $errors->first('purchase_order', '<span class="alert-msg" aria-hidden="true"><i class="fas fa-times" aria-hidden="true"></i> :message</span>') !!}
     </div>

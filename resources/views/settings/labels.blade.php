@@ -68,18 +68,18 @@
 
                                 <div class="col-md-9 col-md-offset-3">
                                     <table
-                                        data-click-to-select="true"
+
                                         data-columns="{{ \App\Presenters\LabelPresenter::dataTableLayout() }}"
                                         data-cookie="true"
                                         data-cookie-id-table="label2TemplateTable"
                                         data-id-table="label2TemplateTable"
-                                        data-pagination="true"
-                                        data-search="true"
+
+
                                         data-select-item-name="label2_template"
                                         data-id-field="name"
-                                        data-show-columns="true"
-                                        data-show-fullscreen="true"
-                                        data-show-refresh="true"
+
+
+
                                         data-side-pagination="server"
                                         data-sort-name="name"
                                         data-sort-order="asc"
@@ -301,13 +301,39 @@
                                     <x-input.select
                                         name="label2_2d_target"
                                         id="label2_2d_target"
-                                        :options="['hardware_id'=>'/hardware/{id} ('.trans('admin/settings/general.default').')', 'ht_tag'=>'/ht/{asset_tag}']"
+                                        :options="['hardware_id'=>'/hardware/{id} ('.trans('admin/settings/general.default').')',
+                                                   'ht_tag'=>'/ht/{asset_tag}',
+                                                   'location' => '/location/{location_id}',
+                                                   ]"
                                         :selected="old('label2_2d_target', $setting->label2_2d_target)"
                                         class="col-md-4"
                                         aria-label="label2_2d_target"
                                     />
                                     {!! $errors->first('label2_2d_target', '<span class="alert-msg" aria-hidden="true"><i class="fas fa-times" aria-hidden="true"></i> :message</span>') !!}
                                     <p class="help-block">{{ trans('admin/settings/general.label2_2d_target_help') }}</p>
+                                </div>
+                            </div>
+                            <!-- Field offset -->
+                            <div class="form-group{{ $errors->has('label2_empty_row_count') ? ' has-error' : '' }}">
+                                <div class="col-md-3 text-right">
+                                    <label for="label2_empty_row_count" class="control-label">{{ trans('admin/settings/general.empty_row_count') }}</label>
+                                </div>
+                                <div class="col-md-9 col-xl-2 col-lg-2">
+                                        <input
+                                                class="form-control"
+                                                aria-label="Empty Row Count"
+                                                name="label2_empty_row_count"
+                                                type="number"
+                                                id="label2_empty_row_count"
+                                                min="0"
+                                                max="5"
+                                                value="{{ old('label2_empty_row_count', $setting->label2_empty_row_count) }}"
+                                        >
+                                </div>
+
+                                <div class="col-md-9 col-md-offset-3">
+                                    <p class="help-block">{!! trans('admin/settings/general.empty_row_count_help') !!}</p>
+                                    {!! $errors->first('label2_empty_row_count', '<span class="alert-msg" aria-hidden="true"><i class="fas fa-times" aria-hidden="true"></i> :message</span>') !!}
                                 </div>
                             </div>
                             <div class="col-md-9 col-md-offset-3" style="margin-bottom: 10px;">
@@ -397,20 +423,18 @@
                                 <div class="col-md-3 text-right">
                                     <label for="labels_width" class="control-label">{{ trans('admin/settings/general.label_dimensions') }}</label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 text-right">
                                     <div class="input-group">
                                         <input class="form-control" aria-label="labels_width" name="labels_width" type="text" value="{{ old('labels_width', $setting->labels_width) }}" id="labels_width">
                                         <div class="input-group-addon">{{ trans('admin/settings/general.width_w') }}</div>
                                     </div>
+                                    {!! $errors->first('labels_width', '<span class="alert-msg" aria-hidden="true">:message</span>') !!}
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 text-right">
                                     <div class="input-group">
                                         <input class="form-control" aria-label="labels_height" name="labels_height" type="text" value="{{ old('labels_height', $setting->labels_height) }}">
                                         <div class="input-group-addon">{{ trans('admin/settings/general.height_h') }}</div>
                                     </div>
-                                </div>
-                                <div class="col-md-9 col-md-offset-3">
-                                    {!! $errors->first('labels_width', '<span class="alert-msg" aria-hidden="true">:message</span>') !!}
                                     {!! $errors->first('labels_height', '<span class="alert-msg" aria-hidden="true">:message</span>') !!}
                                 </div>
                             </div>
@@ -419,13 +443,13 @@
                                 <div class="col-md-3 text-right">
                                     <label for="labels_display_sgutter">{{ trans('admin/settings/general.label_gutters') }}</label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 text-right">
                                     <div class="input-group">
                                         <input class="form-control" aria-label="labels_display_sgutter" name="labels_display_sgutter" type="text" value="{{ old('labels_display_sgutter', $setting->labels_display_sgutter) }}" id="labels_display_sgutter">
                                         <div class="input-group-addon">{{ trans('admin/settings/general.horizontal') }}</div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 text-right">
                                     <div class="input-group">
                                         <input class="form-control" aria-label="labels_display_bgutter" name="labels_display_bgutter" type="text" value="{{ old('labels_display_bgutter', $setting->labels_display_bgutter) }}">
                                         <div class="input-group-addon">{{ trans('admin/settings/general.vertical') }}</div>
@@ -441,7 +465,7 @@
                                 <div class="col-md-3 text-right">
                                     <label for="labels_pmargin_top">{{ trans('admin/settings/general.page_padding') }}</label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 text-right">
                                     <div class="input-group" style="margin-bottom: 15px;">
                                         <input class="form-control" aria-label="labels_pmargin_top" name="labels_pmargin_top" type="text" value="{{ old('labels_pmargin_top', $setting->labels_pmargin_top) }}" id="labels_pmargin_top">
                                         <div class="input-group-addon">{{ trans('admin/settings/general.top') }}</div>
@@ -462,17 +486,13 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-9 col-md-offset-3">
-                                    {!! $errors->first('labels_width', '<span class="alert-msg" aria-hidden="true">:message</span>') !!}
-                                    {!! $errors->first('labels_height', '<span class="alert-msg" aria-hidden="true">:message</span>') !!}
-                                </div>
                             </div>
 
                             <div class="form-group{{ (($errors->has('labels_pageheight')) || $errors->has('labels_pagewidth')) ? ' has-error' : '' }}">
                                 <div class="col-md-3 text-right">
                                     <label for="labels_pagewidth" class="control-label">{{ trans('admin/settings/general.page_dimensions') }}</label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 text-right">
                                     <div class="input-group">
                                         <input class="form-control" aria-label="labels_pagewidth" name="labels_pagewidth" type="text" value="{{ old('labels_pagewidth', $setting->labels_pagewidth) }}" id="labels_pagewidth">
                                         <div class="input-group-addon">{{ trans('admin/settings/general.width_w') }}</div>

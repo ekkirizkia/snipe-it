@@ -68,11 +68,38 @@ class ConsumablePresenter extends Presenter
                 'sortable' => true,
                 'title' => trans('general.model_no'),
             ], [
+                'field' => 'location',
+                'searchable' => true,
+                'sortable' => true,
+                'title' => trans('general.location'),
+                'formatter' => 'locationsLinkObjFormatter',
+            ], [
                 'field' => 'item_no',
                 'searchable' => true,
                 'sortable' => true,
                 'title' => trans('admin/consumables/general.item_no'),
-            ],  [
+            ], [
+
+                'field' => 'manufacturer',
+                'searchable' => true,
+                'sortable' => true,
+                'title' => trans('general.manufacturer'),
+                'visible' => false,
+                'formatter' => 'manufacturersLinkObjFormatter',
+            ], [
+                'field' => 'order_number',
+                'searchable' => true,
+                'sortable' => true,
+                'title' => trans('general.order_number'),
+                'visible' => true,
+            ], [
+                'field' => 'purchase_date',
+                'searchable' => true,
+                'sortable' => true,
+                'title' => trans('general.purchase_date'),
+                'visible' => true,
+                'formatter' => 'dateDisplayFormatter',
+            ], [
                 'field' => 'min_amt',
                 'searchable' => false,
                 'sortable' => true,
@@ -97,37 +124,17 @@ class ConsumablePresenter extends Presenter
                 'class' => 'text-right text-padding-number-cell',
                 'footerFormatter' => 'qtySumFormatter',
             ], [
-                'field' => 'location',
-                'searchable' => true,
-                'sortable' => true,
-                'title' => trans('general.location'),
-                'formatter' => 'locationsLinkObjFormatter',
-            ], [
-                'field' => 'manufacturer',
-                'searchable' => true,
-                'sortable' => true,
-                'title' => trans('general.manufacturer'),
-                'visible' => false,
-                'formatter' => 'manufacturersLinkObjFormatter',
-            ], [
-                'field' => 'order_number',
-                'searchable' => true,
-                'sortable' => true,
-                'title' => trans('general.order_number'),
-                'visible' => true,
-            ], [
-                'field' => 'purchase_date',
-                'searchable' => true,
-                'sortable' => true,
-                'title' => trans('general.purchase_date'),
-                'visible' => true,
-                'formatter' => 'dateDisplayFormatter',
-            ], [
                 'field' => 'purchase_cost',
                 'searchable' => true,
                 'sortable' => true,
-                'title' => trans('general.purchase_cost'),
+                'title' => trans('general.unit_cost'),
                 'visible' => true,
+                'class' => 'text-right text-padding-number-cell',
+            ], [
+                'field' => 'total_cost',
+                'searchable' => true,
+                'sortable' => true,
+                'title' => trans('general.total_cost'),
                 'footerFormatter' => 'sumFormatterQuantity',
                 'class' => 'text-right text-padding-number-cell',
             ], [
@@ -173,6 +180,7 @@ class ConsumablePresenter extends Presenter
                 'title' => trans('table.actions'),
                 'visible' => true,
                 'formatter' => 'consumablesActionsFormatter',
+                'printIgnore' => true,
             ],
         ];
 

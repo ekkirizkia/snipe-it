@@ -12,7 +12,8 @@ return [
     'create'                    => 'Membuat Lokasi',
     'update'                    => 'Perbarui Lokasi',
     'print_assigned'            => 'Cetak Semua Ditugaskan',
-    'print_all_assigned'        => 'Cetak Semua Ditugaskan',
+    'print_inventory'           => 'Print Inventory',
+    'print_all_assigned'        => 'Print Inventory and Assigned',
     'name'                      => 'Nama lokasi',
     'address'                   => 'Alamat',
     'address2'                   => 'Baris Alamat 2',
@@ -39,4 +40,5 @@ return [
     'signed_by_finance_auditor' => 'Ditandatangani Oleh (Auditor Keuangan):',
     'signed_by_location_manager' => 'Ditandatangani Oleh (Penanggung Jawab):',
     'signed_by'                 => 'Ditandatangani Oleh:',
+    'clone'  					=> 'Clone Location',
 ];

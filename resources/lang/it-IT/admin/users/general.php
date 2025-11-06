@@ -24,7 +24,6 @@ return [
     'auto_assign_label' => 'Includi l\'utente nella assegnazione automatica delle licenze',
     'auto_assign_help'  => 'Salta l\'utente nell\'assegnazione automatica delle licenze',
     'software_user'     => 'Software estratto a :name',
-    'send_email_help'   => 'Devi fornire un indirizzo email all\'utente per inviare loro le credenziali. L\'inoltro delle credenziali via email avviene solo durante la creazione dell\'utente. La password è memorizzata in un hash unidirezionale e non può essere recuperata, una volta salvata.',
     'view_user'         => 'Visualizza Utente :name',
     'usercsv'           => 'CSV file',
     'two_factor_admin_optin_help' => 'Le impostazioni correnti consentono l\'attivazione selettiva dell\'autenticazione a due fattori.  ',
@@ -53,4 +52,5 @@ return [
     'next_save_user' => 'Successivo: Salva Utente',
     'all_assigned_list_generation' => 'Generato il:',
     'email_user_creds_on_create' => 'Mandare le credenziali all\'utente?',
+    'department_manager' => 'Responsabile di Reparto',
 ];

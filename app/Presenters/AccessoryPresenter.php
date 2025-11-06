@@ -21,6 +21,7 @@ class AccessoryPresenter extends Presenter
                 'switchable' => true,
                 'title' => trans('general.id'),
                 'visible' => false,
+                'printIgnore' => true,
             ], [
                 'field' => 'image',
                 'searchable' => false,
@@ -119,7 +120,13 @@ class AccessoryPresenter extends Presenter
                 'field' => 'purchase_cost',
                 'searchable' => true,
                 'sortable' => true,
-                'title' => trans('general.purchase_cost'),
+                'title' => trans('general.unit_cost'),
+                'class' => 'text-right text-padding-number-cell',
+            ], [
+                'field' => 'total_cost',
+                'searchable' => true,
+                'sortable' => true,
+                'title' => trans('general.total_cost'),
                 'footerFormatter' => 'sumFormatterQuantity',
                 'class' => 'text-right text-padding-number-cell',
             ], [
@@ -172,6 +179,7 @@ class AccessoryPresenter extends Presenter
                 'switchable' => false,
                 'title' => trans('table.actions'),
                 'formatter' => 'accessoriesActionsFormatter',
+                'printIgnore' => true,
             ],
         ];
 
@@ -229,7 +237,7 @@ class AccessoryPresenter extends Presenter
                 'field' => 'created_by',
                 'searchable' => false,
                 'sortable' => false,
-                'title' => trans('general.admin'),
+                'title' => trans('general.created_by'),
                 'visible' => false,
                 'formatter' => 'usersLinkObjFormatter',
             ],
@@ -240,6 +248,7 @@ class AccessoryPresenter extends Presenter
                 'switchable' => false,
                 'title' => trans('table.actions'),
                 'formatter' => 'accessoriesInOutFormatter',
+                'printIgnore' => true,
             ],
         ];
 

@@ -15,6 +15,11 @@ class CategoryPresenter extends Presenter
     {
         $layout = [
             [
+                'field'        => 'checkbox',
+                'checkbox'     => true,
+                'titleTooltip' => trans('general.select_all_none'),
+            ],
+            [
                 'field' => 'id',
                 'searchable' => false,
                 'sortable' => true,
@@ -98,7 +103,7 @@ class CategoryPresenter extends Presenter
                 'formatter' => 'usersLinkObjFormatter',
             ], [
                 'field' => 'created_at',
-                'searchable' => true,
+                'searchable' => false,
                 'sortable' => true,
                 'switchable' => true,
                 'title' => trans('general.created_at'),
@@ -106,7 +111,7 @@ class CategoryPresenter extends Presenter
                 'formatter' => 'dateDisplayFormatter',
             ], [
                 'field' => 'updated_at',
-                'searchable' => true,
+                'searchable' => false,
                 'sortable' => true,
                 'switchable' => true,
                 'title' => trans('general.updated_at'),
@@ -118,7 +123,8 @@ class CategoryPresenter extends Presenter
                 'sortable' => false,
                 'switchable' => false,
                 'title' => trans('table.actions'),
-		'formatter' => 'categoriesActionsFormatter',
+		        'formatter' => 'categoriesActionsFormatter',
+                'printIgnore' => true,
             ],
         ];
 

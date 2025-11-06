@@ -36,6 +36,7 @@ class AccessoriesTransformer
             'qty' => ($accessory->qty) ? (int) $accessory->qty : null,
             'purchase_date' => ($accessory->purchase_date) ? Helper::getFormattedDateObject($accessory->purchase_date, 'date') : null,
             'purchase_cost' => Helper::formatCurrencyOutput($accessory->purchase_cost),
+            'total_cost' => Helper::formatCurrencyOutput($accessory->totalCostSum()),
             'order_number' => ($accessory->order_number) ? e($accessory->order_number) : null,
             'min_qty' => ($accessory->min_amt) ? (int) $accessory->min_amt : null, // Legacy - should phase out - replaced by below, for the bootstrap table formatter
             'min_amt' => ($accessory->min_amt) ? (int) $accessory->min_amt : null,
@@ -44,7 +45,7 @@ class AccessoriesTransformer
             'checkouts_count' =>  $accessory->checkouts_count,
             'created_by' => ($accessory->adminuser) ? [
                 'id' => (int) $accessory->adminuser->id,
-                'name'=> e($accessory->adminuser->present()->fullName()),
+                'name'=> e($accessory->adminuser->display_name),
             ] : null,
             'created_at' => Helper::getFormattedDateObject($accessory->created_at, 'datetime'),
             'updated_at' => Helper::getFormattedDateObject($accessory->updated_at, 'datetime'),
@@ -55,7 +56,7 @@ class AccessoriesTransformer
             'checkout' => Gate::allows('checkout', Accessory::class),
             'checkin' =>  false,
             'update' => Gate::allows('update', Accessory::class),
-            'delete' => Gate::allows('delete', Accessory::class),
+            'delete' => $accessory->checkouts_count === 0 && Gate::allows('delete', Accessory::class),
             'clone' => Gate::allows('create', Accessory::class),
             
         ];
@@ -94,6 +95,10 @@ class AccessoriesTransformer
 
     public function transformAssignedTo($accessoryCheckout)
     {
+        if (is_null($accessoryCheckout->assigned)) {
+            return null;
+        }
+
         if ($accessoryCheckout->checkedOutToUser()) {
             return (new UsersTransformer)->transformUserCompact($accessoryCheckout->assigned);
         } elseif ($accessoryCheckout->checkedOutToLocation()) {

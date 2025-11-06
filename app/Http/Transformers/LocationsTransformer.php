@@ -53,27 +53,39 @@ class LocationsTransformer
                 'assets_count'    => (int) $location->assets_count,
                 'rtd_assets_count'    => (int) $location->rtd_assets_count,
                 'users_count'    => (int) $location->users_count,
+                'consumables_count'    => (int) $location->consumables_count,
+                'components_count'    => (int) $location->components_count,
+                'children_count'    => (int) $location->children_count,
                 'currency' =>  ($location->currency) ? e($location->currency) : null,
                 'ldap_ou' =>  ($location->ldap_ou) ? e($location->ldap_ou) : null,
                 'notes' => Helper::parseEscapedMarkedownInline($location->notes),
                 'created_at' => Helper::getFormattedDateObject($location->created_at, 'datetime'),
+                'created_by' => $location->adminuser ? [
+                    'id' => (int) $location->adminuser->id,
+                    'name'=> e($location->adminuser->present()->fullName),
+                ]: null,
                 'updated_at' => Helper::getFormattedDateObject($location->updated_at, 'datetime'),
                 'parent' => ($location->parent) ? [
                     'id' => (int) $location->parent->id,
                     'name'=> e($location->parent->name),
                 ] : null,
                 'manager' => ($location->manager) ? (new UsersTransformer)->transformUser($location->manager) : null,
+                'company' => ($location->company) ? [
+                    'id' => (int) $location->company->id,
+                    'name'=> e($location->company->name)
+                ] : null,
 
                 'children' => $children_arr,
             ];
 
             $permissions_array['available_actions'] = [
-                'update' => Gate::allows('update', Location::class) ? true : false,
+                'update' => (Gate::allows('update', Location::class) && ($location->deleted_at == '')),
                 'delete' => $location->isDeletable(),
                 'bulk_selectable' => [
                     'delete' => $location->isDeletable()
                 ],
                 'clone' => (Gate::allows('create', Location::class) && ($location->deleted_at == '')),
+                'restore' => (Gate::allows('create', Location::class) && ($location->deleted_at != '')),
             ];
 
             $array += $permissions_array;

@@ -46,7 +46,7 @@
 
                         <!-- Enable SAML -->
                         <div class="form-group{{ $errors->has('saml_integration') ? ' error' : '' }}">
-                            <div class="col-md-3">
+                            <div class="col-md-3 text-right">
                                 <strong>{{ trans('admin/settings/general.saml_integration') }}</strong>
                             </div>
                             <div class="col-md-9">
@@ -85,6 +85,7 @@
                                          <label for="saml_sp_x509cert">{{ trans('admin/settings/general.saml_sp_x509cert') }}</label>
                                             <x-input.textarea
                                                 name="saml_sp_x509cert"
+                                                id="saml_sp_x509cert"
                                                 :value="$setting->saml_sp_x509cert"
                                                 wrap="off"
                                                 readonly
@@ -107,12 +108,13 @@
 
                         <!-- SAML IdP Metadata -->
                         <div class="form-group {{ $errors->has('saml_idp_metadata') ? 'error' : '' }}">
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-right">
                             <label for="saml_idp_metadata">{{ trans('admin/settings/general.saml_idp_metadata') }}</label>
                         </div>
                         <div class="col-md-9">
                             <x-input.textarea
                                 name="saml_idp_metadata"
+                                id="saml_idp_metadata"
                                 :value="old('saml_idp_metadata', $setting->saml_idp_metadata)"
                                 placeholder="https://example.com/idp/metadata"
                                 wrap="off"
@@ -129,7 +131,7 @@
 
                         <!-- SAML Attribute Mapping Username -->
                         <div class="form-group {{ $errors->has('saml_attr_mapping_username') ? 'error' : '' }}">
-                            <div class="col-md-3">
+                            <div class="col-md-3 text-right">
                                 <label for="saml_attr_mapping_username">{{ trans('admin/settings/general.saml_attr_mapping_username') }}</label>
                             </div>
                             <div class="col-md-9">
@@ -141,7 +143,7 @@
 
                         <!-- SAML Force Login -->
                         <div class="form-group">
-                            <div class="col-md-3">
+                            <div class="col-md-3 text-right">
                                 <strong>{{  trans('admin/settings/general.saml_forcelogin_label') }}</strong>
                             </div>
                             <div class="col-md-9">
@@ -157,7 +159,7 @@
 
                         <!-- SAML Single Log Out -->
                         <div class="form-group">
-                            <div class="col-md-3">
+                            <div class="col-md-3 text-right">
                                 <strong>{{ trans('admin/settings/general.saml_slo_label') }}</strong>
                             </div>
                             <div class="col-md-9">
@@ -172,7 +174,7 @@
 
                         <!-- SAML Custom Options -->
                         <div class="form-group {{ $errors->has('saml_custom_settings') ? 'error' : '' }}">
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-right">
                             <label for="saml_custom_settings">{{ trans('admin/settings/general.saml_custom_settings') }}</label>
                         </div>
                         <div class="col-md-9">
@@ -218,7 +220,7 @@
             var fr = new FileReader();
 
             fr.onload = function(e) {
-                $('#saml_idp_metadata').text(e.target.result);
+                $('#saml_idp_metadata').val(e.target.result);
             } 
 
             fr.readAsText(this.files[0]);

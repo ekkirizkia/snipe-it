@@ -12,7 +12,8 @@ return [
     'create'                    => 'Utwórz Lokalizację',
     'update'                    => 'Zaktualizuj lokalizację',
     'print_assigned'            => 'Drukuj przypisane',
-    'print_all_assigned'        => 'Drukuj wszystkie przypisane',
+    'print_inventory'           => 'Print Inventory',
+    'print_all_assigned'        => 'Print Inventory and Assigned',
     'name'                      => 'Nazwa Lokalizacji',
     'address'                   => 'Adres',
     'address2'                   => 'Druga linia adresu',
@@ -39,4 +40,5 @@ return [
     'signed_by_finance_auditor' => 'Podpisane przez (Audytor finansowy):',
     'signed_by_location_manager' => 'Podpisane przez (Audytor Lokalizacji):',
     'signed_by'                 => 'Podpisano przez:',
+    'clone'  					=> 'Clone Location',
 ];

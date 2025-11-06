@@ -24,7 +24,6 @@ return [
     'auto_assign_label' => 'Ku dar isticmaalahaan marka si toos ah loo qoondeeyo shatiyada xaqa u leh',
     'auto_assign_help'  => 'Ka bood isticmaalehan si otomaatig ah loogu diri lahaa shatiyada',
     'software_user'     => 'Software-ka la hubiyay :name',
-    'send_email_help'   => 'Waa inaad siisaa ciwaanka iimaylka isticmaalahan si uu ugu soo diro aqoonsiyo. Aqoonsiga iimaylka waxaa lagu samayn karaa oo kaliya abuurista isticmaale. Erayada sirta ah waxa lagu kaydiyaa hash hal dhinac ah lamana soo saari karo marka la kaydiyo.',
     'view_user'         => 'Eeg isticmaale :name',
     'usercsv'           => 'Faylka CSV',
     'two_factor_admin_optin_help' => 'Dejinta maamulkaada hadda waxay ogolaadaan dhaqangelinta xulashada xaqiijinta laba arrimood.  ',
@@ -53,4 +52,5 @@ return [
     'next_save_user' => 'Xiga: Keydi Isticmaalaha',
     'all_assigned_list_generation' => 'Lagu soo saaray:',
     'email_user_creds_on_create' => 'Imayl u dir isticmaalahan aqoonsigiisa?',
+    'department_manager' => 'Department Manager',
 ];

@@ -41,7 +41,7 @@ class LicensePresenter extends Presenter
                 'searchable' => true,
                 'sortable' => true,
                 'title' => trans('admin/licenses/form.license_key'),
-                'formatter' => 'licensesLinkFormatter',
+                'formatter' => 'licenseKeyFormatter',
             ], [
                 'field' => 'expiration_date',
                 'searchable' => true,
@@ -49,10 +49,18 @@ class LicensePresenter extends Presenter
                 'title' => trans('admin/licenses/form.expiration'),
                 'formatter' => 'dateDisplayFormatter',
             ], [
+                'field' => 'termination_date',
+                'searchable' => true,
+                'sortable' => true,
+                'visible' => false,
+                'title' => trans('admin/licenses/form.termination_date'),
+                'formatter' => 'dateDisplayFormatter',
+            ], [
                 'field' => 'license_email',
                 'searchable' => true,
                 'sortable' => true,
                 'title' => trans('admin/licenses/form.to_email'),
+                'formatter' => 'emailFormatter',
             ], [
                 'field' => 'license_name',
                 'searchable' => true,
@@ -107,14 +115,6 @@ class LicensePresenter extends Presenter
                 'sortable' => true,
                 'visible' => false,
                 'title' => trans('general.purchase_date'),
-                'formatter' => 'dateDisplayFormatter',
-            ],
-            [
-                'field' => 'termination_date',
-                'searchable' => true,
-                'sortable' => true,
-                'visible' => false,
-                'title' => trans('admin/licenses/form.termination_date'),
                 'formatter' => 'dateDisplayFormatter',
             ],
             [
@@ -201,7 +201,8 @@ class LicensePresenter extends Presenter
             'switchable' => false,
             'title' => trans('general.checkin').'/'.trans('general.checkout'),
             'visible' => true,
-            'formatter' => 'licensesInOutFormatter',
+            'formatter' => 'licenseInOutFormatter',
+            'printIgnore' => true,
         ];
 
         $layout[] = [
@@ -211,6 +212,7 @@ class LicensePresenter extends Presenter
             'switchable' => false,
             'title' => trans('table.actions'),
             'formatter' => 'licensesActionsFormatter',
+            'printIgnore' => true,
         ];
 
         return json_encode($layout);
@@ -230,16 +232,7 @@ class LicensePresenter extends Presenter
                 'switchable' => true,
                 'title' => trans('general.id'),
                 'visible' => false,
-           ],
-           [
-                'field' => 'name',
-                'searchable' => false,
-                'sortable' => false,
-                'sorter'   => 'numericOnly',
-                'switchable' => true,
-                'title' => trans('admin/licenses/general.seat'),
-                'visible' => true,
-            ], [
+           ],[
                 'field' => 'assigned_user',
                 'searchable' => false,
                 'sortable' => false,
@@ -279,6 +272,14 @@ class LicensePresenter extends Presenter
                 'title' => trans('general.location'),
                 'visible' => true,
                 'formatter' => 'locationsLinkObjFormatter',
+            ],
+            [
+                'field' => 'updated_at',
+                'searchable' => false,
+                'sortable' => true,
+                'visible' => false,
+                'title' => trans('general.updated_at'),
+                'formatter' => 'dateDisplayFormatter',
             ],
             [
                 'field' => 'notes',
