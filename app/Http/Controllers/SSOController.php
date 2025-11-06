@@ -90,6 +90,7 @@ class SSOController extends Controller
                 $user->username = $CheckDetail->Username;
                 $user->first_name = $CheckDetail->LoginName;
                 $user->password = bcrypt('123456');
+                $user->activated = 1;
 
                 $user->save();
 
