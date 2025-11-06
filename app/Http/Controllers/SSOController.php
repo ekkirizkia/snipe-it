@@ -86,7 +86,7 @@ class SSOController extends Controller
             $user = User::where('username', $CheckDetail->Username)->first();
             if (!$user) {
                 $user = new User();
-                $user->email = $CheckDetail->email;
+                $user->email = $CheckDetail->Email;
                 $user->username = $CheckDetail->Username;
                 $user->first_name = $CheckDetail->LoginName;
                 $user->password = bcrypt('123456');
