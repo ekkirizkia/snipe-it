@@ -1,7 +1,13 @@
 <?php
 
 return [
-
+    'example_company'    => 'Teszt Cég Kft.',
+    'example_defaultloc' => 'Épület 1',
+    'example_category'   => 'Teszt Kategória',
+    'example_location'   => 'Épület 2',
+    'example_manufacturer'  => 'Teszt Manufaktúra Rt.',
+    'example_model'      => 'Teszt Modell',
+    'example_supplier'   => 'Teszt Cég Kft',
     'labels_per_page'    => 'Címkék',
     'support_fields'     => 'Mezők',
     'support_asset_tag'  => 'Címke',

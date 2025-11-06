@@ -11,10 +11,16 @@ use App\Models\CustomFieldset;
 use App\Models\Depreciation;
 use App\Models\Setting;
 use App\Models\Statuslabel;
-use Crypt;
+use App\Models\License;
+use App\Models\Location;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
-use Image;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Session;
 
 class Helper
 {
@@ -59,8 +65,9 @@ class Helper
         'mn' => 'mn-MN', // Mongolian
         'ms' => 'ms-MY', // Malay
         'nl' => 'nl-NL', // Dutch
-        'no' => 'no-NO', // Norwegian
+        'no' => 'nb-NO', // Norwegian Bokmål
         'pl' => 'pl-PL', // Polish
+        'pt' => 'pt-PT', // Portuguese
         'ro' => 'ro-RO', // Romanian
         'ru' => 'ru-RU', // Russian
         'sk' => 'sk-SK', // Slovak
@@ -88,7 +95,7 @@ class Helper
         $Parsedown->setSafeMode(true);
 
         if ($str) {
-            return $Parsedown->text($str);
+            return $Parsedown->text(strip_tags($str));
         }
     }
 
@@ -98,7 +105,7 @@ class Helper
         $Parsedown->setSafeMode(true);
 
         if ($str) {
-            return $Parsedown->line($str);
+            return $Parsedown->line(strip_tags($str));
         }
     }
 
@@ -411,7 +418,7 @@ class Helper
 
         if ($index >= $total_colors) {
 
-            \Log::info('Status label count is '.$index.' and exceeds the allowed count of 266.');
+            Log::info('Status label count is '.$index.' and exceeds the allowed count of 266.');
             //patch fix for array key overflow (color count starts at 1, array starts at 0)
             $index = $index - $total_colors - 1;
 
@@ -427,6 +434,34 @@ class Helper
 
         return $colors[$index];
     }
+
+    /**
+     * Check if a string has any RTL characters
+     * @param $value
+     * @return bool
+     */
+    public static function hasRtl($string) {
+        $rtlChar = '/[\x{0590}-\x{083F}]|[\x{08A0}-\x{08FF}]|[\x{FB1D}-\x{FDFF}]|[\x{FE70}-\x{FEFF}]/u';
+        return preg_match($rtlChar, $string) != 0;
+    }
+
+    // is chinese, japanese or korean language
+    public static function isCjk($string) {
+        return Helper::isChinese($string) || Helper::isJapanese($string) || Helper::isKorean($string);
+    }
+
+    public static function isChinese($string) {
+        return preg_match("/\p{Han}+/u", $string);
+    }
+
+    public static function isJapanese($string) {
+        return preg_match('/[\x{4E00}-\x{9FBF}\x{3040}-\x{309F}\x{30A0}-\x{30FF}]/u', $string);
+    }
+
+    public static function isKorean($string) {
+        return preg_match('/[\x{3130}-\x{318F}\x{AC00}-\x{D7AF}]/u', $string);
+    }
+
 
     /**
      * Increases or decreases the brightness of a color by a percentage of the current brightness.
@@ -704,6 +739,28 @@ class Helper
 
         return $randomString;
     }
+    /**
+     * A method to be used to handle deprecations notifications, currently handling MS Teams. more can be added when needed.
+     *
+     *
+     * @author [Godfrey Martinez]
+     * @since [v7.0.14]
+     * @return array
+     */
+    public static function deprecationCheck()  : array {
+        // The check and message that the user is still using the deprecated version
+        $deprecations = [
+            'ms_teams_deprecated' => array(
+            'check' => !Str::contains(Setting::getSettings()->webhook_endpoint, 'workflows') && (Setting::getSettings()->webhook_selected === 'microsoft'),
+            'message' => 'The Microsoft Teams webhook URL being used will be deprecated Dec 31st, 2025. <a class="btn btn-primary" href="' . route('settings.slack.index') . '">Change webhook endpoint</a>'),
+        ];
+
+        // if item of concern is being used and its being used with the deprecated values return the notification array.
+        if(Setting::getSettings()->webhook_selected === 'microsoft' && $deprecations['ms_teams_deprecated']['check']) {
+            return $deprecations;
+        }
+            return [];
+    }
 
     /**
      * This nasty little method gets the low inventory info for the
@@ -715,18 +772,19 @@ class Helper
      */
     public static function checkLowInventory()
     {
+        $alert_threshold = \App\Models\Setting::getSettings()->alert_threshold;
         $consumables = Consumable::withCount('consumableAssignments as consumable_assignments_count')->whereNotNull('min_amt')->get();
-        $accessories = Accessory::withCount('users as users_count')->whereNotNull('min_amt')->get();
+        $accessories = Accessory::withCount('checkouts as checkouts_count')->whereNotNull('min_amt')->get();
         $components = Component::whereNotNull('min_amt')->get();
         $asset_models = AssetModel::where('min_amt', '>', 0)->get();
+        $licenses = License::where('min_amt', '>', 0)->get();
 
-        $avail_consumables = 0;
         $items_array = [];
         $all_count = 0;
 
         foreach ($consumables as $consumable) {
             $avail = $consumable->numRemaining();
-            if ($avail < ($consumable->min_amt) + \App\Models\Setting::getSettings()->alert_threshold) {
+            if ($avail < ($consumable->min_amt) + $alert_threshold) {
                 if ($consumable->qty > 0) {
                     $percent = number_format((($avail / $consumable->qty) * 100), 0);
                 } else {
@@ -744,8 +802,8 @@ class Helper
         }
 
         foreach ($accessories as $accessory) {
-            $avail = $accessory->qty - $accessory->users_count;
-            if ($avail < ($accessory->min_amt) + \App\Models\Setting::getSettings()->alert_threshold) {
+            $avail = $accessory->qty - $accessory->checkouts_count;
+            if ($avail < ($accessory->min_amt) + $alert_threshold) {
                 if ($accessory->qty > 0) {
                     $percent = number_format((($avail / $accessory->qty) * 100), 0);
                 } else {
@@ -764,7 +822,7 @@ class Helper
 
         foreach ($components as $component) {
             $avail = $component->numRemaining();
-            if ($avail < ($component->min_amt) + \App\Models\Setting::getSettings()->alert_threshold) {
+            if ($avail < ($component->min_amt) + $alert_threshold) {
                 if ($component->qty > 0) {
                     $percent = number_format((($avail / $component->qty) * 100), 0);
                 } else {
@@ -787,7 +845,7 @@ class Helper
             $total_owned = $asset->where('model_id', '=', $asset_model->id)->count();
             $avail = $asset->where('model_id', '=', $asset_model->id)->whereNull('assigned_to')->count();
 
-            if ($avail < ($asset_model->min_amt)+ \App\Models\Setting::getSettings()->alert_threshold) {
+            if ($avail < ($asset_model->min_amt) + $alert_threshold) {
                 if ($avail > 0) {
                     $percent = number_format((($avail / $total_owned) * 100), 0);
                 } else {
@@ -801,6 +859,26 @@ class Helper
                 $items_array[$all_count]['min_amt'] = $asset_model->min_amt;
                 $all_count++;
             }
+        }
+
+        foreach ($licenses as $license){
+            $avail = $license->remaincount();
+            if ($avail < ($license->min_amt) + $alert_threshold) {
+                if ($avail > 0) {
+                    $percent = number_format((($avail / $license->min_amt) * 100), 0);
+                } else {
+                    $percent = 100;
+                }
+
+                $items_array[$all_count]['id'] = $license->id;
+                $items_array[$all_count]['name'] = $license->name;
+                $items_array[$all_count]['type'] = 'licenses';
+                $items_array[$all_count]['percent'] = $percent;
+                $items_array[$all_count]['remaining'] = $avail;
+                $items_array[$all_count]['min_amt'] = $license->min_amt;
+                $all_count++;
+            }
+
         }
 
         return $items_array;
@@ -820,7 +898,49 @@ class Helper
         $filetype = @finfo_file($finfo, $file);
         finfo_close($finfo);
 
-        if (($filetype == 'image/jpeg') || ($filetype == 'image/jpg') || ($filetype == 'image/png') || ($filetype == 'image/bmp') || ($filetype == 'image/gif')) {
+        if (($filetype == 'image/jpeg') || ($filetype == 'image/jpg') || ($filetype == 'image/png') || ($filetype == 'image/bmp') || ($filetype == 'image/gif') || ($filetype == 'image/avif') || ($filetype == 'image/webp')) {
+            return $filetype;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the file is a video, so we can show a preview
+     *
+     * @param File $file
+     * @return string | Boolean
+     * @author [B. Wetherington] [<bwetherington@grokability.com>]
+     * @since [v8.1.18]
+     */
+    public static function checkUploadIsVideo($file)
+    {
+        $finfo = @finfo_open(FILEINFO_MIME_TYPE); // return mime type ala mimetype extension
+        $filetype = @finfo_file($finfo, $file);
+        finfo_close($finfo);
+
+        if (($filetype == 'video/mp4') || ($filetype == 'video/quicktime') || ($filetype == 'video/mpeg') || ($filetype == 'video/ogg') || ($filetype == 'video/webm') || ($filetype == 'video/x-msvide')) {
+            return $filetype;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the file is audio, so we can show a preview
+     *
+     * @param File $file
+     * @return string | Boolean
+     * @author [A. Gianotto] [<snipe@snipe.net>]
+     * @since [v3.0]
+     */
+    public static function checkUploadIsAudio($file)
+    {
+        $finfo = @finfo_open(FILEINFO_MIME_TYPE); // return mime type ala mimetype extension
+        $filetype = @finfo_file($finfo, $file);
+        finfo_close($finfo);
+
+        if (($filetype == 'audio/mpeg') || ($filetype == 'audio/ogg')) {
             return $filetype;
         }
 
@@ -847,20 +967,29 @@ class Helper
     public static function selectedPermissionsArray($permissions, $selected_arr = [])
     {
         $permissions_arr = [];
+        if (is_array($permissions)) {
+            $permissions = json_encode($permissions);
+        }
+
+        // Set default to empty JSON if the value is null
+        $permissions = json_decode($permissions ?? '{}', JSON_OBJECT_AS_ARRAY);
 
         foreach ($permissions as $permission) {
             for ($x = 0; $x < count($permission); $x++) {
                 $permission_name = $permission[$x]['permission'];
 
                 if ($permission[$x]['display'] === true) {
-                    if ($selected_arr) {
+
+                    if (is_array($selected_arr)) {
+
                         if (array_key_exists($permission_name, $selected_arr)) {
-                            $permissions_arr[$permission_name] = $selected_arr[$permission_name];
+                            $permissions_arr[$permission_name] = (int) $selected_arr[$permission_name];
                         } else {
-                            $permissions_arr[$permission_name] = '0';
+                            $permissions_arr[$permission_name] = 0;
                         }
+
                     } else {
-                        $permissions_arr[$permission_name] = '0';
+                        $permissions_arr[$permission_name] = 0;
                     }
                 }
             }
@@ -886,13 +1015,22 @@ class Helper
         $rules = $class::rules();
         foreach ($rules as $rule_name => $rule) {
             if ($rule_name == $field) {
-                if (strpos($rule, 'required') === false) {
-                    return false;
+                if (is_array($rule)) {
+                    if (in_array('required', $rule)) {
+                       return true;
+                    } else {
+                        return false;
+                    }
                 } else {
-                    return true;
-                }
+                    if (strpos($rule, 'required') === false) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    }
             }
         }
+        return false;
     }
 
     /**
@@ -990,7 +1128,7 @@ class Helper
 
 
         try {
-            $tmp_date = new \Carbon($date);
+            $tmp_date = new Carbon($date);
 
             if ($type == 'datetime') {
                 $dt['datetime'] = $tmp_date->format('Y-m-d H:i:s');
@@ -1007,7 +1145,7 @@ class Helper
             return $dt['formatted'];
 
         } catch (\Exception $e) {
-            \Log::warning($e);
+            Log::warning($e);
             return $date.' (Invalid '.$type.' value.)';
         }
 
@@ -1084,22 +1222,45 @@ class Helper
             'jpeg'   => 'far fa-image',
             'gif'   => 'far fa-image',
             'png'   => 'far fa-image',
+            'webp'   => 'far fa-image',
+            'avif'   => 'far fa-image',
+            'svg' => 'fas fa-vector-square',
+
             // word
             'doc'   => 'far fa-file-word',
             'docx'   => 'far fa-file-word',
+
             // Excel
             'xls'   => 'far fa-file-excel',
             'xlsx'   => 'far fa-file-excel',
+            'ods'   => 'far fa-file-excel',
+
+            // Presentation
+            'ppt'   => 'far fa-file-powerpoint',
+            'odp'   => 'far fa-file-powerpoint',
+
             // archive
             'zip'   => 'fas fa-file-archive',
             'rar'   => 'fas fa-file-archive',
+
             //Text
+            'odt'   => 'far fa-file-alt',
             'txt'   => 'far fa-file-alt',
             'rtf'   => 'far fa-file-alt',
-            'xml'   => 'far fa-file-alt',
+            'xml'   => 'fas fa-code',
+
             // Misc
             'pdf'   => 'far fa-file-pdf',
             'lic'   => 'far fa-save',
+
+            // video
+            'mov'   => 'fa-solid fa-video',
+            'mp4'   => 'fa-solid fa-video',
+
+            // audio
+            'ogg'   => 'fa-solid fa-file-audio',
+            'mp3'   => 'fa-solid fa-file-audio',
+            'wav'   => 'fa-solid fa-file-audio',
         ];
 
         if ($extension && array_key_exists($extension, $allowedExtensionMap)) {
@@ -1109,39 +1270,7 @@ class Helper
         return 'far fa-file';
     }
 
-    public static function show_file_inline($filename)
-    {
-        $extension = substr(strrchr($filename, '.'), 1);
 
-        if ($extension) {
-            switch ($extension) {
-                case 'jpg':
-                case 'jpeg':
-                case 'gif':
-                case 'png':
-                    return true;
-                    break;
-                default:
-                    return false;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Generate a random encrypted password.
-     *
-     * @author Wes Hulette <jwhulette@gmail.com>
-     *
-     * @since 5.0.0
-     *
-     * @return string
-     */
-    public static function generateEncyrptedPassword(): string
-    {
-        return bcrypt(self::generateUnencryptedPassword());
-    }
 
     /**
      * Get a random unencrypted password.
@@ -1275,25 +1404,24 @@ class Helper
         switch ($item) {
             case 'asset':
                 return 'fas fa-barcode';
-                break;
             case 'accessory':
                 return 'fas fa-keyboard';
-                break;
             case 'component':
                 return 'fas fa-hdd';
-                break;
             case 'consumable':
                 return 'fas fa-tint';
-                break;
             case 'license':
                 return 'far fa-save';
-                break;
             case 'location':
                 return 'fas fa-map-marker-alt';
-                break;
             case 'user':
                 return 'fas fa-user';
-                break;
+            case 'supplier':
+                return 'fa-solid fa-store';
+            case 'manufacturer':
+                return 'fa-solid fa-building';
+            case 'category':
+                return 'fa-solid fa-table-columns';
         }
 
     }
@@ -1316,7 +1444,7 @@ class Helper
     public static function isDemoMode() {
         if (config('app.lock_passwords') === true) {
             return true;
-            \Log::debug('app locked!');
+            Log::debug('app locked!');
         }
         
         return false;
@@ -1409,7 +1537,6 @@ class Helper
 
         foreach (self::$language_map as $legacy => $new) {
             if ($language_code == $legacy) {
-                \Log::debug('Current language is '.$legacy.', using '.$new.' instead');
                 return $new;
             }
         }
@@ -1420,6 +1547,7 @@ class Helper
 
     public static function mapBackToLegacyLocale($new_locale = null)
     {
+
         if (strlen($new_locale) <= 4) {
             return $new_locale; //"new locale" apparently wasn't quite so new
         }
@@ -1427,10 +1555,184 @@ class Helper
         // This does a *reverse* search against our new language map array - given the value, find the *key* for it
         $legacy_locale = array_search($new_locale, self::$language_map);
 
-        if($legacy_locale !== false) {
+        if ($legacy_locale !== false) {
             return $legacy_locale;
         }
         return $new_locale; // better that you have some weird locale that doesn't fit into our mappings anywhere than 'void'
     }
 
+    public static function determineLanguageDirection() {
+        return in_array(app()->getLocale(),
+            [
+                'ar-SA',
+                'fa-IR',
+                'he-IL'
+            ]) ? 'rtl' : 'ltr';
+    }
+
+
+    static public function getRedirectOption($request, $id, $table, $item_id = null) : RedirectResponse
+    {
+
+        $redirect_option = Session::get('redirect_option') ?? $request->redirect_option;
+        $checkout_to_type = Session::get('checkout_to_type') ?? null;
+        $checkedInFrom = Session::get('checkedInFrom');
+        $other_redirect = Session::get('other_redirect');
+        $backUrl = Session::pull('back_url', route('home'));
+
+       // return to previous page
+        if ($redirect_option === 'back') {
+            return redirect()->to($backUrl);
+        }
+
+        // return to index
+        if ($redirect_option == 'index') {
+            return match ($table) {
+                'Assets' => redirect()->route('hardware.index'),
+                'Users' => redirect()->route('users.index'),
+                'Licenses' => redirect()->route('licenses.index'),
+                'Accessories' => redirect()->route('accessories.index'),
+                'Components' => redirect()->route('components.index'),
+                'Consumables' => redirect()->route('consumables.index'),
+            };
+        }
+
+        // return to thing being assigned
+        if ($redirect_option == 'item') {
+            return match ($table) {
+                'Assets'      => redirect()->route('hardware.show', $id ?? $item_id),
+                'Users'       => redirect()->route('users.show', $id ?? $item_id),
+                'Licenses'    => redirect()->route('licenses.show', $id ?? $item_id),
+                'Accessories' => redirect()->route('accessories.show', $id ?? $item_id),
+                'Components'  => redirect()->route('components.show', $id ?? $item_id),
+                'Consumables' => redirect()->route('consumables.show', $id ?? $item_id),
+            };
+        }
+
+        // return to assignment target
+        if ($redirect_option == 'target') {
+            return match ($checkout_to_type) {
+                'user'     => redirect()->route('users.show', $request->assigned_user ?? $checkedInFrom),
+                'location' => redirect()->route('locations.show', $request->assigned_location ?? $checkedInFrom),
+                'asset'    => redirect()->route('hardware.show', $request->assigned_asset ?? $checkedInFrom),
+            };
+        }
+
+        // return to somewhere else
+        if ($redirect_option == 'other_redirect') {
+            return match ($other_redirect) {
+                'audit' => redirect()->route('assets.audit.due'),
+                'model' => redirect()->route('models.show', $request->model_id),
+            };
+
+        }
+
+        return redirect()->back()->with('error', trans('admin/hardware/message.checkout.error'));
+    }
+
+    /**
+     * Check for inconsistencies before activating scoped locations with FullMultipleCompanySupport
+     * If there are locations with different companies than related objects unforseen problems could arise
+     *
+     * @author T. Regnery <tobias.regnery@gmail.com>
+     * @since 7.0
+     *
+     * @param $artisan          when false, bail out on first inconsistent entry
+     * @param $location_id      when set, only test this specific location
+     * @param $new_company_id   in case of updating a location, this is the newly requested company_id
+     * @return string []
+     */
+    static public function test_locations_fmcs($artisan, $location_id = null, $new_company_id = null) {
+        $mismatched = [];
+
+        if ($location_id) {
+            $location = Location::find($location_id);
+            if ($location) {
+                $locations = collect([])->push(Location::find($location_id));
+            }
+        } else {
+            $locations = Location::all();
+        }
+
+        // Bail out early if there are no locations
+        if ($locations->count() == 0) {
+            return [];
+        }
+
+        foreach($locations as $location) {
+            // in case of an update of a single location, use the newly requested company_id
+            if ($new_company_id) {
+                $location_company = $new_company_id;
+            } else {
+                $location_company = $location->company_id;
+            }
+
+            // Depending on the relationship, we must use different operations to retrieve the objects
+            $keywords_relation = [
+                'many' => [
+                            'accessories',
+                            'assets',
+                            'assignedAccessories',
+                            'assignedAssets',
+                            'components',
+                            'consumables',
+                            'rtd_assets',
+                            'users',
+                        ],
+                    'one'  => [
+                        'manager',
+                        'parent',
+                    ]];
+
+            // In case of a single location, the children must be checked as well, because we don't walk every location
+            if ($location_id) {
+                $keywords_relation['many'][] = 'children';
+            }
+
+            foreach ($keywords_relation as $relation => $keywords) {
+                foreach($keywords as $keyword) {
+                    if ($relation == 'many') {
+                        $items = $location->{$keyword}->all();
+                    } else {
+                        $items = collect([])->push($location->$keyword);
+                    }
+
+                    $count = 0;
+                    foreach ($items as $item) {
+
+
+                        if ($item && $item->company_id != $location_company) {
+
+                            $mismatched[] = [
+                                    class_basename(get_class($item)),
+                                    $item->id,
+                                    $item->name ?? $item->asset_tag ?? $item->serial ?? $item->username,
+                                    $item->assigned_type ? str_replace('App\\Models\\', '', $item->assigned_type) : null,
+                                    $item->company_id ?? null,
+                                    $item->company->name ?? null,
+//                                    $item->defaultLoc->id ?? null,
+//                                    $item->defaultLoc->name ?? null,
+//                                    $item->defaultLoc->company->id ?? null,
+//                                    $item->defaultLoc->company->name ?? null,
+                                    $item->location->name ?? null,
+                                    $item->location->company->name ?? null,
+                                    $location_company ?? null,
+                                ];
+
+                            $count++;
+
+                            // Bail early if this is not being run via artisan
+                            if ((!$artisan) && ($count > 0)) {
+                                return $mismatched;
+                            }
+
+
+
+                        }
+                    }
+                }
+            }
+        }
+        return $mismatched;
+    }
 }

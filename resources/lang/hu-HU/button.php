@@ -7,6 +7,7 @@ return [
     'checkin_and_delete'  	    => 'Összes visszavétele és a felhasználó törlése',
     'delete'  	                => 'Törlés',
     'edit'    	                => 'Szerkesztés',
+    'clone'    	                => 'Klón',
     'restore' 	                => 'Visszaállítás',
     'remove'                    => 'Törlés',
     'request'                   => 'Kérelem',
@@ -21,4 +22,13 @@ return [
     'add_maintenance'           => 'Karbantartás hozzáadása',
     'append'                    => 'Hozzáillesztés',
     'new'                       => 'Új',
+    'var' => [
+        'clone'     => 'Klón :item_type',
+        'edit'      => ':item_type szerkesztése',
+        'delete'    => ':item_type törlése',
+        'restore'   => ':item_type visszaállítása',
+        'create'    => 'Új :item_type létrehozás',
+        'checkout'  => ':item_type kiadás',
+        'checkin'   => ':item_type visszavétel',
+    ]
 ];

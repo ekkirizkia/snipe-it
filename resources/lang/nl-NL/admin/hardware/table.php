@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Asset tag',
     'asset_model'       => 'Model',
+    'assigned_to'   => 'Toegewezen aan',
     'book_value'  	=> 'Huidige Waarde',
     'change' 		=> 'In/Uit',
     'checkout_date' => 'Uitcheck datum',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Asset afbeelding',
     'days_without_acceptance' => 'Dagen zonder acceptatie',
     'monthly_depreciation' => 'Maandelijkse afschrijving',
-    'assigned_to'    => 'Toegewezen aan',
     'requesting_user' => 'Verzoekende gebruiker',
     'requested_date' => 'Aangevraagde datum',
     'changed'       => 'Gewijzigd',

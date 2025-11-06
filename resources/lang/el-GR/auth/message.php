@@ -6,14 +6,14 @@ return array(
     'account_not_found'      => 'Το όνομα χρήστη ή ο κωδικός πρόσβασης είναι εσφαλμένα.',
     'account_not_activated'  => 'Αυτός ο λογαριασμός χρήστη δεν είναι ενεργοποιημένος.',
     'account_suspended'      => 'Αυτός ο λογαριασμός χρήστη έχει ανασταλεί.',
-    'account_banned'         => 'Αυτός ο λογαριασμός χρήστη έχει απαγορευτεί.',
-    'throttle'               => 'Πάρα πολλές αποτυχημένες προσπάθειες σύνδεσης. Παρακαλώ δοκιμάστε ξανά σε :minutes λεπτά.',
 
     'two_factor' => array(
         'already_enrolled'      => 'Η συσκευή σας έχει ήδη εγγραφεί.',
         'success'               => 'Έχετε συνδεθεί επιτυχώς.',
         'code_required'         => 'Απαιτείται διψήφιος κωδικός.',
         'invalid_code'          => 'Ο κωδικός δύο παραγόντων δεν είναι έγκυρος.',
+        'enter_two_factor_code' => 'Please enter your two-factor authentication code.',
+        'please_enroll'         => 'Please enroll a device in two-factor authentication.',
     ),
 
     'signin' => array(

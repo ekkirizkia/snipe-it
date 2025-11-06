@@ -6,8 +6,6 @@ return array(
     'account_not_found'      => 'نام کاربری یا رمز عبور اشتباه است.',
     'account_not_activated'  => 'این حساب کاربری فعال نشده است.',
     'account_suspended'      => 'این حساب کاربری بسته است.',
-    'account_banned'         => 'این حساب کاربری ممنوع است.',
-    'throttle'               => 'دفعات تلاش شما برای ورود بیش از حد مجاز است. لطفا پس از :seconds ثانیه مجددا تلاش فرمایید.',
 
     'two_factor' => array(
         'already_enrolled'      => 'دستگاه شما قبلاً ثبت نام کرده است.
@@ -16,6 +14,8 @@ return array(
         'code_required'         => 'کد دو حرفی  مورد نیاز است',
         'invalid_code'          => 'کد دو حرفی نامعتبر است.
 ',
+        'enter_two_factor_code' => 'Please enter your two-factor authentication code.',
+        'please_enroll'         => 'Please enroll a device in two-factor authentication.',
     ),
 
     'signin' => array(

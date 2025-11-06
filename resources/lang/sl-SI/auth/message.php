@@ -6,14 +6,14 @@ return array(
     'account_not_found'      => 'Uporabniško ime ali geslo ni pravilno.',
     'account_not_activated'  => 'Ta uporabniški račun ni aktiviran.',
     'account_suspended'      => 'Ta uporabniški račun je onemogočen.',
-    'account_banned'         => 'Ta uporabniški račun je onemogočen.',
-    'throttle'               => 'Preveč neuspešnih prijav. Prosim poskusi ponovno čez :minutes minut.',
 
     'two_factor' => array(
         'already_enrolled'      => 'Tvoja naprava je že vpisana.',
         'success'               => 'Uspešna prijava.',
         'code_required'         => 'Dvo-faktorska koda je obvezna.',
         'invalid_code'          => 'Dvo-faktorska koda je neveljavna.',
+        'enter_two_factor_code' => 'Please enter your two-factor authentication code.',
+        'please_enroll'         => 'Please enroll a device in two-factor authentication.',
     ),
 
     'signin' => array(

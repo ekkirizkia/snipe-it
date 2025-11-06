@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Eszköz cimke',
     'asset_model'       => 'Modell',
+    'assigned_to'   => 'Felelős',
     'book_value'  	=> 'Jelenlegi érték',
     'change' 		=> 'Be/ki',
     'checkout_date' => 'Kiadási dátum',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Készülék kép',
     'days_without_acceptance' => 'Nem elfogadás óta eltelt napok száma',
     'monthly_depreciation' => 'Havi értékcsökkenés',
-    'assigned_to'    => 'Felelős',
     'requesting_user' => 'Igénylő felhasználó',
     'requested_date' => 'Kért időpont',
     'changed'       => 'Módosítva',

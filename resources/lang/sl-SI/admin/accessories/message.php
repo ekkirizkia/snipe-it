@@ -25,8 +25,12 @@ return array(
      'checkout' => array(
         'error'   		=> 'Dodatek ni bil izdan, poskusite znova',
         'success' 		=> 'Dodatek uspešno izdan.',
-        'unavailable'   => 'Accessory is not available for checkout. Check quantity available',
-        'user_does_not_exist' => 'Uporabnik je napačen. Prosim poskusite ponovno.'
+        'unavailable'   => 'Dodatek ni na voljo za plačilo. Preverite razpoložljivo količino',
+        'user_does_not_exist' => 'Uporabnik je napačen. Prosim poskusite ponovno.',
+         'checkout_qty' => array(
+            'lte'  => 'Trenutno je na voljo samo en dodatek te vrste, vi pa poskušate kupiti :checkout_qty. Prilagodite količino za prevzem ali skupno zalogo tega dodatka in poskusite znova.|Na voljo je :number_currently_remaining skupno dodatne opreme, vi pa poskušate kupiti :checkout_qty. Prilagodite količino za prevzem ali skupno zalogo tega dodatka in poskusite znova.',
+            ),
+           
     ),
 
     'checkin' => array(

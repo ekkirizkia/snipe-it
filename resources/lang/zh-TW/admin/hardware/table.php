@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> '資產標籤',
     'asset_model'       => '型號',
+    'assigned_to'   => '分配給',
     'book_value'  	=> '目前價值',
     'change' 		=> '進/出',
     'checkout_date' => '借出日期',
@@ -24,7 +25,6 @@ return [
     'image'		    => '設備圖片',
     'days_without_acceptance' => '過期天數',
     'monthly_depreciation' => '每月折舊',
-    'assigned_to'    => '分配給',
     'requesting_user' => '申請使用者',
     'requested_date' => '申請日期',
     'changed'       => '已更改',

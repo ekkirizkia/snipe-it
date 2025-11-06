@@ -6,14 +6,14 @@ return array(
     'account_not_found'      => 'ユーザー名またはパスワードが不正です。',
     'account_not_activated'  => 'このユーザーアカウントは有効化されていません。',
     'account_suspended'      => 'このユーザーアカウントは停止中です。',
-    'account_banned'         => 'このユーザーアカウントは禁止されています。',
-    'throttle'               => '複数回ログインに失敗しました。 :minutes 分後に再試行してください。',
 
     'two_factor' => array(
         'already_enrolled'      => 'お使いのデバイスは既に登録されています。',
         'success'               => 'ログインに成功しました。',
         'code_required'         => '二段階認証コードが必要です。',
         'invalid_code'          => '二段階認証コードが無効です。',
+        'enter_two_factor_code' => 'Please enter your two-factor authentication code.',
+        'please_enroll'         => 'Please enroll a device in two-factor authentication.',
     ),
 
     'signin' => array(

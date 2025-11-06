@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Ang Tag ng Asset',
     'asset_model'       => 'Ang Modelo',
+    'assigned_to'   => 'Nakatalaga Sa',
     'book_value'  	=> 'Current Value',
     'change' 		=> 'Papasok/Palabas',
     'checkout_date' => 'Ang Petsa ng Pagcheck-out',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Ang Imahe ng Device',
     'days_without_acceptance' => 'Ang mga Araw na Walang Pagtanggap',
     'monthly_depreciation' => 'Monthly Depreciation',
-    'assigned_to'    => 'Nakatalaga Sa',
     'requesting_user' => 'Requesting User',
     'requested_date' => 'Requested Date',
     'changed'       => 'Changed',

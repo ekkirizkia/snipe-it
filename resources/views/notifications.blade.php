@@ -1,5 +1,5 @@
 @if ($errors->any())
-<div class="col-md-12">
+<div class="col-md-12" id="error-notification">
     <div class="alert alert-danger fade in">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <i class="fas fa-exclamation-triangle faa-pulse animated"></i>
@@ -11,8 +11,8 @@
 @endif
 
 
-@if ($message = Session::get('status'))
-    <div class="col-md-12">
+@if ($message = session()->get('status'))
+    <div class="col-md-12" id="success-notification">
         <div class="alert alert-success fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <i class="fas fa-check faa-pulse animated"></i>
@@ -23,8 +23,8 @@
 @endif
 
 
-@if ($message = Session::get('success'))
-<div class="col-md-12">
+@if ($message = session()->get('success'))
+<div class="col-md-12" id="success-notification">
     <div class="alert alert-success fade in">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <i class="fas fa-check faa-pulse animated"></i>
@@ -32,11 +32,12 @@
         {{ $message }}
     </div>
 </div>
+@include ('partials.confetti-js')
 @endif
 
 
-@if ($message = Session::get('success-unescaped'))
-    <div class="col-md-12">
+@if ($message = session()->get('success-unescaped'))
+    <div class="col-md-12" id="success-notification">
         <div class="alert alert-success fade in">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <i class="fas fa-check faa-pulse animated"></i>
@@ -44,12 +45,13 @@
             {!!  $message !!}
         </div>
     </div>
+    @include ('partials.confetti-js')
 @endif
 
 
-@if ($assets = Session::get('assets'))
+@if ($assets = session()->get('assets'))
     @foreach ($assets as $asset)
-        <div class="col-md-12">
+        <div class="col-md-12" id="multi-error-notification">
             <div class="alert alert-info fade in">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <i class="fas fa-info-circle faa-pulse animated"></i>
@@ -62,9 +64,9 @@
                         <li><b>{{ trans('general.asset_name') }} </b> {{ $asset->model->name }}</li>
                     @endisset
                     <li><b>{{ trans('general.asset_tag') }}</b> {{ $asset->asset_tag }}</li>
-		    @isset ($asset->notes)
-		    <li><b>{{ trans('general.notes') }}</b> {{ $asset->notes }}</li>
-		    @endisset
+                    @isset ($asset->notes)
+                        <li><b>{{ trans('general.notes') }}</b> {{ $asset->notes }}</li>
+                    @endisset
                 </ul>
 
             </div>
@@ -73,9 +75,9 @@
 @endif
 
 
-@if ($consumables = Session::get('consumables'))
+@if ($consumables = session()->get('consumables'))
     @foreach ($consumables as $consumable)
-        <div class="col-md-12">
+        <div class="col-md-12" id="success-notification">
             <div class="alert alert-info fade in">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <i class="fas fa-info-circle faa-pulse animated"></i>
@@ -87,7 +89,7 @@
 @endif
 
 
-@if ($accessories = Session::get('accessories'))
+@if ($accessories = session()->get('accessories'))
     @foreach ($accessories as $accessory)
         <div class="col-md-12">
             <div class="alert alert-info fade in">
@@ -101,7 +103,7 @@
 @endif
 
 
-@if ($message = Session::get('error'))
+@if ($message = session()->get('error'))
 <div class="col-md-12">
     <div class="alert alert alert-danger fade in">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -113,7 +115,7 @@
 @endif
 
 
-@if ($messages = Session::get('error_messages'))
+@if ($messages = session()->get('error_messages'))
 @foreach ($messages as $message)        
 <div class="col-md-12">
     <div class="alert alert alert-danger fade in">
@@ -127,7 +129,7 @@
 @endif
 
 
-@if ($messages = Session::get('bulk_asset_errors'))
+@if ($messages = session()->get('bulk_asset_errors'))
 <div class="col-md-12">
     <div class="alert alert alert-danger fade in">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -145,8 +147,31 @@
 </div>
 @endif
 
+@if ($messages = session()->get('multi_error_messages'))
+    <div class="col-md-12">
+        <div class="alert alert alert-warning fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <i class="fas fa-exclamation-triangle faa-pulse animated"></i>
+            <strong>{{ trans('general.notification_error') }}: </strong>
+            <ul>
+                @foreach(array_splice($messages, 0,3) as $key => $message)
+                    <li>{{ $message }}</li>
+                @endforeach
+            </ul>
+            <details>
+                <summary>{{ trans('general.show_all') }}</summary>
+                <ul>
+                @foreach(array_splice($messages, 3) as $key => $message)
+                  <li>{{ $message }}</li>
+                @endforeach
+                </ul>
+            </details>
+        </div>
+    </div>
+@endif
 
-@if ($message = Session::get('warning'))
+
+@if ($message = session()->get('warning'))
 <div class="col-md-12">
     <div class="alert alert-warning fade in">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -158,7 +183,7 @@
 @endif
 
 
-@if ($message = Session::get('info'))
+@if ($message = session()->get('info'))
 <div class="col-md-12">
     <div class="alert alert-info fade in">
         <button type="button" class="close" data-dismiss="alert">&times;</button>

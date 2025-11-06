@@ -2,14 +2,14 @@
 
 namespace Tests\Unit;
 
+use App\Models\Setting;
+use PHPUnit\Framework\Attributes\Group;
 use App\Models\Ldap;
-use Exception;
-use Tests\Support\InteractsWithSettings;
 use Tests\TestCase;
 
+#[Group('ldap')]
 class LdapTest extends TestCase
 {
-    use InteractsWithSettings;
     use \phpmock\phpunit\PHPMock;
 
     public function testConnect()
@@ -20,7 +20,7 @@ class LdapTest extends TestCase
         $ldap_connect->expects($this->once())->willReturn('hello');
 
         $ldap_set_option = $this->getFunctionMock("App\\Models", "ldap_set_option");
-        $ldap_set_option->expects($this->exactly(3));
+        $ldap_set_option->expects($this->exactly(4));
 
 
         $blah = Ldap::connectToLdap();
@@ -84,7 +84,7 @@ class LdapTest extends TestCase
         $ldap_connect->expects($this->once())->willReturn('hello');
 
         $ldap_set_option = $this->getFunctionMock("App\\Models", "ldap_set_option");
-        $ldap_set_option->expects($this->exactly(3));
+        $ldap_set_option->expects($this->exactly(4));
 
         $this->getFunctionMock("App\\Models", "ldap_bind")->expects($this->once())->willReturn(true);
 
@@ -97,7 +97,7 @@ class LdapTest extends TestCase
                 "count" => 1,
                 0 => [
                     'sn' => 'Surname',
-                    'firstName' => 'FirstName'
+                    'firstname' => 'FirstName'
                 ]
             ]
         );
@@ -114,7 +114,7 @@ class LdapTest extends TestCase
         $ldap_connect->expects($this->once())->willReturn('hello');
 
         $ldap_set_option = $this->getFunctionMock("App\\Models", "ldap_set_option");
-        $ldap_set_option->expects($this->exactly(3));
+        $ldap_set_option->expects($this->exactly(4));
 
         // note - we return FALSE first, to simulate a bad-bind, then TRUE the second time to simulate a successful admin bind
         $this->getFunctionMock("App\\Models", "ldap_bind")->expects($this->exactly(2))->willReturn(false, true);
@@ -135,7 +135,7 @@ class LdapTest extends TestCase
         $ldap_connect->expects($this->once())->willReturn('hello');
 
         $ldap_set_option = $this->getFunctionMock("App\\Models", "ldap_set_option");
-        $ldap_set_option->expects($this->exactly(3));
+        $ldap_set_option->expects($this->exactly(4));
 
         $this->getFunctionMock("App\\Models", "ldap_bind")->expects($this->once())->willReturn(true);
 
@@ -156,7 +156,7 @@ class LdapTest extends TestCase
         $ldap_connect->expects($this->once())->willReturn('hello');
 
         $ldap_set_option = $this->getFunctionMock("App\\Models", "ldap_set_option");
-        $ldap_set_option->expects($this->exactly(3));
+        $ldap_set_option->expects($this->exactly(4));
 
         $this->getFunctionMock("App\\Models", "ldap_bind")->expects($this->once())->willReturn(true);
 
@@ -179,7 +179,7 @@ class LdapTest extends TestCase
         $ldap_connect->expects($this->once())->willReturn('hello');
 
         $ldap_set_option = $this->getFunctionMock("App\\Models", "ldap_set_option");
-        $ldap_set_option->expects($this->exactly(3));
+        $ldap_set_option->expects($this->exactly(4));
 
         $this->getFunctionMock("App\\Models", "ldap_bind")->expects($this->once())->willReturn(true);
 
@@ -205,6 +205,33 @@ class LdapTest extends TestCase
         $results = Ldap::findLdapUsers();
 
         $this->assertEqualsCanonicalizing(["count" => 2], $results);
+    }
+
+    public function testNonexistentTLSFile()
+    {
+        $this->settings->enableLdap()->set(['ldap_client_tls_cert' => 'SAMPLE CERT TEXT']);
+        $certfile = Setting::get_client_side_cert_path();
+        $this->assertStringEqualsFile($certfile, 'SAMPLE CERT TEXT');
+    }
+
+    public function testStaleTLSFile()
+    {
+        file_put_contents(Setting::get_client_side_cert_path(), 'STALE CERT FILE');
+        sleep(1); // FIXME - this is going to slow down tests
+        $this->settings->enableLdap()->set(['ldap_client_tls_cert' => 'SAMPLE CERT TEXT']);
+        $certfile = Setting::get_client_side_cert_path();
+        $this->assertStringEqualsFile($certfile, 'SAMPLE CERT TEXT');
+    }
+
+    public function testFreshTLSFile()
+    {
+        $this->settings->enableLdap()->set(['ldap_client_tls_cert' => 'SAMPLE CERT TEXT']);
+        $client_side_cert_path = Setting::get_client_side_cert_path();
+        file_put_contents($client_side_cert_path, 'WEIRDLY UPDATED CERT FILE');
+        clearstatcache();
+        //the system should respect our cache-file, since the settings haven't been updated
+        $possibly_recached_cert_file = Setting::get_client_side_cert_path(); //this should *NOT* re-cache from the Settings
+        $this->assertStringEqualsFile($possibly_recached_cert_file, 'WEIRDLY UPDATED CERT FILE');
     }
 
 }

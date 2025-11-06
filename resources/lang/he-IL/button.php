@@ -7,6 +7,7 @@ return [
     'checkin_and_delete'  	    => 'Checkin All / Delete User',
     'delete'  	                => 'לִמְחוֹק',
     'edit'    	                => 'לַעֲרוֹך',
+    'clone'    	                => 'שכפל',
     'restore' 	                => 'לשחזר',
     'remove'                    => 'הסר',
     'request'                   => 'בַּקָשָׁה',
@@ -21,4 +22,13 @@ return [
     'add_maintenance'           => 'הוסף לתחזוקה',
     'append'                    => 'הוסף',
     'new'                       => 'חדש',
+    'var' => [
+        'clone'     => 'שכפל :item_type',
+        'edit'      => 'ערוך :item_type',
+        'delete'    => 'מחק :item_type',
+        'restore'   => 'שחזר :item_type',
+        'create'    => 'צור :item_type',
+        'checkout'  => 'נפק :item_type',
+        'checkin'   => 'החזר :item_type',
+    ]
 ];

@@ -19,10 +19,11 @@ return [
     'print_assigned'    => '列印所有分配的',
     'email_assigned'    => '電子郵件所有分配的清單',
     'user_notified'     => '使用者已透過電子郵件接收他們目前分配的項目清單。',
+    'users_notified'    => 'The user has been emailed a list of their currently assigned items.|:count users have been emailed a list of their currently assigned items.',
+    'users_notified_warning' => ':count user has been emailed a list of their currently assigned items, however :no_email users did not have an email address so could not be emailed.|:count users have been emailed a list of their currently assigned items, however :no_email user(s) did not have an email address so could not be emailed.',
     'auto_assign_label' => '自動分配可用軟體授權時包含此使用者',
     'auto_assign_help'  => '自動分配可用軟體授權時跳過此使用者',
     'software_user'     => ':name 借出的軟體',
-    'send_email_help'   => '必須為此使用者提供一個電子郵件地址以傳送他們的憑證。只有在建立使用者時，才能夠傳送電子郵件憑證。密碼儲存在一個單向雜湊中，一旦儲存，就無法再取回。',
     'view_user'         => '檢視使用者： :name',
     'usercsv'           => 'CSV 檔',
     'two_factor_admin_optin_help' => '您當前的管理員設置允許使用雙因素身份驗證。',
@@ -51,4 +52,5 @@ return [
     'next_save_user' => '下一步: 儲存使用者',
     'all_assigned_list_generation' => '產生於：',
     'email_user_creds_on_create' => '在建立時寄送此使用者他們的憑證嗎？',
+    'department_manager' => 'Department Manager',
 ];

@@ -14,13 +14,15 @@ return array(
     'update' => array(
         'error'   => 'Категоријата не беше ажурирана, обидете се повторно',
         'success' => 'Категоријата е успешно ажурирана.',
-        'cannot_change_category_type'   => 'You cannot change the category type once it has been created',
+        'cannot_change_category_type'   => 'Не можете да го смените типот на категорија откако е создадена',
     ),
 
     'delete' => array(
-        'confirm'   => 'Дали сте сигурни дека сакате да ја избришете оваа категорија?',
-        'error'   => 'Имаше проблем со бришење на категоријата. Обидете се повторно.',
-        'success' => 'Категоријата беше успешно избришана.'
+        'confirm'                => 'Дали сте сигурни дека сакате да ја избришете оваа категорија?',
+        'error'                  => 'Имаше проблем со бришење на категоријата. Обидете се повторно.',
+        'success'                => 'Category was deleted successfully.',
+        'bulk_success'           => 'Categories were deleted successfully.',
+        'partial_success'        => 'Category deleted successfully. See additional information below. | :count categories were deleted successfully. See additional information below.',
     )
 
 );

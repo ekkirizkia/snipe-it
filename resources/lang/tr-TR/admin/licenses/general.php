@@ -14,6 +14,7 @@ return array(
     'info'  					=> 'Lisans Bilgisi',
     'license_seats'  			=> 'Lisans Kullanıcıları',
     'seat'  					=> 'Kullanıcı',
+    'seat_count'  				=> 'Hak :count',
     'seats'  					=> 'Kullanıcılar',
     'software_licenses'  		=> 'Yazılım Lisansları',
     'user'  					=> 'Kullanıcı',
@@ -23,12 +24,12 @@ return array(
         [
             'checkin_all'           => [
                 'button'            => 'Tüm koltukları ayır',
-                'modal'             => 'Bu, bir koltukta kontrol işlemini gerçekleştirecektir. | Bu işlem, bu lisans için tüm :checkedout_seats_count koltukları kontrol edecektir.',
+                'modal'             => 'Bu işlem bir lisans hakkını geri alacak. | Bu işlem, bu lisans için atanmış tüm :checkedout_seats_count lisans hakkını geri alacak.',
                 'enabled_tooltip'   => 'Bu lisans için hem kullanıcılardan hem de varlıklardan TÜM lisansları kontrol edin',
                 'disabled_tooltip'  => 'Şu anda teslim alınmış koltuk olmadığından bu devre dışı bırakıldı',
                 'disabled_tooltip_reassignable'  => 'Lisans yeniden atanamadığı için bu devre dışı bırakıldı',
                 'success'           => 'Lisans başarıyla kontrol edildi! | Tüm lisanslar başarıyla kontrol edildi!',
-                'log_msg'           => 'Lisans GUI\'sinde toplu lisans ödemesi yoluyla giriş yapıldı',
+                'log_msg'           => 'Lisans arayüzündeki toplu lisans iade işlemiyle geri alındı',
             ],
 
             'checkout_all'              => [
@@ -45,4 +46,7 @@ return array(
 
             ],
     ],
+
+    'below_threshold' => 'Bu lisans için minimum adet :min_amt olmak üzere yalnızca :remaining_count hak kaldı. Daha fazla lisans hakkı satın almayı düşünebilirsiniz.',
+    'below_threshold_short' => 'Bu ürün, minimum sipariş miktarının altındadır.',
 );

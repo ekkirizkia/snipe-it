@@ -6,14 +6,14 @@ return array(
     'account_not_found'      => 'Tên đăng nhập hoặc mật khẩu không đúng.',
     'account_not_activated'  => 'Tài khoản người dùng này chưa được kích hoạt.',
     'account_suspended'      => 'Tài khoản người dùng này đã bị tạm ngưng.',
-    'account_banned'         => 'Tài khoản người dùng này đã bị cấm.',
-    'throttle'               => 'Quá nhiều lần đăng nhập thất bại. Vui lòng thử lại trong khoảng :minutes phút.',
 
     'two_factor' => array(
         'already_enrolled'      => 'Thiết bị của bạn đã được ghi danh.',
         'success'               => 'Bạn đã đăng nhập thành công.',
         'code_required'         => 'Mã xác thực hai yếu tố là bắt buộc.',
         'invalid_code'          => 'Mã xác thực hai yếu tố chưa đúng.',
+        'enter_two_factor_code' => 'Please enter your two-factor authentication code.',
+        'please_enroll'         => 'Please enroll a device in two-factor authentication.',
     ),
 
     'signin' => array(

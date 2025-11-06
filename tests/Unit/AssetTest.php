@@ -1,17 +1,18 @@
 <?php
 namespace Tests\Unit;
 
+use App\Http\Controllers\Assets\BulkAssetsController;
 use App\Models\Asset;
 use App\Models\AssetModel;
 use App\Models\Category;
+use App\Models\Statuslabel;
+use App\Models\User;
 use Carbon\Carbon;
-use Tests\Support\InteractsWithSettings;
 use Tests\TestCase;
+use App\Models\Setting;
 
 class AssetTest extends TestCase
 {
-    use InteractsWithSettings;
-
     public function testAutoIncrement()
     {
         $this->settings->enableAutoIncrement();
@@ -23,6 +24,7 @@ class AssetTest extends TestCase
         $this->assertModelExists($b);
 
     }
+
     public function testAutoIncrementCollision()
     {
         $this->settings->enableAutoIncrement();
@@ -137,6 +139,38 @@ class AssetTest extends TestCase
         $this->assertEquals($final->asset_tag, $final_result);
     }
 
+    public function testAutoIncrementBIG()
+    {
+        $this->settings->enableAutoIncrement();
+
+        // we have to do this by hand to 'simulate' two web pages being open at the same time
+        $a = Asset::factory()->make(['asset_tag' => Asset::autoincrement_asset()]);
+        $b = Asset::factory()->make(['asset_tag' => 'ABCD' . (PHP_INT_MAX - 1)]);
+
+        $this->assertTrue($a->save());
+        $this->assertTrue($b->save());
+        $matches = [];
+        preg_match('/\d+/', $a->asset_tag, $matches);
+        $this->assertEquals(Setting::getSettings()->next_auto_tag_base, $matches[0] + 1, "Next auto increment number should be the last normally-saved one plus one, but isn't");
+    }
+
+    public function testAutoIncrementAlmostBIG()
+    {
+        // TODO: this looks pretty close to the one above, could we maybe squish them together?
+        $this->settings->enableAutoIncrement();
+
+        // we have to do this by hand to 'simulate' two web pages being open at the same time
+        $a = Asset::factory()->make(['asset_tag' => Asset::autoincrement_asset()]);
+        $b = Asset::factory()->make(['asset_tag' => 'ABCD' . (PHP_INT_MAX - 2)]);
+
+        $this->assertTrue($a->save());
+        $this->assertTrue($b->save());
+        $matches = [];
+        preg_match('/\d+/', $b->asset_tag, $matches); //this is *b*, not *a* - slight difference from above test
+        $this->assertEquals(Setting::getSettings()->next_auto_tag_base, $matches[0] + 1, "Next auto increment number should be the last normally-saved one plus one, but isn't");
+    }
+
+
     public function testWarrantyExpiresAttribute()
     {
 
@@ -157,5 +191,101 @@ class AssetTest extends TestCase
         $this->assertEquals(Carbon::createFromDate(2017, 1, 1)->format('Y-m-d'), $asset->purchase_date->format('Y-m-d'));
         $this->assertEquals(Carbon::createFromDate(2019, 1, 1)->format('Y-m-d'), $asset->warranty_expires->format('Y-m-d'));
 
+    }
+
+    public function testAssignedTypeWithoutAssignTo()
+    {
+        $user = User::factory()->create();
+        $asset = Asset::factory()->create([
+            'assigned_to' => $user->id
+        ]);
+        $this->assertModelMissing($asset);
+    }
+
+    public function testGetImageUrlMethod()
+    {
+        $urlBase = config('filesystems.disks.public.url');
+
+        $category = Category::factory()->create(['image' => 'category-image.jpg']);
+        $model = AssetModel::factory()->for($category)->create(['image' => 'asset-model-image.jpg']);
+        $asset = Asset::factory()->for($model, 'model')->create(['image' => 'asset-image.jpg']);
+
+        $this->assertEquals(
+            "{$urlBase}/assets/asset-image.jpg",
+            $asset->getImageUrl()
+        );
+
+        $asset->update(['image' => null]);
+
+        $this->assertEquals(
+            "{$urlBase}/models/asset-model-image.jpg",
+            $asset->refresh()->getImageUrl()
+        );
+
+        $model->update(['image' => null]);
+
+        $this->assertEquals(
+            "{$urlBase}/categories/category-image.jpg",
+            $asset->refresh()->getImageUrl()
+        );
+
+        $category->image = null;
+        $category->save();
+
+        $this->assertFalse($asset->refresh()->getImageUrl());
+
+        // handles case where model does not exist
+        $asset->model_id = 9999999;
+        $asset->forceSave();
+
+        $this->assertFalse($asset->refresh()->getImageUrl());
+    }
+    public function testUndeployableStatusReturnsFalseifAssetIsDeployable()
+    {
+        $assets = Asset::factory()->count(3)->create();
+        $asset_ids = $assets->pluck('id')->toArray();
+
+        $bulk_assets = new BulkAssetsController();
+
+        $result = $bulk_assets->hasUndeployableStatus($asset_ids);
+
+        $this->assertFalse($result);
+    }
+    public function testUndeployableStatusReturnsTrueandTagsIfAssetIsUnDeployable()
+    {
+        $deployable = Asset::factory()->create();
+        $undeployableStatus = Statuslabel::factory()->create(['deployable' => 0]);
+        $undeployable = Asset::factory()->create(
+            [
+                'status_id' => $undeployableStatus->id
+            ]);
+
+        $bulk_assets = new BulkAssetsController();
+
+        $result = $bulk_assets->hasUndeployableStatus([$deployable->id, $undeployable->id]);
+
+        $this->assertIsArray($result);
+        $this->assertTrue($result['status']);
+        $this->assertEquals($undeployable->id, $result['tags'][0]['id']);
+        $this->assertEquals($undeployable->asset_tag, $result['tags'][0]['asset_tag']);
+    }
+
+    public function testUndeployableStatusCheckFiltersOutUndeployableIds()
+    {
+        $deployable = Asset::factory()->create();
+        $undeployableStatus = Statuslabel::factory()->create(['deployable' => 0]);
+        $undeployable = Asset::factory()->create(
+            [
+                'status_id' => $undeployableStatus->id
+            ]);
+
+        $bulk_assets = new BulkAssetsController();
+
+        $result = $bulk_assets->hasUndeployableStatus([$deployable->id, $undeployable->id]);
+
+        $undeployableIds = array_column($result['tags'], 'id');
+        $filtered = array_diff([$deployable->id, $undeployable->id], $undeployableIds);
+
+        $this->assertEquals([$deployable->id], array_values($filtered));
     }
 }

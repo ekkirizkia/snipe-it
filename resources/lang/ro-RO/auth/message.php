@@ -6,14 +6,14 @@ return array(
     'account_not_found'      => 'Numele de utilizator sau parola este incorecta.',
     'account_not_activated'  => 'Acest utilizator nu a fost activat.',
     'account_suspended'      => 'Acest utilizator este suspendat.',
-    'account_banned'         => 'Acest utilizator este banat.',
-    'throttle'               => 'Prea multe încercări de conectare nereușite. Vă rugăm să încercați din nou în :minute minute.',
 
     'two_factor' => array(
         'already_enrolled'      => 'Dispozitivul dumneavoastră este deja înscris.',
         'success'               => 'V-ati logat cu succes.',
         'code_required'         => 'Codul doi factori este necesar.',
         'invalid_code'          => 'Codul doi factori este invalid.',
+        'enter_two_factor_code' => 'Please enter your two-factor authentication code.',
+        'please_enroll'         => 'Please enroll a device in two-factor authentication.',
     ),
 
     'signin' => array(

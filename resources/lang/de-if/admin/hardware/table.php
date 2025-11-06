@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Asset Tag',
     'asset_model'       => 'Modell',
+    'assigned_to'   => 'Zugewiesen an',
     'book_value'  	=> 'Aktueller Wert',
     'change' 		=> 'Eingang/Ausgang',
     'checkout_date' => 'Herausgabedatum',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Geräte-Bild',
     'days_without_acceptance' => 'Tage ohne Akzeptierung',
     'monthly_depreciation' => 'Monatliche Abschreibung',
-    'assigned_to'    => 'Zugewiesen an',
     'requesting_user' => 'Benutzer anfordern',
     'requested_date' => 'Anfragedatum',
     'changed'       => 'Geändert',

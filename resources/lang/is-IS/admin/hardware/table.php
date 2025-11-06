@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Eignamerking',
     'asset_model'       => 'Tegund',
+    'assigned_to'   => 'Úthlutað til',
     'book_value'  	=> 'Núvirði',
     'change' 		=> 'Inn/Út',
     'checkout_date' => 'Ráðstöfunardagsetning',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Búnaðar mynd',
     'days_without_acceptance' => 'Days Without Acceptance',
     'monthly_depreciation' => 'Mánaðarlegar afskriftir',
-    'assigned_to'    => 'Úthlutað til',
     'requesting_user' => 'Requesting User',
     'requested_date' => 'Requested Date',
     'changed'       => 'Breytt',

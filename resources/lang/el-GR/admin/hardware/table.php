@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Ετικέτα πόρων',
     'asset_model'       => 'Μοντέλο',
+    'assigned_to'   => 'Ανατέθηκε στον',
     'book_value'  	=> 'Τρέχουσα Τιμή',
     'change' 		=> 'Εισερχόμενα/Εξερχόμενα',
     'checkout_date' => 'Ημερομηνία αποχώρησης',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Φωτογραφία συσκευής',
     'days_without_acceptance' => 'Ημέρες χωρίς αποδοχή',
     'monthly_depreciation' => 'Μηνιαία Απόσβεση',
-    'assigned_to'    => 'Ανατέθηκε στον',
     'requesting_user' => 'Αίτηση Χρήστη',
     'requested_date' => 'Ημερομηνία Που Ζητήθηκε',
     'changed'       => 'Άλλαξε',

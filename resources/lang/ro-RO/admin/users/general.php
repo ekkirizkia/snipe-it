@@ -19,10 +19,11 @@ return [
     'print_assigned'    => 'Tipărește toate activele atribuite',
     'email_assigned'    => 'Lista de e-mail a tuturor atribuite',
     'user_notified'     => 'Utilizatorul a primit prin e-mail o listă cu articolele alocate în prezent.',
+    'users_notified'    => 'The user has been emailed a list of their currently assigned items.|:count users have been emailed a list of their currently assigned items.',
+    'users_notified_warning' => ':count user has been emailed a list of their currently assigned items, however :no_email users did not have an email address so could not be emailed.|:count users have been emailed a list of their currently assigned items, however :no_email user(s) did not have an email address so could not be emailed.',
     'auto_assign_label' => 'Include acest utilizator la atribuirea automată a licențelor eligibile',
     'auto_assign_help'  => 'Sari peste acest utilizator în atribuirea automată a licențelor',
     'software_user'     => 'Software predat catre :name',
-    'send_email_help'   => 'Trebuie să furnizați o adresă de e-mail pentru ca acest utilizator să îi trimită acreditările. Trimiterea de acreditări poate fi efectuată numai la crearea utilizatorului. Parolele sunt stocate într-un singur fel și nu pot fi recuperate după ce au fost salvate.',
     'view_user'         => 'Vezi utilizator :name',
     'usercsv'           => 'Fișier CSV',
     'two_factor_admin_optin_help' => 'Setările dvs. actuale de administrare permit executarea selectivă a autentificării cu două factori.',
@@ -51,4 +52,5 @@ return [
     'next_save_user' => 'Următorul: Salvează Utilizatorul',
     'all_assigned_list_generation' => 'Generat pe:',
     'email_user_creds_on_create' => 'Trimite prin e-mail acest utilizator acreditările lor?',
+    'department_manager' => 'Department Manager',
 ];

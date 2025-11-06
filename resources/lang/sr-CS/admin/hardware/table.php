@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'Oznaka imovine',
     'asset_model'       => 'Model',
+    'assigned_to'   => 'Zadužen',
     'book_value'  	=> 'Trenutna vrednost',
     'change' 		=> 'U/I',
     'checkout_date' => 'Datum odjave',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'Slika uređaja',
     'days_without_acceptance' => 'Days Without Acceptance',
     'monthly_depreciation' => 'Mesečna amortizacija',
-    'assigned_to'    => 'Zadužen',
     'requesting_user' => 'Zahtevalac',
     'requested_date' => 'Datum zahteva',
     'changed'       => 'Izmenjeno',

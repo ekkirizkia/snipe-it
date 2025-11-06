@@ -4,6 +4,7 @@ return [
 
     'asset_tag'   	=> 'ترميز الأصل',
     'asset_model'       => 'الموديل',
+    'assigned_to'   => 'تعيين إلى',
     'book_value'  	=> 'القيمة الحالية',
     'change' 		=> 'ادخال \\ اخراج',
     'checkout_date' => 'تاريخ الاخراج',
@@ -24,7 +25,6 @@ return [
     'image'		    => 'صورة الجهاز',
     'days_without_acceptance' => 'أيام بدون قبول',
     'monthly_depreciation' => 'الإهلاك الشهري',
-    'assigned_to'    => 'تعيين إلى',
     'requesting_user' => 'طلب المستخدم',
     'requested_date' => 'تاريخ الطلب',
     'changed'       => 'تغيرت',

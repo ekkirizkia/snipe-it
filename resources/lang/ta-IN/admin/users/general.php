@@ -19,10 +19,11 @@ return [
     'print_assigned'    => 'ஒப்படைக்கப்பட்ட அனைத்தையும் அச்சிடு',
     'email_assigned'    => 'Email List of All Assigned',
     'user_notified'     => 'User has been emailed a list of their currently assigned items.',
+    'users_notified'    => 'The user has been emailed a list of their currently assigned items.|:count users have been emailed a list of their currently assigned items.',
+    'users_notified_warning' => ':count user has been emailed a list of their currently assigned items, however :no_email users did not have an email address so could not be emailed.|:count users have been emailed a list of their currently assigned items, however :no_email user(s) did not have an email address so could not be emailed.',
     'auto_assign_label' => 'Include this user when auto-assigning eligible licenses',
     'auto_assign_help'  => 'Skip this user in auto assignment of licenses',
     'software_user'     => 'மென்பொருள் சரிபார்க்கப்பட்டது: பெயர்',
-    'send_email_help'   => 'You must provide an email address for this user to send them credentials. Emailing credentials can only be done on user creation. Passwords are stored in a one-way hash and cannot be retrieved once saved.',
     'view_user'         => 'பயனர் காண்க: பெயர்',
     'usercsv'           => 'CSV கோப்பு',
     'two_factor_admin_optin_help' => 'உங்கள் தற்போதைய நிர்வாக அமைப்புகள் இரண்டு காரணி அங்கீகரிப்பின் தேர்ந்தெடுக்கப்பட்ட செயல்பாட்டை அனுமதிக்கின்றன.',
@@ -51,4 +52,5 @@ return [
     'next_save_user' => 'Next: Save User',
     'all_assigned_list_generation' => 'Generated on:',
     'email_user_creds_on_create' => 'Email this user their credentials?',
+    'department_manager' => 'Department Manager',
 ];

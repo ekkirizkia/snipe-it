@@ -6,14 +6,14 @@ return array(
     'account_not_found'      => 'He hē te ingoa kaiwhakamahi, kupuhipa rānei.',
     'account_not_activated'  => 'Kāore tēnei pūkete kaiwhakamahi i te whakahohea.',
     'account_suspended'      => 'Kua tohua tenei pūkete kaiwhakamahi.',
-    'account_banned'         => 'Ka whakatakahia tenei pūkete kaiwhakamahi.',
-    'throttle'               => 'Too many failed login attempts. Please try again in :minutes minutes.',
 
     'two_factor' => array(
         'already_enrolled'      => 'Your device is already enrolled.',
         'success'               => 'Kua uru koe ki roto.',
         'code_required'         => 'Two-factor code is required.',
         'invalid_code'          => 'Two-factor code is invalid.',
+        'enter_two_factor_code' => 'Please enter your two-factor authentication code.',
+        'please_enroll'         => 'Please enroll a device in two-factor authentication.',
     ),
 
     'signin' => array(

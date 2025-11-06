@@ -21,13 +21,19 @@ trait CustomTestMacros
 
         TestResponse::macro(
             'assertResponseContainsInRows',
-            function (Model $model, string $property = 'name') use ($guardAgainstNullProperty) {
-                $guardAgainstNullProperty($model, $property);
+            function (iterable|Model $models, string $property = 'name') use ($guardAgainstNullProperty) {
+                if ($models instanceof Model) {
+                    $models = [$models];
+                }
 
-                Assert::assertTrue(
-                    collect($this['rows'])->pluck($property)->contains(e($model->{$property})),
-                    "Response did not contain the expected value: {$model->{$property}}"
-                );
+                foreach ($models as $model) {
+                    $guardAgainstNullProperty($model, $property);
+
+                    Assert::assertTrue(
+                        collect($this['rows'])->pluck($property)->contains(e($model->{$property})),
+                        "Response did not contain the expected value: {$model->{$property}}"
+                    );
+                }
 
                 return $this;
             }
@@ -83,6 +89,61 @@ trait CustomTestMacros
                     $this['status'],
                     "Response status message was not {$message}"
                 );
+
+                return $this;
+            }
+        );
+
+        TestResponse::macro(
+            'assertMessagesAre',
+            function (string $message) {
+                Assert::assertEquals(
+                    $message,
+                    $this['messages'],
+                    "Response messages was not {$message}"
+                );
+
+                return $this;
+            }
+        );
+
+        TestResponse::macro(
+            'assertMessagesContains',
+            function (array|string $keys) {
+                Assert::assertArrayHasKey('messages', $this, 'Response did not contain any messages');
+
+                if (is_string($keys)) {
+                    $keys = [$keys];
+                }
+
+                foreach ($keys as $key) {
+                    Assert::assertArrayHasKey(
+                        $key,
+                        $this['messages'],
+                        "Response messages did not contain the key: {$key}"
+                    );
+                }
+
+                return $this;
+            }
+        );
+
+        TestResponse::macro(
+            'assertPayloadContains',
+            function (array|string $keys) {
+                Assert::assertArrayHasKey('payload', $this, 'Response did not contain a payload');
+
+                if (is_string($keys)) {
+                    $keys = [$keys];
+                }
+
+                foreach ($keys as $key) {
+                    Assert::assertArrayHasKey(
+                        $key,
+                        $this['payload'],
+                        "Response messages did not contain the key: {$key}"
+                    );
+                }
 
                 return $this;
             }

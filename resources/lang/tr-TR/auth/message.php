@@ -6,14 +6,14 @@ return array(
     'account_not_found'      => 'Kullanıcı adı veya şifresi yanlış.',
     'account_not_activated'  => 'Hesabınız aktif edilmemiş.',
     'account_suspended'      => 'Hesabınız durdurulmuş.',
-    'account_banned'         => 'Hesabınız engellenmiş.',
-    'throttle'               => 'Çok fazla başarısız oturum açma girişimi. Lütfen :dakika dakika sonra tekrar deneyin.',
 
     'two_factor' => array(
         'already_enrolled'      => 'Cihazınız zaten kayıtlı.',
         'success'               => 'Başarıyla giriş yaptınız.',
         'code_required'         => 'İki faktörlü kod gereklidir.',
         'invalid_code'          => 'İki faktörlü kod geçersiz.',
+        'enter_two_factor_code' => 'Please enter your two-factor authentication code.',
+        'please_enroll'         => 'Please enroll a device in two-factor authentication.',
     ),
 
     'signin' => array(

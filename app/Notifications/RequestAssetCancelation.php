@@ -7,6 +7,7 @@ use App\Models\Setting;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
 class RequestAssetCancelation extends Notification
 {
@@ -58,7 +59,7 @@ class RequestAssetCancelation extends Notification
         $notifyBy = [];
 
         if (Setting::getSettings()->webhook_endpoint != '') {
-            \Log::debug('use webhook');
+            Log::debug('use webhook');
             $notifyBy[] = 'slack';
         }
 
@@ -78,7 +79,7 @@ class RequestAssetCancelation extends Notification
 
         $fields = [
             'QTY' => $qty,
-            'Canceled By' => '<'.$target->present()->viewUrl().'|'.$target->present()->fullName().'>',
+            'Canceled By' => '<'.$target->present()->viewUrl().'|'.$target->display_name.'>',
         ];
 
         if (($this->expected_checkin) && ($this->expected_checkin != '')) {
@@ -90,7 +91,7 @@ class RequestAssetCancelation extends Notification
             ->from($botname)
             ->to($channel)
             ->attachment(function ($attachment) use ($item, $note, $fields) {
-                $attachment->title(htmlspecialchars_decode($item->present()->name), $item->present()->viewUrl())
+                $attachment->title(htmlspecialchars_decode($item->display_name), $item->present()->viewUrl())
                     ->fields($fields)
                     ->content($note);
             });

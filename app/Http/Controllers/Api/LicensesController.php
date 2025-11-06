@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
-use App\Http\Transformers\LicenseSeatsTransformer;
 use App\Http\Transformers\LicensesTransformer;
 use App\Http\Transformers\SelectlistTransformer;
-use App\Models\Company;
 use App\Models\License;
-use App\Models\LicenseSeat;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\JsonResponse;
 
 class LicensesController extends Controller
 {
@@ -21,16 +20,24 @@ class LicensesController extends Controller
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @since [v4.0]
      *
-     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request) : JsonResponse | array
     {
         $this->authorize('view', License::class);
 
-        $licenses = License::with('company', 'manufacturer', 'supplier','category')->withCount('freeSeats as free_seats_count');
+        $licenses = License::with('company', 'manufacturer', 'supplier','category', 'adminuser')->withCount('freeSeats as free_seats_count');
+        $settings = Setting::getSettings();
+
+        if ($request->input('status')=='inactive') {
+            $licenses->ExpiredLicenses();
+        } elseif ($request->input('status')=='expiring') {
+            $licenses->ExpiringLicenses($settings->alert_interval);
+        } else {
+            $licenses->ActiveLicenses();
+        }
 
         if ($request->filled('company_id')) {
-            $licenses->where('company_id', '=', $request->input('company_id'));
+            $licenses->where('licenses.company_id', '=', $request->input('company_id'));
         }
 
         if ($request->filled('name')) {
@@ -73,6 +80,9 @@ class LicensesController extends Controller
             $licenses->where('depreciation_id', '=', $request->input('depreciation_id'));
         }
 
+        if ($request->filled('created_by')) {
+            $licenses->where('created_by', '=', $request->input('created_by'));
+        }
 
         if (($request->filled('maintained')) && ($request->input('maintained')=='true')) {
             $licenses->where('maintained','=',1);
@@ -93,6 +103,8 @@ class LicensesController extends Controller
         if ($request->input('deleted')=='true') {
             $licenses->onlyTrashed();
         }
+
+
 
         // Make sure the offset and limit are actually integers and do not exceed system limits
         $offset = ($request->input('offset') > $licenses->count()) ? $licenses->count() : app('api_offset_value');
@@ -116,6 +128,9 @@ class LicensesController extends Controller
             case 'company':
                 $licenses = $licenses->leftJoin('companies', 'licenses.company_id', '=', 'companies.id')->orderBy('companies.name', $order);
                 break;
+            case 'created_by':
+                $licenses = $licenses->OrderByCreatedBy($order);
+                break;
             default:
                 $allowed_columns =
                     [
@@ -136,6 +151,7 @@ class LicensesController extends Controller
                         'seats',
                         'termination_date',
                         'depreciation_id',
+                        'min_amt',
                     ];
                 $sort = in_array($request->input('sort'), $allowed_columns) ? e($request->input('sort')) : 'created_at';
                 $licenses = $licenses->orderBy($sort, $order);
@@ -155,11 +171,9 @@ class LicensesController extends Controller
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @since [v4.0]
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) : JsonResponse
     {
-        //
         $this->authorize('create', License::class);
         $license = new License;
         $license->fill($request->all());
@@ -176,12 +190,11 @@ class LicensesController extends Controller
      *
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) : JsonResponse | array
     {
         $this->authorize('view', License::class);
-        $license = License::withCount('freeSeats')->findOrFail($id);
+        $license = License::withCount('freeSeats as free_seats_count')->findOrFail($id);
         $license = $license->load('assignedusers', 'licenseSeats.user', 'licenseSeats.asset');
 
         return (new LicensesTransformer)->transformLicense($license);
@@ -194,9 +207,8 @@ class LicensesController extends Controller
      * @since [v4.0]
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) : JsonResponse | array
     {
         //
         $this->authorize('update', License::class);
@@ -217,11 +229,9 @@ class LicensesController extends Controller
      * @author [A. Gianotto] [<snipe@snipe.net>]
      * @since [v4.0]
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) : JsonResponse
     {
-        //
         $license = License::findOrFail($id);
         $this->authorize('delete', $license);
 
@@ -247,7 +257,7 @@ class LicensesController extends Controller
      *
      * @see \App\Http\Transformers\SelectlistTransformer
      */
-    public function selectlist(Request $request)
+    public function selectlist(Request $request) : array
     {
         $licenses = License::select([
             'licenses.id',

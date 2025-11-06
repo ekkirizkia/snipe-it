@@ -14,13 +14,15 @@ return array(
     'update' => array(
         'error'   => 'Kategorija ni bila posodobljena, poskusite znova',
         'success' => 'Kategorija uspešno posodobljena.',
-        'cannot_change_category_type'   => 'You cannot change the category type once it has been created',
+        'cannot_change_category_type'   => 'Ne moreš spremeniti tipa kategorije po tem ko je bila kreirana',
     ),
 
     'delete' => array(
-        'confirm'   => 'Ali ste prepričani, da želite izbrisati to kategorijo?',
-        'error'   => 'Prišlo je do težave z izbrisom kategorije. Prosim poskusite ponovno.',
-        'success' => 'Kategorija je bila uspešno izbrisana.'
+        'confirm'                => 'Ali ste prepričani, da želite izbrisati to kategorijo?',
+        'error'                  => 'Prišlo je do težave z izbrisom kategorije. Prosim poskusite ponovno.',
+        'success'                => 'Category was deleted successfully.',
+        'bulk_success'           => 'Categories were deleted successfully.',
+        'partial_success'        => 'Category deleted successfully. See additional information below. | :count categories were deleted successfully. See additional information below.',
     )
 
 );

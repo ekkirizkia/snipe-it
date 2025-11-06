@@ -39,7 +39,7 @@
               <tr>
                 <td><input type="checkbox" name="ids[]" value="{{ $asset->id }}" checked="checked"></td>
                 <td>{{ $asset->id }}</td>
-                <td>{{ $asset->present()->name() }}</td>
+                <td>{{ $asset->display_name }}</td>
                 <td>
                   @if ($asset->location)
                   {{ $asset->location->name }}
@@ -53,7 +53,7 @@
 
         <div class="box-footer text-right">
           <a class="btn btn-link" href="{{ URL::previous() }}" method="post" enctype="multipart/form-data">{{ trans('button.cancel') }}</a>
-          <button type="submit" class="btn btn-success" id="submit-button"><i class="fas fa-check icon-white" aria-hidden="true"></i> {{ trans('button.restore') }}</button>
+          <button type="submit" class="btn btn-success" id="submit-button"><x-icon type="checkmark" /> {{ trans('button.restore') }}</button>
         </div><!-- /.box-footer -->
       </div><!-- /.box -->
     </form>

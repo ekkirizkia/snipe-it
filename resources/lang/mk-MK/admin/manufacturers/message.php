@@ -2,7 +2,7 @@
 
 return array(
 
-    'support_url_help' => 'Variables <code>{LOCALE}</code>, <code>{SERIAL}</code>, <code>{MODEL_NUMBER}</code>, and <code>{MODEL_NAME}</code> may be used in your URL to have those values auto-populate when viewing assets - for example https://support.apple.com/{LOCALE}/{SERIAL}.',
+    'support_url_help' => 'Променливите <code>{LOCALE}</code>, <code>{SERIAL}</code>, <code>{MODEL_NUMBER}</code>, и <code>{MODEL_NAME}</code> можат да бидат користени во вашето URL за да имате автоматско пополнување кога ги гледате средствата - на пример https://checkcoverage.apple.com/{LOCALE}/{SERIAL}.',
     'does_not_exist' => 'Производителот не постои.',
     'assoc_users'	 => 'Овој производител моментално е поврзан со барем еден модел и не може да се избрише. Ве молиме да ги ажурирате моделите за да не го користат овој производител и обидете се повторно. ',
 
@@ -22,9 +22,11 @@ return array(
     ),
 
     'delete' => array(
-        'confirm'   => 'Дали сте сигурни дека сакате да го избришете овој производител?',
+        'confirm' => 'Дали сте сигурни дека сакате да го избришете овој производител?',
         'error'   => 'Имаше проблем со бришење на производителот. Обидете се повторно.',
-        'success' => 'Производителот е избришан.'
+        'success'                => 'Manufacturer deleted successfully.',
+        'bulk_success'           => 'Manufacturers deleted successfully.',
+        'partial_success'        => 'Manufacturer deleted successfully. See additional information below. | :count manufacturers were deleted successfully. See additional information below.',
     )
 
 );

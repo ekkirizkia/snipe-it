@@ -7,6 +7,7 @@ return [
     'checkin_and_delete'  	    => 'Tümünü Kontrol Et / Kullanıcıyı Sil',
     'delete'  	                => 'Sil',
     'edit'    	                => 'Düzenle',
+    'clone'    	                => 'Klon',
     'restore' 	                => 'Geri yükle',
     'remove'                    => 'Kaldır',
     'request'                   => 'İstek',
@@ -21,4 +22,13 @@ return [
     'add_maintenance'           => 'Bakım ekle',
     'append'                    => 'Ekle',
     'new'                       => 'Yeni',
+    'var' => [
+        'clone'     => 'Klon :item_type',
+        'edit'      => 'Düzenle :item_type',
+        'delete'    => 'Sil :item_type',
+        'restore'   => 'Geri yükle :item_type',
+        'create'    => 'Yeni Oluştur :item_type',
+        'checkout'  => ':item_type teslim al',
+        'checkin'   => ':item_type teslim et',
+    ]
 ];

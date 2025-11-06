@@ -26,7 +26,11 @@ return array(
         'error'   		=> 'A tartozékot nem sikerült kiadni, kérem, próbálja újra!',
         'success' 		=> 'A tartozék sikeresen kiadva.',
         'unavailable'   => 'A tartozékot nem lehet kiadni. Ellenőrizd a kiadható mennyiséget',
-        'user_does_not_exist' => 'Érvénytelen felhasználó. Kérem, próbálja újra!'
+        'user_does_not_exist' => 'Érvénytelen felhasználó. Kérem, próbálja újra!',
+         'checkout_qty' => array(
+            'lte'  => 'Jelenleg csak egy elérhető tartozék van ebből a típusból, Ön pedig :checkout_qty darabot próbál kiadni. Kérjük, módosítsa a kiadni kívánt mennyiséget, vagy növelje a tartozék készletét, majd próbálja újra.|Jelenleg :number_currently_remaining darab elérhető tartozék van ebből a típusból, Ön pedig :checkout_qty darabot próbál kiadni. Kérjük, módosítsa a kiadni kívánt mennyiséget, vagy növelje a tartozék készletét, majd próbálja újra.',
+            ),
+           
     ),
 
     'checkin' => array(

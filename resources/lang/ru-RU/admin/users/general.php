@@ -19,10 +19,11 @@ return [
     'print_assigned'    => 'Печать всех назначенных',
     'email_assigned'    => 'Список адресов электронной почты всех назначенных',
     'user_notified'     => 'Пользователю был отправлен по электронной почте список назначенных им в данный момент элементов.',
+    'users_notified'    => 'The user has been emailed a list of their currently assigned items.|:count users have been emailed a list of their currently assigned items.',
+    'users_notified_warning' => ':count user has been emailed a list of their currently assigned items, however :no_email users did not have an email address so could not be emailed.|:count users have been emailed a list of their currently assigned items, however :no_email user(s) did not have an email address so could not be emailed.',
     'auto_assign_label' => 'Включить этого пользователя при автоматическом назначении лицензий',
     'auto_assign_help'  => 'Пропустить этого пользователя в автоматическом назначении лицензий',
     'software_user'     => 'Программное обеспечение привязано к :name',
-    'send_email_help'   => 'Вы должны указать адрес электронной почты для этого пользователя, чтобы отправить им учетные данные. Электронная почта может быть выполнена только при создании пользователя. Пароли хранятся в одностороннем хэше и не могут быть восстановлены после сохранения.',
     'view_user'         => 'Показать пользователя :name',
     'usercsv'           => 'CSV файл',
     'two_factor_admin_optin_help' => 'Ваши текущие параметры администрирования разрешают избирательное применение двухфакторной аутентификации.  ',
@@ -51,4 +52,5 @@ return [
     'next_save_user' => 'Далее: Сохранить пользователя',
     'all_assigned_list_generation' => 'Создано:',
     'email_user_creds_on_create' => 'Отправить этому пользователю его данные по почте?',
+    'department_manager' => 'Department Manager',
 ];

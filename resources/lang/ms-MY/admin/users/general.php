@@ -19,10 +19,11 @@ return [
     'print_assigned'    => 'Cetak Semua yang Diperuntukkan',
     'email_assigned'    => 'Email List of All Assigned',
     'user_notified'     => 'User has been emailed a list of their currently assigned items.',
+    'users_notified'    => 'The user has been emailed a list of their currently assigned items.|:count users have been emailed a list of their currently assigned items.',
+    'users_notified_warning' => ':count user has been emailed a list of their currently assigned items, however :no_email users did not have an email address so could not be emailed.|:count users have been emailed a list of their currently assigned items, however :no_email user(s) did not have an email address so could not be emailed.',
     'auto_assign_label' => 'Include this user when auto-assigning eligible licenses',
     'auto_assign_help'  => 'Skip this user in auto assignment of licenses',
     'software_user'     => 'Perisian diagihkan kepada :nama',
-    'send_email_help'   => 'Anda mesti memberikan alamat e-mel untuk pengguna ini menghantar bukti kelayakan kepada mereka. Bukti kelayakan e-mel hanya boleh dilakukan pada penciptaan pengguna. Kata laluan disimpan dalam cincang sehala dan tidak boleh diambil semula setelah disimpan.',
     'view_user'         => 'Papar Pengguna :nama',
     'usercsv'           => 'Fail CSV',
     'two_factor_admin_optin_help' => 'Tetapan admin semasa anda membenarkan penguatkuasaan selektif pengesahan dua faktor.',
@@ -51,4 +52,5 @@ return [
     'next_save_user' => 'Next: Save User',
     'all_assigned_list_generation' => 'Generated on:',
     'email_user_creds_on_create' => 'Email this user their credentials?',
+    'department_manager' => 'Department Manager',
 ];

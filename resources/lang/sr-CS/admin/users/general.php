@@ -19,10 +19,11 @@ return [
     'print_assigned'    => 'Print All Assigned',
     'email_assigned'    => 'Pošalji spisak svega zaduženog',
     'user_notified'     => 'Korisniku je poslata poruka sa spiskom svega zaduženog na njegovo ime.',
+    'users_notified'    => 'Korisniku je poslata e-poruka sa spiskom trenutno zaduženih stavki.|:count korisnicima je poslata e-poruka sa spiskom trenutno zaduženih stavki.',
+    'users_notified_warning' => ':count korisnicima je poslata e-poruka sa spiskom trenutno zaduženih stavki, međutim :no_email korisnika nemaju adresu e-pošte pa im poruka nije mogla biti poslata.|:count korisnicima je poslata e-poruka sa spiskom trenutno zaduženih stavki, međutim :no_email korisnika nemaju adresu e-pošte pa im poruka nije mogla biti poslata.',
     'auto_assign_label' => 'Uvrsti ovog korisnika u automatskom dodeljivanju kvalifikovanih licenci',
     'auto_assign_help'  => 'Preskoči ovog korisnika u automatskoj dodeli licenci',
     'software_user'     => 'Software Checked out to :name',
-    'send_email_help'   => 'Morate da navedete adresu e-pošte za ovog korisnika da biste mu poslali akreditive. Slanje akreditiva e-poštom se može izvršiti samo prilikom kreiranja korisnika. Lozinke se čuvaju u jednosmernom hešu i ne mogu se preuzeti kada su sačuvane.',
     'view_user'         => 'Prikaži korisnika :name',
     'usercsv'           => 'CSV file',
     'two_factor_admin_optin_help' => 'Your current admin settings allow selective enforcement of two-factor authentication.  ',
@@ -51,4 +52,5 @@ return [
     'next_save_user' => 'Sledeće: Sačuvaj korisnika',
     'all_assigned_list_generation' => 'Generisano:',
     'email_user_creds_on_create' => 'Poslati ovom korisniku e-poruku sa njegovim kredencijalima?',
+    'department_manager' => 'Rukovodilac odeljenja',
 ];

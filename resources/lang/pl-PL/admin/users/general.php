@@ -19,10 +19,11 @@ return [
     'print_assigned'    => 'Drukuj wszystko przypisane',
     'email_assigned'    => 'Wyślij mailem wszystkie przypisane',
     'user_notified'     => 'Wysłano do użytkowania listę przypisanych zasobów.',
+    'users_notified'    => 'The user has been emailed a list of their currently assigned items.|:count users have been emailed a list of their currently assigned items.',
+    'users_notified_warning' => ':count user has been emailed a list of their currently assigned items, however :no_email users did not have an email address so could not be emailed.|:count users have been emailed a list of their currently assigned items, however :no_email user(s) did not have an email address so could not be emailed.',
     'auto_assign_label' => 'Uwzględnij tego użytkownika podczas automatycznego przypisywania kwalifikujących się licencji',
     'auto_assign_help'  => 'Pomiń tego użytkownika w automatycznym przypisaniu licencji',
     'software_user'     => 'Oprogramowanie przypisane do :name',
-    'send_email_help'   => 'Musisz podać adres e-mail dla tego użytkownika, aby wysłać mu poświadczenia. Wysłanie danych logowania jest możliwe tylko w czasie tworzenia użytkownika. Hasła są zaszyfrowane i nie można ich odzyskać po zapisaniu.',
     'view_user'         => 'Zobacz Użytkownika :name',
     'usercsv'           => 'plik CSV',
     'two_factor_admin_optin_help' => 'Bieżące ustawienia administracyjne pozwalają na wybiórcze rejestrowanie uwierzytelniania dwuskładnikowego.  ',
@@ -51,4 +52,5 @@ return [
     'next_save_user' => 'Następnie: Zapisz użytkownika',
     'all_assigned_list_generation' => 'Data wygenerowania:',
     'email_user_creds_on_create' => 'Czy wysłać temu użytkownikowi dane logowania mailem?',
+    'department_manager' => 'Menedżer działu',
 ];

@@ -55,7 +55,7 @@
 
   &.btn-primary, .btn-primary:link {
     background-color: var(--button-default);
-    border-color: var(--button-default);
+    border-color: #000000;
     color: #545454;
   }
 
@@ -104,8 +104,10 @@ a {
   color: #fff;
 }
 
-
-
+#sort tr.cansort{
+  background-color:var(--back-main);
+  color:var(--text-main);
+}
 
 :root {
   --background: #222;
@@ -287,10 +289,6 @@ input[type=text], input[type=search] {
   background-color: var(--back-sub);
   color: var(--text-main);
 }
-.input-group, .input-group-addon {
-  background-color: var(--back-sub)!important;
-  color: var(--text-main);
-}
 #licensesTable>tbody>tr>td>nobr>a>i.fa {
   color: var(--text-main);
 }
@@ -355,8 +353,11 @@ input[type=text], input[type=search] {
 .skin-yellow-dark .main-header .navbar .dropdown-menu li a {
   color: var(--header);
 }
+.skin-yellow-dark .main-header .navbar .dropdown-menu li a:hover {
+  background-color: #000000;
+}
 tr th div.th-inner {
-  color:var(--text-main);
+  color: #FFFFFF;
 }
 .tab-content, .tab-pane {
   background-color: var(--back-main);
@@ -377,6 +378,18 @@ tr th div.th-inner {
 
 .box-header.with-border {
   border-bottom: #000;
+}
+#customFieldsTable a[href*='/models'] {
+  background-color: var(--back-sub-alt);
+  color: var(--link);
+}
+#customFieldsTable a[href*='/models']:hover {
+  background-color: var(--text-sub);
+  color: var(--button-hover);
+}
+#customFieldsTable a[href*='/models']:visited {
+  background-color: var(--background);
+  color: var(--visited-link);
 }
 
 .row-striped {
@@ -415,4 +428,7 @@ tr th div.th-inner {
 
 .search-highlight, .search-highlight:hover {
   background-color: #e9d15b;
+}
+.table > tbody > tr.warning > td{
+  background-color:var(--back-sub);
 }
