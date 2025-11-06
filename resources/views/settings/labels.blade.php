@@ -274,6 +274,17 @@
                                     </div>
                                 </div>
 
+                                <!-- qr value -->
+                                <div class="form-group{{ $errors->has('use_asset_tag_as_qr') ? ' has-error' : '' }}">
+                                    <div class="col-md-3 text-right">
+                                        {{ Form::label('use_asset_tag_as_qr', 'QR Code Value') }}
+                                    </div>
+                                    <div class="col-md-9">
+                                        {!! Form::qr_value('use_asset_tag_as_qr', old('use_asset_tag_as_qr', $setting->use_asset_tag_as_qr), 'select2 col-md-4') !!}
+                                        {!! $errors->first('use_asset_tag_as_qr', '<span class="alert-msg" aria-hidden="true"><i class="fas fa-times" aria-hidden="true"></i> :message</span>') !!}
+                                    </div>
+                                </div>
+
                                 <!-- Nuke barcode cache -->
                                 <div class="form-group">
                                     <div class="col-md-3 text-right">

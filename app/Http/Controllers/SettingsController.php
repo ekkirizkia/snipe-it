@@ -837,6 +837,7 @@ class SettingsController extends Controller
         $setting->labels_pagewidth = $request->input('labels_pagewidth');
         $setting->labels_pageheight = $request->input('labels_pageheight');
         $setting->labels_display_company_name = $request->input('labels_display_company_name', '0');
+        $setting->use_asset_tag_as_qr = $request->input('use_asset_tag_as_qr', '0');
 
         //Barcodes
         $setting->qr_code = $request->input('qr_code', '0');
