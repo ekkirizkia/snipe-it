@@ -62,30 +62,37 @@ class LoginController extends Controller
 
     public function showLoginForm(Request $request)
     {
-        $this->loginViaRemoteUser($request);
-        $this->loginViaSaml($request);
         if (Auth::check()) {
             return redirect()->intended('/');
         }
+        $UrlServer = config('sso.server_addr');
+        return redirect()->to($UrlServer . '?' . http_build_query([
+            'redirectUrl' => route('sso_callback'),
+        ]));
+        // $this->loginViaRemoteUser($request);
+        // $this->loginViaSaml($request);
+        // if (Auth::check()) {
+        //     return redirect()->intended('/');
+        // }
 
-        if (!$request->session()->has('loggedout')) {
-            // If the environment is set to ALWAYS require SAML, go straight to the SAML route.
-            // We don't need to check other settings, as this should override those.
-            if (config('app.require_saml')) {
-                return redirect()->route('saml.login');
-            }
+        // if (!$request->session()->has('loggedout')) {
+        //     // If the environment is set to ALWAYS require SAML, go straight to the SAML route.
+        //     // We don't need to check other settings, as this should override those.
+        //     if (config('app.require_saml')) {
+        //         return redirect()->route('saml.login');
+        //     }
 
 
-            if ($this->saml->isEnabled() && Setting::getSettings()->saml_forcelogin == '1' && ! ($request->has('nosaml') || $request->session()->has('error'))) {
-                return redirect()->route('saml.login');
-            }
-        }
+        //     if ($this->saml->isEnabled() && Setting::getSettings()->saml_forcelogin == '1' && ! ($request->has('nosaml') || $request->session()->has('error'))) {
+        //         return redirect()->route('saml.login');
+        //     }
+        // }
 
-        if (Setting::getSettings()->login_common_disabled == '1') {
-            return view('errors.403');
-        }
+        // if (Setting::getSettings()->login_common_disabled == '1') {
+        //     return view('errors.403');
+        // }
 
-        return view('auth.login');
+        // return view('auth.login');
     }
 
     /**

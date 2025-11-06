@@ -32,9 +32,12 @@ use App\Http\Controllers\StatuslabelsController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\ViewAssetsController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\SSOController;
 use App\Livewire\Importer;
 use App\Models\ReportTemplate;
 use Tabuna\Breadcrumbs\Trail;
+
+Route::get('/callback_sso', [SSOController::class, 'callback_sso'])->name('sso_callback');
 
 Route::group(['middleware' => 'auth'], function () {
     /*
