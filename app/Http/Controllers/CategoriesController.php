@@ -117,10 +117,6 @@ class CategoriesController extends Controller
     public function update(ImageUploadRequest $request, Category $category) : RedirectResponse
     {
         $this->authorize('update', Category::class);
-        if (is_null($category = Category::find($categoryId))) {
-            // Redirect to the categories management page
-            return redirect()->to('admin/categories')->with('error', trans('admin/categories/message.does_not_exist'));
-        }
 
         // Update the category data
         $category->code = $request->input('code');
