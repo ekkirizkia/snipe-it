@@ -296,6 +296,18 @@
 
 
 
+        $(document).on('keydown', 'input[name^=serials]', function(event){
+            if(event.keyCode == 13) {
+                event.preventDefault();
+                $(add_button).trigger('click');
+                var currentIndex = $('input[name^=serials]').index(this);
+                var nextSerial = $('input[name^=serials]').eq(currentIndex + 1);
+                if (nextSerial.length) {
+                    nextSerial.focus();
+                }
+                return false;
+            }
+        });
         $(add_button).click(function(e){ //on add input button click
 
             e.preventDefault();
