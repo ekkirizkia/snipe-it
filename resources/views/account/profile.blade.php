@@ -7,6 +7,23 @@
 
 {{-- Account page content --}}
 @section('content')
+<link rel="stylesheet" href="{{ url('css/signature-pad.min.css') }}">
+<style>
+    .m-signature-pad--body {
+        border-style: dashed;
+        border-color: grey;
+        border-width: thick;
+        padding-top: 0px;
+    }
+
+
+    .m-signature-pad {
+        box-shadow: none;
+        background-color: inherit;
+        border: none;
+
+    }
+  </style>
 
 <div class="row">
   <div class="col-md-9">
@@ -184,16 +201,83 @@
         </div>
         @endif
 
+        <!-- Siganture -->
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="signature">Signature</label>
+          <div class="col-md-4">
+            @if ($user->signature_filename)
+              <a href="{{ \Storage::disk('public')->url('signatures/' . $user->signature_filename) }}" class="thumbnail">
+                <img src="{{ \Storage::disk('public')->url('signatures/' . $user->signature_filename) }}" alt="">
+              </a>
+            @else
+              Belum ada tanda tangan
+            @endif
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div style="margin: 20px">
+            <h3 style="padding-top: 20px">Your Signature</h3>
+            <div id="signature-pad" class="m-signature-pad">
+                <div class="m-signature-pad--body col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                    <canvas style="width:100%;"></canvas>
+                    <input type="hidden" name="signature_output" id="signature_output">
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 text-left">
+                    <button type="button" class="btn btn-sm btn-default clear" data-action="clear" id="clear_button">{{trans('general.clear_signature')}}</button>
+                </div>
+            </div>
+          </div>
+        </div>
 
 
       </div> <!-- .box-body -->
       <div class="text-right box-footer">
         <a class="btn btn-link" href="{{ URL::previous() }}">{{ trans('button.cancel') }}</a>
-        <button type="submit" class="btn btn-primary"><x-icon type="checkmark" /> {{ trans('general.save') }}</button>
+        <button id="submit-button" type="submit" class="btn btn-primary"><x-icon type="checkmark" /> {{ trans('general.save') }}</button>
       </div>
     </div> <!-- .box-default -->
     </form>
   </div> <!-- .col-md-9 -->
 </div> <!-- .row-->
 
+@stop
+
+@section('moar_scripts')
+    <script nonce="{{ csrf_token() }}">
+      var wrapper = document.getElementById("signature-pad"),
+            clearButton = wrapper.querySelector("[data-action=clear]"),
+            saveButton = wrapper.querySelector("[data-action=save]"),
+            canvas = wrapper.querySelector("canvas"),
+            signaturePad;
+
+        signaturePad = new SignaturePad(canvas);
+
+        // Adjust canvas coordinate space taking into account pixel ratio,
+        // to make it look crisp on smaller screens.
+        // https://github.com/szimek/signature_pad#handling-high-dpi-screens
+        // (This also causes canvas to be cleared.)
+        function resizeCanvas() {
+            // When zoomed out to less than 100%, for some very strange reason,
+            // some browsers report devicePixelRatio as less than 1
+            // and only part of the canvas is cleared then.
+            var ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+            signaturePad.clear(); // otherwise isEmpty() might return incorrect value
+        }
+        window.onresize = resizeCanvas;
+        resizeCanvas();
+
+        $('#clear_button').on("click", function (event) {
+            signaturePad.clear();
+        });
+
+        $('#submit-button').on("click", function (event) {
+            if (!signaturePad.isEmpty()) {   
+              $('#signature_output').val(signaturePad.toDataURL());
+            }
+        });
+    </script>
 @stop

@@ -86,7 +86,7 @@
   "require-dev": {
     "barryvdh/laravel-debugbar": "^3.16",
     "larastan/larastan": "^2.9",
-    "laravel/telescope": "^5.11",
+    "laravel/telescope": "^5.15",
     "mockery/mockery": "^1.4",
     "nunomaduro/phpinsights": "^2.11",
     "php-mock/php-mock-phpunit": "^2.10",

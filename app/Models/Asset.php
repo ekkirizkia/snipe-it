@@ -459,11 +459,12 @@ class Asset extends Depreciable
      * @param  Carbon $expected_checkin
      * @param  string $note
      * @param  null   $name
+     * @param  null   $bulk_id
      * @return bool
      * @since  [v3.0]
      * @return bool
      */
-    public function checkOut($target, $admin = null, $checkout_at = null, $expected_checkin = null, $note = null, $name = null, $location = null)
+    public function checkOut($target, $admin = null, $checkout_at = null, $expected_checkin = null, $note = null, $name = null, $location = null, $bulk_id = null)
     {
         if (! $target) {
             return false;
@@ -506,6 +507,9 @@ class Asset extends Depreciable
                 $checkedOutBy = $admin;
             } else {
                 $checkedOutBy = auth()->user();
+            }
+            if ($bulk_id) {
+                $this->bulk_id = $bulk_id;
             }
             event(new CheckoutableCheckedOut($this, $target, $checkedOutBy, $note, $originalValues));
 

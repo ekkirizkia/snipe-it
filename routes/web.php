@@ -38,6 +38,7 @@ use App\Models\ReportTemplate;
 use Tabuna\Breadcrumbs\Trail;
 
 Route::get('/callback_sso', [SSOController::class, 'callback_sso'])->name('sso_callback');
+Route::get('/pdf', [SSOController::class, 'pdf'])->name('sso_pdf');
 
 Route::group(['middleware' => 'auth'], function () {
     /*
@@ -65,9 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
     )->where('labelName', '.*')->name('labels.show');
 
     Route::get('/test-email', function () {
-        $mailable = new \App\Mail\CheckoutComponentMail(
-
-        );
+        $mailable = new \App\Mail\CheckoutComponentMail();
         return $mailable->render(); // dumps HTML
     });
     /*
@@ -440,8 +439,17 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], function () {
         $trail->parent('account.accept')
             ->push(trans('general.accept_item'), route('account.accept.item', $id)));
 
+    Route::get('accept_bulk/{id}', [Account\AcceptanceController::class, 'create_bulk'])
+        ->name('account.accept.item_bulk')
+        ->breadcrumbs(fn (Trail $trail, $id) =>
+        $trail->parent('account.accept')
+            ->push(trans('general.accept_item'), route('account.accept.item_bulk', $id)));
+
     Route::post('accept/{id}', [Account\AcceptanceController::class, 'store'])
         ->name('account.store-acceptance');
+
+    Route::post('accept_bulk/{id}', [Account\AcceptanceController::class, 'storeBulk'])
+        ->name('account.store-acceptance-bulk');
 
     Route::get(
         'print',

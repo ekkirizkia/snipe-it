@@ -92,7 +92,7 @@
                       {{ trans('admin/hardware/form.checkout_date') }}
                   </label>
                   <div class="col-md-8">
-                      <div class="input-group date col-md-5" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-end-date="0d" data-date-clear-btn="true">
+                      <div class="input-group date col-md-5" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-end-date="0d" data-date-clear-btn="true" data-date-today-highlight="true">
                           <input type="text" class="form-control" placeholder="{{ trans('general.select_date') }}" name="checkout_at" id="checkout_at" value="{{ old('checkout_at') }}">
                           <span class="input-group-addon"><x-icon type="calendar" /></span>
                       </div>
@@ -106,7 +106,7 @@
                       {{ trans('admin/hardware/form.expected_checkin') }}
                   </label>
                   <div class="col-md-8">
-                      <div class="input-group date col-md-5" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-start-date="0d" data-date-clear-btn="true">
+                      <div class="input-group date col-md-5" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-start-date="0d" data-date-clear-btn="true" data-date-today-highlight="true">
                           <input type="text" class="form-control" placeholder="{{ trans('general.select_date') }}" name="expected_checkin" id="expected_checkin" value="{{ old('expected_checkin') }}">
                           <span class="input-group-addon"><x-icon type="calendar" /></span>
                       </div>

@@ -58,6 +58,27 @@ class ProfileController extends Controller
         $user->enable_sounds = $request->input('enable_sounds', false);
         $user->enable_confetti = $request->input('enable_confetti', false);
 
+        /**
+         * Check for the signature directory
+         */
+        if (! Storage::disk('public')->exists('signatures')) {
+            Storage::disk('public')->makeDirectory('signatures', 775);
+        }
+
+        if ($request->filled('signature_output')) {
+            if ($user->signature_filename) {
+                try {
+                    Storage::disk('public')->delete('signatures/' . $user->signature_filename);
+                }finally{}
+            }
+            $sig_filename = 'user-' . $user->id . '-' . date('Y-m-d-his') . '.png';
+            $data_uri = $request->input('signature_output');
+            $encoded_image = explode(',', $data_uri);
+            $decoded_image = base64_decode($encoded_image[1]);
+            Storage::disk('public')->put('signatures/' . $sig_filename, (string)$decoded_image);
+            $user->signature_filename = $sig_filename;
+        }
+
         if (! config('app.lock_passwords')) {
             $user->locale = $request->input('locale');
         }

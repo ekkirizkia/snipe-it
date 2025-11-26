@@ -6,6 +6,7 @@ use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use TCPDF;
 
 class SSOController extends Controller
 {
@@ -124,5 +125,15 @@ class SSOController extends Controller
         $URL = config('sso.server_api') . 'sso_get_login_list';
         $result = $this->ConnectAPI($URL, 'get', null, config('sso.server_token'));
         return $result;
+    }
+
+    public function pdf()
+    {
+        $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetPrintHeader(false);
+        $pdf->SetPrintFooter(false);
+        $pdf->AddPage();
+        $pdf->writeHTML(view('pdf.eula')->render(), false);
+        return $pdf->Output('Test.pdf', 'I');
     }
 }

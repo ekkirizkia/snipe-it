@@ -259,6 +259,7 @@ class CheckoutableListener
         }
 
         $acceptance = new CheckoutAcceptance;
+        $acceptance->bulk_id = isset($event->checkoutable->bulk_id) ? $event->checkoutable->bulk_id:null;
         $acceptance->checkoutable()->associate($event->checkoutable);
         $acceptance->assignedTo()->associate($event->checkedOutTo);
 

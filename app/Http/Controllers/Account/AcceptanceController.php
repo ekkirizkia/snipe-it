@@ -33,8 +33,9 @@ class AcceptanceController extends Controller
      */
     public function index() : View
     {
-        $acceptances = CheckoutAcceptance::forUser(auth()->user())->pending()->get();
-        return view('account/accept.index', compact('acceptances'));
+        $acceptances = CheckoutAcceptance::forUser(auth()->user())->pending()->whereNull('bulk_id')->get();
+        $bulkAcceptances = (CheckoutAcceptance::forUser(auth()->user())->pending()->whereNotNull('bulk_id')->get())->groupBy('bulk_id')->all();
+        return view('account/accept.index', compact('acceptances', 'bulkAcceptances'));
     }
 
     /**
@@ -64,6 +65,36 @@ class AcceptanceController extends Controller
         }
 
         return view('account/accept.create', compact('acceptance'));
+    }
+
+    /**
+     * Shows a form to either accept or decline the checkout acceptance
+     *
+     * @param  int  $id
+     */
+    public function create_bulk($id) : View | RedirectResponse
+    {
+        $acceptances = CheckoutAcceptance::with(['checkoutable', 'assignedTo'])->where('bulk_id', $id)->get();
+
+        foreach ($acceptances as $acceptance) {
+            if (is_null($acceptance)) {
+                return redirect()->route('account.accept')->with('error', trans('admin/hardware/message.does_not_exist'));
+            }
+    
+            if (! $acceptance->isPending()) {
+                return redirect()->route('account.accept')->with('error', trans('admin/users/message.error.asset_already_accepted'));
+            }
+    
+            if (! $acceptance->isCheckedOutTo(auth()->user())) {
+                return redirect()->route('account.accept')->with('error', trans('admin/users/message.error.incorrect_user_accepted'));
+            }
+    
+            if (! Company::isCurrentUserHasAccess($acceptance->checkoutable)) {
+                return redirect()->route('account.accept')->with('error', trans('general.error_user_company'));
+            }
+        }
+
+        return view('account/accept.create_bulk', compact('acceptances'));
     }
 
     /**
@@ -234,6 +265,150 @@ class AcceptanceController extends Controller
                 Log::warning($e);
             }
         }
+        return redirect()->to('account/accept')->with('success', $return_msg);
+
+    }
+
+    /**
+     * Stores the accept/decline of the checkout acceptance on bulk
+     *
+     * @param  Request $request
+     * @param  int  $id
+     */
+    public function storeBulk(Request $request, $id)
+    {
+        $acceptances = CheckoutAcceptance::with(['checkoutable', 'assignedTo'])->where('bulk_id', $id)->get();
+        $assigned_user = User::find($acceptances->first()->assigned_to_id);
+        $settings = Setting::getSettings();
+        $sig_filename='';
+
+        foreach ($acceptances as $acceptance) {
+            if (is_null($acceptance)) {
+                return redirect()->route('account.accept')->with('error', trans('admin/hardware/message.does_not_exist'));
+            }
+    
+            if (! $acceptance->isPending()) {
+                return redirect()->route('account.accept')->with('error', trans('admin/users/message.error.asset_already_accepted'));
+            }
+    
+            if (! $acceptance->isCheckedOutTo(auth()->user())) {
+                return redirect()->route('account.accept')->with('error', trans('admin/users/message.error.incorrect_user_accepted'));
+            }
+    
+            if (! Company::isCurrentUserHasAccess($acceptance->checkoutable)) {
+                return redirect()->route('account.accept')->with('error', trans('general.insufficient_permissions'));
+            }
+    
+            if (! $request->filled('asset_acceptance')) {
+                return redirect()->back()->with('error', trans('admin/users/message.error.accept_or_decline'));
+            }
+        }
+
+
+        /**
+         * Check for the signature directory
+         */
+        if (! Storage::exists('private_uploads/signatures')) {
+            Storage::makeDirectory('private_uploads/signatures', 775);
+        }
+
+        /**
+         * Check for the eula-pdfs directory
+         */
+        if (! Storage::exists('private_uploads/eula-pdfs')) {
+            Storage::makeDirectory('private_uploads/eula-pdfs', 775);
+        }
+
+        // If signatures are required, make sure we have one
+        if (Setting::getSettings()->require_accept_signature == '1') {
+
+            // The item was accepted, check for a signature
+            if ($request->filled('signature_output')) {
+                $sig_filename = 'siglog-' . Str::uuid() . '-' . date('Y-m-d-his') . '.png';
+                $data_uri = $request->input('signature_output');
+                $encoded_image = explode(',', $data_uri);
+                $decoded_image = base64_decode($encoded_image[1]);
+                Storage::put('private_uploads/signatures/' . $sig_filename, (string)$decoded_image);
+
+                // No image data is present, kick them back.
+                // This mostly only applies to users on super-duper crapola browsers *cough* IE *cough*
+            } else {
+                return redirect()->back()->with('error', trans('general.shitty_browser'));
+            }
+        }
+
+
+        if ($request->input('asset_acceptance') == 'accepted') {
+
+
+            $pdf_filename = 'accepted-bulk-'.$acceptance->bulk_id.'-'.'-eula-'.date('Y-m-d-h-i-s').'.pdf';
+
+            // Generate the PDF content
+            $pdf_content = CheckoutAcceptance::generateAcceptancePdfBulk($acceptances, (($sig_filename && array_key_exists('1', $encoded_image))) ? $encoded_image[1] : null);
+            Storage::put('private_uploads/eula-pdfs/' .$pdf_filename, $pdf_content);
+
+            // Log the acceptance
+            foreach ($acceptances as $acceptance) {
+                $item = $acceptance->checkoutable_type::find($acceptance->checkoutable_id);
+                $acceptance->accept($sig_filename, $item->getEula(), $pdf_filename, $request->input('note'));
+            }
+
+            // Send the PDF to the signing user
+            // if (($request->input('send_copy') == '1') && ($assigned_user->email !='')) {
+
+            //     // Add the attachment for the signing user into the $data array
+            //     $data['file'] = $pdf_filename;
+            //     try {
+            //         $assigned_user->notify((new AcceptanceAssetAcceptedToUserNotification($data))->locale($assigned_user->locale));
+            //     } catch (\Exception $e) {
+            //         Log::warning($e);
+            //     }
+            // }
+            // try {
+            //     $acceptance->notify((new AcceptanceAssetAcceptedNotification($data))->locale(Setting::getSettings()->locale));
+            // } catch (\Exception $e) {
+            //     Log::warning($e);
+            // }
+            event(new CheckoutAccepted($acceptance));
+
+            $return_msg = trans('admin/users/message.accepted');
+
+        // Item was declined
+        } else {
+
+            foreach ($acceptances as $acceptance) {
+                for ($i = 0; $i < ($acceptance->qty ?? 1); $i++) {
+                    $acceptance->decline($sig_filename, $request->input('note'));
+                }
+                // $acceptance->notify(new AcceptanceAssetDeclinedNotification($data));
+                Log::debug('New event acceptance.');
+                event(new CheckoutDeclined($acceptance));
+            }
+
+
+            $return_msg = trans('admin/users/message.declined');
+        }
+
+
+        // Send an email notification if one is requested
+        // if ($acceptance->alert_on_response_id) {
+        //     try {
+        //         $recipient = User::find($acceptance->alert_on_response_id);
+
+        //         if ($recipient) {
+        //             Log::debug('Attempting to send email acceptance.');
+        //             Mail::to($recipient)->send(new CheckoutAcceptanceResponseMail(
+        //                 $acceptance,
+        //                 $recipient,
+        //                 $request->input('asset_acceptance') === 'accepted',
+        //             ));
+        //             Log::debug('Send email notification sucess on checkout acceptance response.');
+        //         }
+        //     } catch (Exception $e) {
+        //         Log::error($e->getMessage());
+        //         Log::warning($e);
+        //     }
+        // }
         return redirect()->to('account/accept')->with('success', $return_msg);
 
     }

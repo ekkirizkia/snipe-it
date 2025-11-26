@@ -253,4 +253,17 @@ class CheckoutAcceptance extends Model
 
 
     }
+
+    public static function generateAcceptancePdfBulk($acceptances, $signature)
+    {
+        $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+        $pdf->SetPrintHeader(false);
+        $pdf->SetPrintFooter(false);
+        $pdf->AddPage();
+        $pdf->writeHTML(view('pdf.eula', [
+            'acceptances' => $acceptances,
+            'signature' => $signature,
+        ])->render(), false);
+        return $pdf->Output('accept-bulk-asset-'.uniqid().'.pdf', 'S');
+    }
 }

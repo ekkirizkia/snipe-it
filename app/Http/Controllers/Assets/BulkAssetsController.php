@@ -702,8 +702,10 @@ class BulkAssetsController extends Controller
                 $expected_checkin = $request->get('expected_checkin');
             }
 
+            
             $errors = [];
             DB::transaction(function () use ($target, $admin, $checkout_at, $expected_checkin, &$errors, $assets, $request) { //NOTE: $errors is passsed by reference!
+                $bulk_id = count($assets) > 1 ? uuid_create():null;
                 foreach ($assets as $asset) {
                     $this->authorize('checkout', $asset);
 
@@ -712,7 +714,7 @@ class BulkAssetsController extends Controller
                         $asset->status_id = $request->get('status_id');
                     }
 
-                    $checkout_success = $asset->checkOut($target, $admin, $checkout_at, $expected_checkin, e($request->get('note')), $asset->name, null);
+                    $checkout_success = $asset->checkOut($target, $admin, $checkout_at, $expected_checkin, e($request->get('note')), $asset->name, null, $bulk_id);
 
                     //TODO - I think this logic is duplicated in the checkOut method?
                     if ($target->location_id != '') {
