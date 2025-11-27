@@ -41,6 +41,7 @@ Route::get('/callback_sso', [SSOController::class, 'callback_sso'])->name('sso_c
 Route::get('/pdf', [SSOController::class, 'pdf'])->name('sso_pdf');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::impersonate();
     /*
     * Companies
     */

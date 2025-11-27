@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('checkout_acceptances', function (Blueprint $table) {
-            $table->foreignId('bulk_id')->nullable();
+        Schema::table('bulk_assets', function (Blueprint $table) {
+            $table->string('name')->nullable();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('checkout_acceptances', function (Blueprint $table) {
-            $table->dropColumn('bulk_id');
+        Schema::table('bulk_assets', function (Blueprint $table) {
+            //
         });
     }
 };

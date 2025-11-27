@@ -74,6 +74,12 @@
 
 
 @include ('partials.bootstrap-table')
-
+<script>
+    window.impersonateFormatter = (value, row) => {
+        let link = '{{ route('impersonate', ['id' => 'N/A']) }}';
+        link = link.replace('N/A', value);
+        return '<a class="btn btn-sm btn-primary" href="'+link+'">Log As</a>';
+    }
+</script>
 
 @stop

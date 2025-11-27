@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('checkout_acceptances', function (Blueprint $table) {
-            $table->foreignId('bulk_id')->nullable();
+        Schema::create('bulk_assets', function (Blueprint $table) {
+            $table->id()->primary();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('checkout_acceptances', function (Blueprint $table) {
-            $table->dropColumn('bulk_id');
-        });
+        Schema::dropIfExists('bulk_assets');
     }
 };

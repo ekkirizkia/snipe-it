@@ -315,6 +315,7 @@ return [
         Eduardokum\LaravelMailAutoEmbed\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Elibyy\TCPDF\ServiceProvider::class,
+        Lab404\Impersonate\ImpersonateServiceProvider::class,
 
 
         /*

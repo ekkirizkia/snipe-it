@@ -1,638 +1,687 @@
 
-  GET|HEAD        / ............................................................................... home › DashboardController@index
-  GET|HEAD        _debugbar/assets/javascript .......................... debugbar.assets.js › Barryvdh\Debugbar › AssetController@js
-  GET|HEAD        _debugbar/assets/stylesheets ....................... debugbar.assets.css › Barryvdh\Debugbar › AssetController@css
-  DELETE          _debugbar/cache/{key}/{tags?} ................. debugbar.cache.delete › Barryvdh\Debugbar › CacheController@delete
-  GET|HEAD        _debugbar/clockwork/{id} ................ debugbar.clockwork › Barryvdh\Debugbar › OpenHandlerController@clockwork
-  GET|HEAD        _debugbar/open ........................... debugbar.openhandler › Barryvdh\Debugbar › OpenHandlerController@handle
-  POST            _debugbar/queries/explain ............... debugbar.queries.explain › Barryvdh\Debugbar › QueriesController@explain
-  GET|HEAD        _debugbar/telescope/{id} ....................... debugbar.telescope › Barryvdh\Debugbar › TelescopeController@show
-  POST            _ignition/execute-solution ......... ignition.executeSolution › Spatie\LaravelIgnition › ExecuteSolutionController
-  GET|HEAD        _ignition/health-check ..................... ignition.healthCheck › Spatie\LaravelIgnition › HealthCheckController
-  POST            _ignition/update-config .................. ignition.updateConfig › Spatie\LaravelIgnition › UpdateConfigController
-  GET|HEAD        accessories .......................................... accessories.index › Accessories\AccessoriesController@index
-  POST            accessories .......................................... accessories.store › Accessories\AccessoriesController@store
-  GET|HEAD        accessories/create ................................. accessories.create › Accessories\AccessoriesController@create
-  GET|HEAD        accessories/{accessoryID}/checkin/{backto?} accessories.checkin.show › Accessories\AccessoryCheckinController@cre…
-  POST            accessories/{accessoryID}/checkin/{backto?} accessories.checkin.store › Accessories\AccessoryCheckinController@st…
-  GET|HEAD        accessories/{accessoryID}/checkout .... accessories.checkout.show › Accessories\AccessoryCheckoutController@create
-  POST            accessories/{accessoryId}/clone ..................................... Accessories\AccessoriesController@postCreate
-  GET|HEAD        accessories/{accessory} ................................ accessories.show › Accessories\AccessoriesController@show
-  PUT|PATCH       accessories/{accessory} ............................ accessories.update › Accessories\AccessoriesController@update
-  DELETE          accessories/{accessory} .......................... accessories.destroy › Accessories\AccessoriesController@destroy
-  POST            accessories/{accessory}/checkout ...... accessories.checkout.store › Accessories\AccessoryCheckoutController@store
-  GET|HEAD        accessories/{accessory}/clone ..................... clone/accessories › Accessories\AccessoriesController@getClone
-  GET|HEAD        accessories/{accessory}/edit ........................... accessories.edit › Accessories\AccessoriesController@edit
-  GET|HEAD        account .................................................................. account › ViewAssetsController@getIndex
-  GET|HEAD        account/accept ............................................... account.accept › Account\AcceptanceController@index
-  GET|HEAD        account/accept/{id} .................................... account.accept.item › Account\AcceptanceController@create
-  POST            account/accept/{id} ................................ account.store-acceptance › Account\AcceptanceController@store
-  GET|HEAD        account/api ..................................................................... user.api › ProfileController@api
-  GET|HEAD        account/display-sig/{filename} ............................. profile.signature.view › ProfileController@displaySig
-  POST            account/email ............................................ profile.email_assets › ProfileController@emailAssetList
-  GET|HEAD        account/menu .................................................. account.menuprefs › ProfileController@getMenuState
-  GET|HEAD        account/password ............................................. account.password.index › ProfileController@password
-  POST            account/password ........................................ account.password.update › ProfileController@passwordSave
-  GET|HEAD        account/print ................................................... profile.print › ProfileController@printInventory
-  GET|HEAD        account/profile ............................................................. profile › ProfileController@getIndex
-  POST            account/profile ..................................................... profile.update › ProfileController@postIndex
-  POST            account/request-asset/{asset} ................................. account.request-asset › ViewAssetsController@store
-  POST            account/request-asset/{asset}/cancel ................. account.request-asset.cancel › ViewAssetsController@destroy
-  POST            account/request/{itemType}/{itemId}/{cancel_by_admin?}/{requestingUser?} account/request-item › ViewAssetsControl…
-  GET|HEAD        account/requestable-assets ......................... requestable-assets › ViewAssetsController@getRequestableIndex
-  GET|HEAD        account/requested .................................... account.requested › ViewAssetsController@getRequestedAssets
-  GET|HEAD        account/stored-eula-file/{filename} ................ profile.storedeula.download › ProfileController@getStoredEula
-  GET|HEAD        account/view-assets .................................................. view-assets › ViewAssetsController@getIndex
-  GET|HEAD        admin .................................................................. settings.index › SettingsController@index
-  GET|HEAD        admin/asset_tags ..................................... settings.asset_tags.index › SettingsController@getAssetTags
-  POST            admin/asset_tags ..................................... settings.asset_tags.save › SettingsController@postAssetTags
-  POST            admin/backups ........................................... settings.backups.create › SettingsController@postBackups
-  GET|HEAD        admin/backups ............................................. settings.backups.index › SettingsController@getBackups
-  DELETE          admin/backups/delete/{filename} ......................... settings.backups.destroy › SettingsController@deleteFile
-  GET|HEAD        admin/backups/download/{filename} .................... settings.backups.download › SettingsController@downloadFile
-  GET|HEAD        admin/backups/restore/{filename?} ................................................................................ 
-  POST            admin/backups/restore/{filename} ....................... settings.backups.restore › SettingsController@postRestore
-  POST            admin/backups/upload ............................... settings.backups.upload › SettingsController@postUploadBackup
-  GET|HEAD        admin/branding .......................................... settings.branding.index › SettingsController@getBranding
-  POST            admin/branding .......................................... settings.branding.save › SettingsController@postBranding
-  GET|HEAD        admin/google ................................... settings.google.index › SettingsController@getGoogleLoginSettings
-  POST            admin/google ................................... settings.google.save › SettingsController@postGoogleLoginSettings
-  GET|HEAD        admin/groups ............................................................... groups.index › GroupsController@index
-  POST            admin/groups ............................................................... groups.store › GroupsController@store
-  GET|HEAD        admin/groups/create ...................................................... groups.create › GroupsController@create
-  GET|HEAD        admin/groups/{group} ......................................................... groups.show › GroupsController@show
-  PUT|PATCH       admin/groups/{group} ..................................................... groups.update › GroupsController@update
-  DELETE          admin/groups/{group} ................................................... groups.destroy › GroupsController@destroy
-  GET|HEAD        admin/groups/{group}/edit .................................................... groups.edit › GroupsController@edit
-  GET|HEAD        admin/labels ................................................ settings.labels.index › SettingsController@getLabels
-  POST            admin/labels ................................................ settings.labels.save › SettingsController@postLabels
-  GET|HEAD        admin/ldap .............................................. settings.ldap.index › SettingsController@getLdapSettings
-  POST            admin/ldap .............................................. settings.ldap.save › SettingsController@postLdapSettings
-  GET|HEAD        admin/localization .............................. settings.localization.index › SettingsController@getLocalization
-  POST            admin/localization .............................. settings.localization.save › SettingsController@postLocalization
-  GET|HEAD        admin/login-attempts ................................. settings.logins.index › SettingsController@getLoginAttempts
-  GET|HEAD        admin/notifications ......................................... settings.alerts.index › SettingsController@getAlerts
-  POST            admin/notifications ......................................... settings.alerts.save › SettingsController@postAlerts
-  GET|HEAD        admin/oauth ........................................................ settings.oauth.index › SettingsController@api
-  GET|HEAD        admin/phpinfo ............................................. settings.phpinfo.index › SettingsController@getPhpInfo
-  GET|HEAD        admin/purge ................................................... settings.purge.index › SettingsController@getPurge
-  POST            admin/purge ................................................... settings.purge.save › SettingsController@postPurge
-  GET|HEAD        admin/saml .............................................. settings.saml.index › SettingsController@getSamlSettings
-  POST            admin/saml .............................................. settings.saml.save › SettingsController@postSamlSettings
-  GET|HEAD        admin/security .......................................... settings.security.index › SettingsController@getSecurity
-  POST            admin/security .......................................... settings.security.save › SettingsController@postSecurity
-  GET|HEAD        admin/settings ........................................... settings.general.index › SettingsController@getSettings
-  POST            admin/settings ........................................... settings.general.save › SettingsController@postSettings
-  GET|HEAD        admin/slack ................................................... settings.slack.index › SettingsController@getSlack
-  POST            admin/slack ................................................... settings.slack.save › SettingsController@postSlack
-  GET|HEAD        api/v1 ........................................................................................................... 
-  GET|HEAD        api/v1/accessories ....................................... api.accessories.index › Api\AccessoriesController@index
-  POST            api/v1/accessories ....................................... api.accessories.store › Api\AccessoriesController@store
-  GET|HEAD        api/v1/accessories/selectlist .................. api.accessories.selectlist › Api\AccessoriesController@selectlist
-  GET|HEAD        api/v1/accessories/{accessory} ............................. api.accessories.show › Api\AccessoriesController@show
-  PUT|PATCH       api/v1/accessories/{accessory} ......................... api.accessories.update › Api\AccessoriesController@update
-  DELETE          api/v1/accessories/{accessory} ....................... api.accessories.destroy › Api\AccessoriesController@destroy
-  GET|HEAD        api/v1/accessories/{accessory}/checkedout ...... api.accessories.checkedout › Api\AccessoriesController@checkedout
-  POST            api/v1/accessories/{accessory}/checkin ............... api.accessories.checkin › Api\AccessoriesController@checkin
-  POST            api/v1/accessories/{accessory}/checkout ............ api.accessories.checkout › Api\AccessoriesController@checkout
-  GET|HEAD        api/v1/account/eulas ................................................ api.self.eulas › Api\ProfileController@eulas
-  POST            api/v1/account/personal-access-tokens .... api.personal-access-token.create › Api\ProfileController@createApiToken
-  GET|HEAD        api/v1/account/personal-access-tokens ...... api.personal-access-token.index › Api\ProfileController@showApiTokens
-  DELETE          api/v1/account/personal-access-tokens/{tokenId} api.personal-access-token.delete › Api\ProfileController@deleteAp…
-  POST            api/v1/account/request/{asset} ............................. api.assets.requests.store › Api\CheckoutRequest@store
-  POST            api/v1/account/request/{asset}/cancel .................. api.assets.requests.destroy › Api\CheckoutRequest@destroy
-  GET|HEAD        api/v1/account/requestable/hardware .................... api.assets.requestable › Api\AssetsController@requestable
-  GET|HEAD        api/v1/account/requests ............................. api.assets.requested › Api\ProfileController@requestedAssets
-  GET|HEAD        api/v1/categories .......................................... api.categories.index › Api\CategoriesController@index
-  POST            api/v1/categories .......................................... api.categories.store › Api\CategoriesController@store
-  GET|HEAD        api/v1/categories/{category} ................................. api.categories.show › Api\CategoriesController@show
-  PUT|PATCH       api/v1/categories/{category} ............................. api.categories.update › Api\CategoriesController@update
-  DELETE          api/v1/categories/{category} ........................... api.categories.destroy › Api\CategoriesController@destroy
-  GET|HEAD        api/v1/categories/{item_type}/selectlist ......... api.categories.selectlist › Api\CategoriesController@selectlist
-  GET|HEAD        api/v1/companies ............................................. api.companies.index › Api\CompaniesController@index
-  POST            api/v1/companies ............................................. api.companies.store › Api\CompaniesController@store
-  GET|HEAD        api/v1/companies/selectlist ........................ api.companies.selectlist › Api\CompaniesController@selectlist
-  GET|HEAD        api/v1/companies/{company} ..................................... api.companies.show › Api\CompaniesController@show
-  PUT|PATCH       api/v1/companies/{company} ................................. api.companies.update › Api\CompaniesController@update
-  DELETE          api/v1/companies/{company} ............................... api.companies.destroy › Api\CompaniesController@destroy
-  GET|HEAD        api/v1/components .......................................... api.components.index › Api\ComponentsController@index
-  POST            api/v1/components .......................................... api.components.store › Api\ComponentsController@store
-  GET|HEAD        api/v1/components/selectlist ..................... api.components.selectlist › Api\ComponentsController@selectlist
-  GET|HEAD        api/v1/components/{component} ................................ api.components.show › Api\ComponentsController@show
-  PUT|PATCH       api/v1/components/{component} ............................ api.components.update › Api\ComponentsController@update
-  DELETE          api/v1/components/{component} .......................... api.components.destroy › Api\ComponentsController@destroy
-  GET|HEAD        api/v1/components/{component}/assets .................. api.components.assets › Api\ComponentsController@getAssets
-  POST            api/v1/components/{id}/checkin ......................... api.components.checkin › Api\ComponentsController@checkin
-  POST            api/v1/components/{id}/checkout ...................... api.components.checkout › Api\ComponentsController@checkout
-  GET|HEAD        api/v1/consumables ....................................... api.consumables.index › Api\ConsumablesController@index
-  POST            api/v1/consumables ....................................... api.consumables.store › Api\ConsumablesController@store
-  GET|HEAD        api/v1/consumables/selectlist .................. api.consumables.selectlist › Api\ConsumablesController@selectlist
-  GET|HEAD        api/v1/consumables/{consumable} ............................ api.consumables.show › Api\ConsumablesController@show
-  PUT|PATCH       api/v1/consumables/{consumable} ........................ api.consumables.update › Api\ConsumablesController@update
-  DELETE          api/v1/consumables/{consumable} ...................... api.consumables.destroy › Api\ConsumablesController@destroy
-  POST            api/v1/consumables/{consumable}/checkout ........... api.consumables.checkout › Api\ConsumablesController@checkout
-  GET|HEAD        api/v1/consumables/{id}/users ................. api.consumables.show.users › Api\ConsumablesController@getDataView
-  GET|HEAD        api/v1/departments ....................................... api.departments.index › Api\DepartmentsController@index
-  POST            api/v1/departments ....................................... api.departments.store › Api\DepartmentsController@store
-  GET|HEAD        api/v1/departments/selectlist .................. api.departments.selectlist › Api\DepartmentsController@selectlist
-  GET|HEAD        api/v1/departments/{department} ............................ api.departments.show › Api\DepartmentsController@show
-  PUT|PATCH       api/v1/departments/{department} ........................ api.departments.update › Api\DepartmentsController@update
-  DELETE          api/v1/departments/{department} ...................... api.departments.destroy › Api\DepartmentsController@destroy
-  GET|HEAD        api/v1/depreciations ................................. api.depreciations.index › Api\DepreciationsController@index
-  POST            api/v1/depreciations ................................. api.depreciations.store › Api\DepreciationsController@store
-  GET|HEAD        api/v1/depreciations/{depreciation_id} ................. api.depreciations.show › Api\DepreciationsController@show
-  PUT|PATCH       api/v1/depreciations/{depreciation_id} ............. api.depreciations.update › Api\DepreciationsController@update
-  DELETE          api/v1/depreciations/{depreciation_id} ........... api.depreciations.destroy › Api\DepreciationsController@destroy
-  GET|HEAD        api/v1/fields .......................................... api.customfields.index › Api\CustomFieldsController@index
-  POST            api/v1/fields .......................................... api.customfields.store › Api\CustomFieldsController@store
-  POST            api/v1/fields/fieldsets/{id}/order ............... api.customfields.order › Api\CustomFieldsController@postReorder
-  GET|HEAD        api/v1/fields/{field} .................................... api.customfields.show › Api\CustomFieldsController@show
-  PUT|PATCH       api/v1/fields/{field} ................................ api.customfields.update › Api\CustomFieldsController@update
-  DELETE          api/v1/fields/{field} .............................. api.customfields.destroy › Api\CustomFieldsController@destroy
-  POST            api/v1/fields/{field}/associate ................ api.customfields.associate › Api\CustomFieldsController@associate
-  POST            api/v1/fields/{field}/disassociate ....... api.customfields.disassociate › Api\CustomFieldsController@disassociate
-  GET|HEAD        api/v1/fieldsets ....................................... api.fieldsets.index › Api\CustomFieldsetsController@index
-  POST            api/v1/fieldsets ....................................... api.fieldsets.store › Api\CustomFieldsetsController@store
-  GET|HEAD        api/v1/fieldsets/{fieldset} .............................. api.fieldsets.show › Api\CustomFieldsetsController@show
-  PUT|PATCH       api/v1/fieldsets/{fieldset} .......................... api.fieldsets.update › Api\CustomFieldsetsController@update
-  DELETE          api/v1/fieldsets/{fieldset} ........................ api.fieldsets.destroy › Api\CustomFieldsetsController@destroy
-  POST            api/v1/fieldsets/{fieldset}/fields ................... api.fieldsets.fields › Api\CustomFieldsetsController@fields
-  POST            api/v1/fieldsets/{fieldset}/fields/{model} api.fieldsets.fields-with-default-value › Api\CustomFieldsetsControlle…
-  GET|HEAD        api/v1/groups ...................................................... api.groups.index › Api\GroupsController@index
-  POST            api/v1/groups ...................................................... api.groups.store › Api\GroupsController@store
-  GET|HEAD        api/v1/groups/{group} ................................................ api.groups.show › Api\GroupsController@show
-  PUT|PATCH       api/v1/groups/{group} ............................................ api.groups.update › Api\GroupsController@update
-  DELETE          api/v1/groups/{group} .......................................... api.groups.destroy › Api\GroupsController@destroy
-  GET|HEAD        api/v1/hardware .................................................... api.assets.index › Api\AssetsController@index
-  POST            api/v1/hardware .................................................... api.assets.store › Api\AssetsController@store
-  POST            api/v1/hardware/audit ........................................ api.asset.audit.legacy › Api\AssetsController@audit
-  GET|HEAD        api/v1/hardware/byserial/{any} ...................... api.assets.show.byserial › Api\AssetsController@showBySerial
-  GET|HEAD        api/v1/hardware/bytag/{any} ............................... api.assets.show.bytag › Api\AssetsController@showByTag
-  POST            api/v1/hardware/bytag/{any}/checkin ............... api.asset.checkinbytagPath › Api\AssetsController@checkinbytag
-  POST            api/v1/hardware/bytag/{any}/checkout .............. api.assets.checkout.bytag › Api\AssetsController@checkoutByTag
-  GET|HEAD        api/v1/hardware/bytag/{tag} ................................... assets.show.bytag › Api\AssetsController@showByTag
-  POST            api/v1/hardware/checkinbytag .......................... api.asset.checkinbytag › Api\AssetsController@checkinbytag
-  POST            api/v1/hardware/labels ........................................ api.assets.labels › Api\AssetsController@getLabels
-  GET|HEAD        api/v1/hardware/selectlist ................................... assets.selectlist › Api\AssetsController@selectlist
-  GET|HEAD        api/v1/hardware/{action}/{upcoming_status} ................. api.assets.list-upcoming › Api\AssetsController@index
-  GET|HEAD        api/v1/hardware/{asset_id}/licenses ....................... api.assets.licenselist › Api\AssetsController@licenses
-  POST            api/v1/hardware/{asset_id}/restore ............................. api.assets.restore › Api\AssetsController@restore
-  PATCH           api/v1/hardware/{asset} .......................................... api.assets.update › Api\AssetsController@update
-  PUT             api/v1/hardware/{asset} ...................................... api.assets.put-update › Api\AssetsController@update
-  GET|HEAD        api/v1/hardware/{asset}/assigned/accessories api.assets.assigned_accessories › Api\AssetsController@assignedAcces…
-  GET|HEAD        api/v1/hardware/{asset}/assigned/assets ......... api.assets.assigned_assets › Api\AssetsController@assignedAssets
-  GET|HEAD        api/v1/hardware/{asset}/assigned/components api.assets.assigned_components › Api\AssetsController@assignedCompone…
-  POST            api/v1/hardware/{asset}/audit ....................................... api.asset.audit › Api\AssetsController@audit
-  GET|HEAD        api/v1/hardware/{hardware} ........................................... api.assets.show › Api\AssetsController@show
-  DELETE          api/v1/hardware/{hardware} ..................................... api.assets.destroy › Api\AssetsController@destroy
-  POST            api/v1/hardware/{id}/checkin .................................... api.asset.checkin › Api\AssetsController@checkin
-  POST            api/v1/hardware/{id}/checkout ................................. api.asset.checkout › Api\AssetsController@checkout
-  GET|HEAD        api/v1/imports .................................................... api.imports.index › Api\ImportController@index
-  POST            api/v1/imports .................................................... api.imports.store › Api\ImportController@store
-  POST            api/v1/imports/process/{import} ............................ api.imports.importFile › Api\ImportController@process
-  GET|HEAD        api/v1/imports/{import} ............................................. api.imports.show › Api\ImportController@show
-  PUT|PATCH       api/v1/imports/{import} ......................................... api.imports.update › Api\ImportController@update
-  DELETE          api/v1/imports/{import} ....................................... api.imports.destroy › Api\ImportController@destroy
-  GET|HEAD        api/v1/kits .................................................. api.kits.index › Api\PredefinedKitsController@index
-  POST            api/v1/kits .................................................. api.kits.store › Api\PredefinedKitsController@store
-  GET|HEAD        api/v1/kits/{kit_id}/accessories ...... api.kits.accessories.index › Api\PredefinedKitsController@indexAccessories
-  POST            api/v1/kits/{kit_id}/accessories ........ api.kits.accessories.store › Api\PredefinedKitsController@storeAccessory
-  PUT             api/v1/kits/{kit_id}/accessories/{accessory_id} api.kits.accessories.update › Api\PredefinedKitsController@update…
-  DELETE          api/v1/kits/{kit_id}/accessories/{accessory_id} api.kits.accessories.destroy › Api\PredefinedKitsController@detac…
-  GET|HEAD        api/v1/kits/{kit_id}/consumables ...... api.kits.consumables.index › Api\PredefinedKitsController@indexConsumables
-  POST            api/v1/kits/{kit_id}/consumables ....... api.kits.consumables.store › Api\PredefinedKitsController@storeConsumable
-  PUT             api/v1/kits/{kit_id}/consumables/{consumable_id} api.kits.consumables.update › Api\PredefinedKitsController@updat…
-  DELETE          api/v1/kits/{kit_id}/consumables/{consumable_id} api.kits.consumables.destroy › Api\PredefinedKitsController@deta…
-  GET|HEAD        api/v1/kits/{kit_id}/licenses ............... api.kits.licenses.index › Api\PredefinedKitsController@indexLicenses
-  POST            api/v1/kits/{kit_id}/licenses ................ api.kits.licenses.store › Api\PredefinedKitsController@storeLicense
-  PUT             api/v1/kits/{kit_id}/licenses/{license_id} . api.kits.licenses.update › Api\PredefinedKitsController@updateLicense
-  DELETE          api/v1/kits/{kit_id}/licenses/{license_id} api.kits.licenses.destroy › Api\PredefinedKitsController@detachLicense
-  GET|HEAD        api/v1/kits/{kit_id}/models ..................... api.kits.models.index › Api\PredefinedKitsController@indexModels
-  POST            api/v1/kits/{kit_id}/models ...................... api.kits.models.store › Api\PredefinedKitsController@storeModel
-  PUT             api/v1/kits/{kit_id}/models/{model_id} ........ api.kits.models.update › Api\PredefinedKitsController@updateModels
-  DELETE          api/v1/kits/{kit_id}/models/{model_id} ....... api.kits.models.destroy › Api\PredefinedKitsController@detachModels
-  GET|HEAD        api/v1/kits/{kit} .............................................. api.kits.show › Api\PredefinedKitsController@show
-  PUT|PATCH       api/v1/kits/{kit} .......................................... api.kits.update › Api\PredefinedKitsController@update
-  DELETE          api/v1/kits/{kit} ........................................ api.kits.destroy › Api\PredefinedKitsController@destroy
-  GET|HEAD        api/v1/labels ...................................................... api.labels.index › Api\LabelsController@index
-  GET|HEAD        api/v1/labels/{name} ................................................. api.labels.show › Api\LabelsController@show
-  GET|HEAD        api/v1/licenses ................................................ api.licenses.index › Api\LicensesController@index
-  POST            api/v1/licenses ................................................ api.licenses.store › Api\LicensesController@store
-  GET|HEAD        api/v1/licenses/selectlist ........................... api.licenses.selectlist › Api\LicensesController@selectlist
-  GET|HEAD        api/v1/licenses/{license_id} ..................................... api.licenses.show › Api\LicensesController@show
-  PUT|PATCH       api/v1/licenses/{license_id} ................................. api.licenses.update › Api\LicensesController@update
-  DELETE          api/v1/licenses/{license_id} ............................... api.licenses.destroy › Api\LicensesController@destroy
-  GET|HEAD        api/v1/licenses/{license}/seats ...................... api.licenses.seats.index › Api\LicenseSeatsController@index
-  GET|HEAD        api/v1/licenses/{license}/seats/{seat} ................. api.licenses.seats.show › Api\LicenseSeatsController@show
-  PUT|PATCH       api/v1/licenses/{license}/seats/{seat} ............. api.licenses.seats.update › Api\LicenseSeatsController@update
-  GET|HEAD        api/v1/locations ............................................. api.locations.index › Api\LocationsController@index
-  POST            api/v1/locations ............................................. api.locations.store › Api\LocationsController@store
-  GET|HEAD        api/v1/locations/selectlist ........................ api.locations.selectlist › Api\LocationsController@selectlist
-  GET|HEAD        api/v1/locations/{location} .................................... api.locations.show › Api\LocationsController@show
-  PUT|PATCH       api/v1/locations/{location} ................................ api.locations.update › Api\LocationsController@update
-  DELETE          api/v1/locations/{location} .............................. api.locations.destroy › Api\LocationsController@destroy
-  GET|HEAD        api/v1/locations/{location}/assets ..................... api.locations.viewassets › Api\LocationsController@assets
-  GET|HEAD        api/v1/locations/{location}/assigned/accessories api.locations.assigned_accessories › Api\LocationsController@ass…
-  GET|HEAD        api/v1/locations/{location}/assigned/assets api.locations.assigned_assets › Api\LocationsController@assignedAssets
-  GET|HEAD        api/v1/locations/{location}/users ............. api.locations.viewusers › Api\LocationsController@getDataViewUsers
-  GET|HEAD        api/v1/maintenances .................................... api.maintenances.index › Api\MaintenancesController@index
-  POST            api/v1/maintenances .................................... api.maintenances.store › Api\MaintenancesController@store
-  GET|HEAD        api/v1/maintenances/{maintenance} ........................ api.maintenances.show › Api\MaintenancesController@show
-  PUT|PATCH       api/v1/maintenances/{maintenance} .................... api.maintenances.update › Api\MaintenancesController@update
-  DELETE          api/v1/maintenances/{maintenance} .................. api.maintenances.destroy › Api\MaintenancesController@destroy
-  GET|HEAD        api/v1/manufacturers ................................. api.manufacturers.index › Api\ManufacturersController@index
-  POST            api/v1/manufacturers ................................. api.manufacturers.store › Api\ManufacturersController@store
-  GET|HEAD        api/v1/manufacturers/selectlist ............ api.manufacturers.selectlist › Api\ManufacturersController@selectlist
-  POST            api/v1/manufacturers/{id}/restore ................ api.manufacturers.restore › Api\ManufacturersController@restore
-  GET|HEAD        api/v1/manufacturers/{manufacturer} .................... api.manufacturers.show › Api\ManufacturersController@show
-  PUT|PATCH       api/v1/manufacturers/{manufacturer} ................ api.manufacturers.update › Api\ManufacturersController@update
-  DELETE          api/v1/manufacturers/{manufacturer} .............. api.manufacturers.destroy › Api\ManufacturersController@destroy
-  GET|HEAD        api/v1/models ................................................. api.models.index › Api\AssetModelsController@index
-  POST            api/v1/models ................................................. api.models.store › Api\AssetModelsController@store
-  GET|HEAD        api/v1/models/assets ........................................ api.models.assets › Api\AssetModelsController@assets
-  GET|HEAD        api/v1/models/selectlist ............................ api.models.selectlist › Api\AssetModelsController@selectlist
-  POST            api/v1/models/{id}/restore ................................ api.models.restore › Api\AssetModelsController@restore
-  GET|HEAD        api/v1/models/{model} ........................................... api.models.show › Api\AssetModelsController@show
-  PUT|PATCH       api/v1/models/{model} ....................................... api.models.update › Api\AssetModelsController@update
-  DELETE          api/v1/models/{model} ..................................... api.models.destroy › Api\AssetModelsController@destroy
-  GET|HEAD        api/v1/notes/{asset}/index ........................................... api.notes.index › Api\NotesController@index
-  POST            api/v1/notes/{asset}/store ........................................... api.notes.store › Api\NotesController@store
-  GET|HEAD        api/v1/reports/activity ......................................... api.activity.index › Api\ReportsController@index
-  GET|HEAD        api/v1/reports/depreciation ........................... api.depreciation-report.index › Api\AssetsController@index
-  POST            api/v1/settings ................................................ api.settings.store › Api\SettingsController@store
-  GET|HEAD        api/v1/settings/backups .......................... api.settings.backups.index › Api\SettingsController@listBackups
-  GET|HEAD        api/v1/settings/backups/download/latest api.settings.backups.latest › Api\SettingsController@downloadLatestBackup
-  GET|HEAD        api/v1/settings/backups/download/{file} .... api.settings.backups.download › Api\SettingsController@downloadBackup
-  GET|HEAD        api/v1/settings/ldaptest ................................. api.settings.ldaptest › Api\SettingsController@ldaptest
-  POST            api/v1/settings/ldaptestlogin .................. api.settings.ldaptestlogin › Api\SettingsController@ldaptestlogin
-  GET|HEAD        api/v1/settings/login-attempts ............ api.settings.login_attempts › Api\SettingsController@showLoginAttempts
-  POST            api/v1/settings/mailtest ............................ api.settings.mailtest › Api\SettingsController@ajaxTestEmail
-  POST            api/v1/settings/purge_barcodes ................. api.settings.purgebarcodes › Api\SettingsController@purgeBarcodes
-  POST            api/v1/settings/slacktest .............................. api.settings.slacktest › Api\SettingsController@slacktest
-  GET|HEAD        api/v1/settings/{setting} ........................................ api.settings.show › Api\SettingsController@show
-  PUT|PATCH       api/v1/settings/{setting} .................................... api.settings.update › Api\SettingsController@update
-  GET|HEAD        api/v1/statuslabels .................................... api.statuslabels.index › Api\StatuslabelsController@index
-  POST            api/v1/statuslabels .................................... api.statuslabels.store › Api\StatuslabelsController@store
-  GET|HEAD        api/v1/statuslabels/assets/name api.statuslabels.assets.byname › Api\StatuslabelsController@getAssetCountByStatus…
-  GET|HEAD        api/v1/statuslabels/assets/type api.statuslabels.assets.bytype › Api\StatuslabelsController@getAssetCountByMetaSt…
-  GET|HEAD        api/v1/statuslabels/selectlist ............... api.statuslabels.selectlist › Api\StatuslabelsController@selectlist
-  GET|HEAD        api/v1/statuslabels/{id}/assetlist ................... api.statuslabels.assets › Api\StatuslabelsController@assets
-  GET|HEAD        api/v1/statuslabels/{statuslabel} ........................ api.statuslabels.show › Api\StatuslabelsController@show
-  PUT|PATCH       api/v1/statuslabels/{statuslabel} .................... api.statuslabels.update › Api\StatuslabelsController@update
-  DELETE          api/v1/statuslabels/{statuslabel} .................. api.statuslabels.destroy › Api\StatuslabelsController@destroy
-  GET|HEAD        api/v1/statuslabels/{statuslabel}/deployable api.statuslabels.deployable › Api\StatuslabelsController@checkIfDepl…
-  GET|HEAD        api/v1/suppliers ............................................. api.suppliers.index › Api\SuppliersController@index
-  POST            api/v1/suppliers ............................................. api.suppliers.store › Api\SuppliersController@store
-  GET|HEAD        api/v1/suppliers/selectlist ........................ api.suppliers.selectlist › Api\SuppliersController@selectlist
-  GET|HEAD        api/v1/suppliers/{supplier} .................................... api.suppliers.show › Api\SuppliersController@show
-  PUT|PATCH       api/v1/suppliers/{supplier} ................................ api.suppliers.update › Api\SuppliersController@update
-  DELETE          api/v1/suppliers/{supplier} .............................. api.suppliers.destroy › Api\SuppliersController@destroy
-  GET|HEAD        api/v1/users ......................................................... api.users.index › Api\UsersController@index
-  POST            api/v1/users ......................................................... api.users.store › Api\UsersController@store
-  POST            api/v1/users/ldapsync ..................................... api.users.ldapsync › Api\UsersController@syncLdapUsers
-  GET|HEAD        api/v1/users/list/{status?} .................................... api.users.list › Api\UsersController@getDatatable
-  GET|HEAD        api/v1/users/me ............................................ api.users.me › Api\UsersController@getCurrentUserInfo
-  GET|HEAD        api/v1/users/selectlist .................................... api.users.selectlist › Api\UsersController@selectlist
-  POST            api/v1/users/two_factor_reset ................ api.users.two_factor_reset › Api\UsersController@postTwoFactorReset
-  GET|HEAD        api/v1/users/{user} .................................................... api.users.show › Api\UsersController@show
-  PUT|PATCH       api/v1/users/{user} ................................................ api.users.update › Api\UsersController@update
-  DELETE          api/v1/users/{user} .............................................. api.users.destroy › Api\UsersController@destroy
-  GET|HEAD        api/v1/users/{user}/accessories ...................... api.users.accessorieslist › Api\UsersController@accessories
-  GET|HEAD        api/v1/users/{user}/assets ...................................... api.users.assetlist › Api\UsersController@assets
-  POST            api/v1/users/{user}/email ............................ api.users.email_assets › Api\UsersController@emailAssetList
-  GET|HEAD        api/v1/users/{user}/eulas ............................................. api.user.eulas › Api\UsersController@eulas
-  GET|HEAD        api/v1/users/{user}/licenses ................................ api.users.licenselist › Api\UsersController@licenses
-  POST            api/v1/users/{user}/restore ...................................... api.users.restore › Api\UsersController@restore
-  GET|HEAD        api/v1/version ................................................................................................... 
-  GET|HEAD        api/v1/{fallbackPlaceholder} ..................................................................................... 
-  GET|HEAD        api/v1/{object_type}/{id}/files .............................. api.files.index › Api\UploadedFilesController@index
-  POST            api/v1/{object_type}/{id}/files .............................. api.files.store › Api\UploadedFilesController@store
-  GET|HEAD        api/v1/{object_type}/{id}/files/{file_id} ...................... api.files.show › Api\UploadedFilesController@show
-  DELETE          api/v1/{object_type}/{id}/files/{file_id}/delete ......... api.files.destroy › Api\UploadedFilesController@destroy
-  GET|HEAD        asset_public/{asset_tag} ...................................... asset_public › PublicController@getAssetFromPublic
-  GET|HEAD        auth/signin .............................................................. Auth\LoginController@legacyAuthRedirect
-  GET|HEAD        callback_sso ........................................................... sso_callback › SSOController@callback_sso
-  GET|HEAD        categories ......................................................... categories.index › CategoriesController@index
-  POST            categories ......................................................... categories.store › CategoriesController@store
-  POST            categories/bulk/delete ................................. categories.bulk.delete › BulkCategoriesController@destroy
-  GET|HEAD        categories/create ................................................ categories.create › CategoriesController@create
-  GET|HEAD        categories/{category} ................................................ categories.show › CategoriesController@show
-  PUT|PATCH       categories/{category} ............................................ categories.update › CategoriesController@update
-  DELETE          categories/{category} .......................................... categories.destroy › CategoriesController@destroy
-  GET|HEAD        categories/{category}/edit ........................................... categories.edit › CategoriesController@edit
-  GET|HEAD        companies ............................................................ companies.index › CompaniesController@index
-  POST            companies ............................................................ companies.store › CompaniesController@store
-  GET|HEAD        companies/create ................................................... companies.create › CompaniesController@create
-  GET|HEAD        companies/{company} .................................................... companies.show › CompaniesController@show
-  PUT|PATCH       companies/{company} ................................................ companies.update › CompaniesController@update
-  DELETE          companies/{company} .............................................. companies.destroy › CompaniesController@destroy
-  GET|HEAD        companies/{company}/edit ............................................... companies.edit › CompaniesController@edit
-  GET|HEAD        components .............................................. components.index › Components\ComponentsController@index
-  POST            components .............................................. components.store › Components\ComponentsController@store
-  GET|HEAD        components/create ..................................... components.create › Components\ComponentsController@create
-  GET|HEAD        components/{componentID}/checkin/{backto?} components.checkin.show › Components\ComponentCheckinController@create
-  POST            components/{componentID}/checkin/{backto?} components.checkin.store › Components\ComponentCheckinController@store
-  GET|HEAD        components/{componentID}/checkout ....... components.checkout.show › Components\ComponentCheckoutController@create
-  POST            components/{componentID}/checkout ....... components.checkout.store › Components\ComponentCheckoutController@store
-  GET|HEAD        components/{component} .................................... components.show › Components\ComponentsController@show
-  PUT|PATCH       components/{component} ................................ components.update › Components\ComponentsController@update
-  DELETE          components/{component} .............................. components.destroy › Components\ComponentsController@destroy
-  GET|HEAD        components/{component}/edit ............................... components.edit › Components\ComponentsController@edit
-  GET|HEAD        consumables .......................................... consumables.index › Consumables\ConsumablesController@index
-  POST            consumables .......................................... consumables.store › Consumables\ConsumablesController@store
-  GET|HEAD        consumables/create ................................. consumables.create › Consumables\ConsumablesController@create
-  GET|HEAD        consumables/{consumablesID}/checkout . consumables.checkout.show › Consumables\ConsumableCheckoutController@create
-  POST            consumables/{consumablesID}/checkout . consumables.checkout.store › Consumables\ConsumableCheckoutController@store
-  GET|HEAD        consumables/{consumable} ............................... consumables.show › Consumables\ConsumablesController@show
-  PUT|PATCH       consumables/{consumable} ........................... consumables.update › Consumables\ConsumablesController@update
-  DELETE          consumables/{consumable} ......................... consumables.destroy › Consumables\ConsumablesController@destroy
-  GET|HEAD        consumables/{consumable}/clone ................ consumables.clone.create › Consumables\ConsumablesController@clone
-  GET|HEAD        consumables/{consumable}/edit .......................... consumables.edit › Consumables\ConsumablesController@edit
-  GET|HEAD        departments ...................................................... departments.index › DepartmentsController@index
-  POST            departments ...................................................... departments.store › DepartmentsController@store
-  GET|HEAD        departments/create ............................................. departments.create › DepartmentsController@create
-  GET|HEAD        departments/{department} ........................................... departments.show › DepartmentsController@show
-  PUT|PATCH       departments/{department} ....................................... departments.update › DepartmentsController@update
-  DELETE          departments/{department} ..................................... departments.destroy › DepartmentsController@destroy
-  GET|HEAD        departments/{department}/edit ...................................... departments.edit › DepartmentsController@edit
-  GET|HEAD        depreciations ................................................ depreciations.index › DepreciationsController@index
-  POST            depreciations ................................................ depreciations.store › DepreciationsController@store
-  GET|HEAD        depreciations/create ....................................... depreciations.create › DepreciationsController@create
-  GET|HEAD        depreciations/{depreciation} ................................... depreciations.show › DepreciationsController@show
-  PUT|PATCH       depreciations/{depreciation} ............................... depreciations.update › DepreciationsController@update
-  DELETE          depreciations/{depreciation} ............................. depreciations.destroy › DepreciationsController@destroy
-  GET|HEAD        depreciations/{depreciation}/edit .............................. depreciations.edit › DepreciationsController@edit
-  GET|HEAD        display-sig/{filename} ....................................... log.signature.view › ActionlogController@displaySig
-  GET|HEAD        fields ............................................................... fields.index › CustomFieldsController@index
-  POST            fields ............................................................... fields.store › CustomFieldsController@store
-  GET|HEAD        fields/create ...................................................... fields.create › CustomFieldsController@create
-  GET|HEAD        fields/fieldsets ............................................... fieldsets.index › CustomFieldsetsController@index
-  POST            fields/fieldsets ............................................... fieldsets.store › CustomFieldsetsController@store
-  GET|HEAD        fields/fieldsets/create ...................................... fieldsets.create › CustomFieldsetsController@create
-  GET|HEAD        fields/fieldsets/{fieldset} ...................................... fieldsets.show › CustomFieldsetsController@show
-  PUT|PATCH       fields/fieldsets/{fieldset} .................................. fieldsets.update › CustomFieldsetsController@update
-  DELETE          fields/fieldsets/{fieldset} ................................ fieldsets.destroy › CustomFieldsetsController@destroy
-  GET|HEAD        fields/fieldsets/{fieldset}/edit ................................. fieldsets.edit › CustomFieldsetsController@edit
-  POST            fields/fieldsets/{id}/associate ........................ fieldsets.associate › CustomFieldsetsController@associate
-  POST            fields/optional/{fieldset_id}/{field_id} ........... fields.optional › CustomFieldsetsController@makeFieldOptional
-  POST            fields/required/{fieldset_id}/{field_id} ........... fields.required › CustomFieldsetsController@makeFieldRequired
-  POST            fields/{field_id}/fieldset/{fieldset_id}/disassociate fields.disassociate › CustomFieldsController@deleteFieldFro…
-  PUT|PATCH       fields/{field} ..................................................... fields.update › CustomFieldsController@update
-  DELETE          fields/{field} ................................................... fields.destroy › CustomFieldsController@destroy
-  GET|HEAD        fields/{field}/edit .................................................... fields.edit › CustomFieldsController@edit
-  GET|HEAD        google ................................................... google.redirect › GoogleAuthController@redirectToGoogle
-  GET|HEAD        google/callback ...................................... google.callback › GoogleAuthController@handleGoogleCallback
-  GET|HEAD        hardware .......................................................... hardware.index › Assets\AssetsController@index
-  POST            hardware .......................................................... hardware.store › Assets\AssetsController@store
-  GET|HEAD        hardware/audit/due ........................................ assets.audit.due › Assets\AssetsController@dueForAudit
-  GET|HEAD        hardware/bulkaudit .......................................... assets.bulkaudit › Assets\AssetsController@quickScan
-  GET|HEAD        hardware/bulkcheckout ...................... hardware.bulkcheckout.show › Assets\BulkAssetsController@showCheckout
-  POST            hardware/bulkcheckout .................... hardware.bulkcheckout.store › Assets\BulkAssetsController@storeCheckout
-  POST            hardware/bulkdelete .................................... hardware/bulkdelete › Assets\BulkAssetsController@destroy
-  POST            hardware/bulkedit ........................................... hardware/bulkedit › Assets\BulkAssetsController@edit
-  POST            hardware/bulkrestore .................................. hardware/bulkrestore › Assets\BulkAssetsController@restore
-  POST            hardware/bulksave ......................................... hardware/bulksave › Assets\BulkAssetsController@update
-  GET|HEAD        hardware/byserial/{any?} ........................ findbyserial/hardware › Assets\AssetsController@getAssetBySerial
-  GET|HEAD        hardware/bytag/{any?} ................................. findbytag/hardware › Assets\AssetsController@getAssetByTag
-  GET|HEAD        hardware/checkins/due ................................ assets.checkins.due › Assets\AssetsController@dueForCheckin
-  GET|HEAD        hardware/create ................................................. hardware.create › Assets\AssetsController@create
-  GET|HEAD        hardware/history ................................. asset.import-history › Assets\AssetsController@getImportHistory
-  POST            hardware/history ........................ asset.process-import-history › Assets\AssetsController@postImportHistory
-  GET|HEAD        hardware/quickscancheckin ................... hardware/quickscancheckin › Assets\AssetsController@quickScanCheckin
-  GET|HEAD        hardware/requested .................................. assets.requested › Assets\AssetsController@getRequestedIndex
-  POST            hardware/{assetId}/checkin/{backto?} ................ hardware.checkin.store › Assets\AssetCheckinController@store
-  POST            hardware/{assetId}/checkout ....................... hardware.checkout.store › Assets\AssetCheckoutController@store
-  GET|HEAD        hardware/{assetId}/label ....................................... label/hardware › Assets\AssetsController@getLabel
-  GET|HEAD        hardware/{assetId}/view .......................................................................................... 
-  GET|HEAD        hardware/{asset} .................................................... hardware.show › Assets\AssetsController@show
-  PUT|PATCH       hardware/{asset} ................................................ hardware.update › Assets\AssetsController@update
-  DELETE          hardware/{asset} .............................................. hardware.destroy › Assets\AssetsController@destroy
-  GET|HEAD        hardware/{asset}/audit ........................................ asset.audit.create › Assets\AssetsController@audit
-  POST            hardware/{asset}/audit .................................... asset.audit.store › Assets\AssetsController@auditStore
-  GET|HEAD        hardware/{asset}/barcode ................................... barcode/hardware › Assets\AssetsController@getBarCode
-  GET|HEAD        hardware/{asset}/checkin/{backto?} ................ hardware.checkin.create › Assets\AssetCheckinController@create
-  GET|HEAD        hardware/{asset}/checkout ....................... hardware.checkout.create › Assets\AssetCheckoutController@create
-  GET|HEAD        hardware/{asset}/clone ......................................... clone/hardware › Assets\AssetsController@getClone
-  GET|HEAD        hardware/{asset}/edit ............................................... hardware.edit › Assets\AssetsController@edit
-  GET|HEAD        hardware/{asset}/qr_code .................................... qr_code/hardware › Assets\AssetsController@getQrCode
-  POST            hardware/{asset}/restore ................................... restore/hardware › Assets\AssetsController@getRestore
-  GET|HEAD        health ............................................................................. health › HealthController@get
-  GET|HEAD        ht/{any?} .................................................... ht/assetTag › Assets\AssetsController@getAssetByTag
-  GET|HEAD        import ..................................................................... imports.index › App\Livewire\Importer
-  GET|HEAD        kits ............................................................ kits.index › Kits\PredefinedKitsController@index
-  POST            kits ............................................................ kits.store › Kits\PredefinedKitsController@store
-  GET|HEAD        kits/create ................................................... kits.create › Kits\PredefinedKitsController@create
-  GET|HEAD        kits/{kit} ........................................................ kits.show › Kits\PredefinedKitsController@show
-  PUT|PATCH       kits/{kit} .................................................... kits.update › Kits\PredefinedKitsController@update
-  DELETE          kits/{kit} .................................................. kits.destroy › Kits\PredefinedKitsController@destroy
-  PUT             kits/{kit}/accessories/{accessory_id} .... kits.accessories.update › Kits\PredefinedKitsController@updateAccessory
-  DELETE          kits/{kit}/accessories/{accessory_id} .... kits.accessories.detach › Kits\PredefinedKitsController@detachAccessory
-  GET|HEAD        kits/{kit}/accessories/{accessory_id}/edit ... kits.accessories.edit › Kits\PredefinedKitsController@editAccessory
-  GET|HEAD        kits/{kit}/checkout ................................. kits.checkout.show › Kits\CheckoutKitController@showCheckout
-  POST            kits/{kit}/checkout ....................................... kits.checkout.store › Kits\CheckoutKitController@store
-  PUT             kits/{kit}/consumables/{consumable_id} .. kits.consumables.update › Kits\PredefinedKitsController@updateConsumable
-  DELETE          kits/{kit}/consumables/{consumable_id} .. kits.consumables.detach › Kits\PredefinedKitsController@detachConsumable
-  GET|HEAD        kits/{kit}/consumables/{consumable_id}/edit . kits.consumables.edit › Kits\PredefinedKitsController@editConsumable
-  GET|HEAD        kits/{kit}/edit ................................................... kits.edit › Kits\PredefinedKitsController@edit
-  PUT             kits/{kit}/licenses ............................. kits.licenses.store › Kits\PredefinedKitsController@storeLicense
-  PUT             kits/{kit}/licenses/{license_id} .............. kits.licenses.update › Kits\PredefinedKitsController@updateLicense
-  DELETE          kits/{kit}/licenses/{license_id} .............. kits.licenses.detach › Kits\PredefinedKitsController@detachLicense
-  GET|HEAD        kits/{kit}/licenses/{license_id}/edit ............. kits.licenses.edit › Kits\PredefinedKitsController@editLicense
-  PUT             kits/{kit}/models/{model_id} ...................... kits.models.update › Kits\PredefinedKitsController@updateModel
-  DELETE          kits/{kit}/models/{model_id} ...................... kits.models.detach › Kits\PredefinedKitsController@detachModel
-  GET|HEAD        kits/{kit}/models/{model_id}/edit ..................... kits.models.edit › Kits\PredefinedKitsController@editModel
-  GET|HEAD        labels/{labelName} ........................................................... labels.show › LabelsController@show
-  GET|HEAD        licenses ...................................................... licenses.index › Licenses\LicensesController@index
-  POST            licenses ...................................................... licenses.store › Licenses\LicensesController@store
-  GET|HEAD        licenses/create ............................................. licenses.create › Licenses\LicensesController@create
-  GET|HEAD        licenses/export ............................... licenses.export › Licenses\LicensesController@getExportLicensesCsv
-  POST            licenses/{licenseId}/bulkcheckin ............ licenses.bulkcheckin › Licenses\LicenseCheckinController@bulkCheckin
-  POST            licenses/{licenseId}/bulkcheckout ........ licenses.bulkcheckout › Licenses\LicenseCheckoutController@bulkCheckout
-  POST            licenses/{licenseId}/checkin/{backto?} ........... licenses.checkin.save › Licenses\LicenseCheckinController@store
-  POST            licenses/{licenseId}/checkout/{seatId?} ................................. Licenses\LicenseCheckoutController@store
-  GET|HEAD        licenses/{licenseId}/clone .................................. clone/license › Licenses\LicensesController@getClone
-  GET|HEAD        licenses/{licenseId}/freecheckout ............. licenses.freecheckout › Licenses\LicensesController@getFreeLicense
-  GET|HEAD        licenses/{licenseSeat}/checkin/{backto?} ............. licenses.checkin › Licenses\LicenseCheckinController@create
-  GET|HEAD        licenses/{license} .............................................. licenses.show › Licenses\LicensesController@show
-  PUT|PATCH       licenses/{license} .......................................... licenses.update › Licenses\LicensesController@update
-  DELETE          licenses/{license} ........................................ licenses.destroy › Licenses\LicensesController@destroy
-  GET|HEAD        licenses/{license}/checkout/{seatId?} .............. licenses.checkout › Licenses\LicenseCheckoutController@create
-  GET|HEAD        licenses/{license}/edit ......................................... licenses.edit › Licenses\LicensesController@edit
-  GET|HEAD        livewire/livewire.js ................................. Livewire\Mechanisms › FrontendAssets@returnJavaScriptAsFile
-  GET|HEAD        livewire/livewire.min.js.map ........................................... Livewire\Mechanisms › FrontendAssets@maps
-  GET|HEAD        livewire/preview-file/{filename} ........ livewire.preview-file › Livewire\Features › FilePreviewController@handle
-  POST            livewire/update .............................. livewire.update › Livewire\Mechanisms › HandleRequests@handleUpdate
-  POST            livewire/upload-file ...................... livewire.upload-file › Livewire\Features › FileUploadController@handle
-  GET|HEAD        locations ............................................................ locations.index › LocationsController@index
-  POST            locations ............................................................ locations.store › LocationsController@store
-  POST            locations/bulkdelete .............................. locations.bulkdelete.show › LocationsController@postBulkDelete
-  POST            locations/bulkedit .......................... locations.bulkdelete.store › LocationsController@postBulkDeleteStore
-  GET|HEAD        locations/create ................................................... locations.create › LocationsController@create
-  GET|HEAD        locations/{locationId}/clone ....................................... clone/location › LocationsController@getClone
-  GET|HEAD        locations/{locationId}/printallassigned .... locations.print_all_assigned › LocationsController@print_all_assigned
-  GET|HEAD        locations/{locationId}/printassigned ............... locations.print_assigned › LocationsController@print_assigned
-  GET|HEAD        locations/{location} ................................................... locations.show › LocationsController@show
-  PUT|PATCH       locations/{location} ............................................... locations.update › LocationsController@update
-  DELETE          locations/{location} ............................................. locations.destroy › LocationsController@destroy
-  GET|HEAD        locations/{location}/edit .............................................. locations.edit › LocationsController@edit
-  POST            locations/{location}/restore ................................. locations.restore › LocationsController@postRestore
-  GET|HEAD        log-viewer ............................... log-viewer::dashboard › Arcanedev\LogViewer › LogViewerController@index
-  GET|HEAD        log-viewer/logs ....................... log-viewer::logs.list › Arcanedev\LogViewer › LogViewerController@listLogs
-  DELETE          log-viewer/logs/delete ................ log-viewer::logs.delete › Arcanedev\LogViewer › LogViewerController@delete
-  GET|HEAD        log-viewer/logs/{date} .................... log-viewer::logs.show › Arcanedev\LogViewer › LogViewerController@show
-  GET|HEAD        log-viewer/logs/{date}/download ... log-viewer::logs.download › Arcanedev\LogViewer › LogViewerController@download
-  GET|HEAD        log-viewer/logs/{date}/{level} ... log-viewer::logs.filter › Arcanedev\LogViewer › LogViewerController@showByLevel
-  GET|HEAD        log-viewer/logs/{date}/{level}/search . log-viewer::logs.search › Arcanedev\LogViewer › LogViewerController@search
-  GET|HEAD        login ................................................................. login › Auth\LoginController@showLoginForm
-  POST            login ................................................................................. Auth\LoginController@login
-  GET|HEAD        login/saml ................................................................ saml.login › Auth\SamlController@login
-  GET|HEAD        logout .................................................................. logout.get › Auth\LoginController@logout
-  POST            logout ................................................................. logout.post › Auth\LoginController@logout
-  GET|HEAD        maintenances ................................................... maintenances.index › MaintenancesController@index
-  POST            maintenances ................................................... maintenances.store › MaintenancesController@store
-  GET|HEAD        maintenances/create .......................................... maintenances.create › MaintenancesController@create
-  GET|HEAD        maintenances/{maintenance} ....................................... maintenances.show › MaintenancesController@show
-  PUT|PATCH       maintenances/{maintenance} ................................... maintenances.update › MaintenancesController@update
-  DELETE          maintenances/{maintenance} ................................. maintenances.destroy › MaintenancesController@destroy
-  GET|HEAD        maintenances/{maintenance}/edit .................................. maintenances.edit › MaintenancesController@edit
-  GET|HEAD        manufacturers ................................................ manufacturers.index › ManufacturersController@index
-  POST            manufacturers ................................................ manufacturers.store › ManufacturersController@store
-  POST            manufacturers/bulk/delete ........................ manufacturers.bulk.delete › BulkManufacturersController@destroy
-  GET|HEAD        manufacturers/create ....................................... manufacturers.create › ManufacturersController@create
-  POST            manufacturers/seed ............................................. manufacturers.seed › ManufacturersController@seed
-  POST            manufacturers/{manufacturers_id}/restore .................. restore/manufacturer › ManufacturersController@restore
-  GET|HEAD        manufacturers/{manufacturer} ................................... manufacturers.show › ManufacturersController@show
-  PUT|PATCH       manufacturers/{manufacturer} ............................... manufacturers.update › ManufacturersController@update
-  DELETE          manufacturers/{manufacturer} ............................. manufacturers.destroy › ManufacturersController@destroy
-  GET|HEAD        manufacturers/{manufacturer}/edit .............................. manufacturers.edit › ManufacturersController@edit
-  GET|HEAD        modals/{type}/{itemId?} ........................................................ modal.show › ModalController@show
-  GET|HEAD        models ................................................................ models.index › AssetModelsController@index
-  POST            models ................................................................ models.store › AssetModelsController@store
-  POST            models/bulkdelete .................................... models.bulkdelete.store › BulkAssetModelsController@destroy
-  POST            models/bulkedit ........................................... models.bulkedit.index › BulkAssetModelsController@edit
-  POST            models/bulksave ......................................... models.bulkedit.store › BulkAssetModelsController@update
-  GET|HEAD        models/create ....................................................... models.create › AssetModelsController@create
-  POST            models/{modelID}/restore ................................. models.restore.store › AssetModelsController@getRestore
-  GET|HEAD        models/{modelId}/custom_fields ....................... custom_fields/model › AssetModelsController@getCustomFields
-  GET|HEAD        models/{modelId}/view ................................................. view/model › AssetModelsController@getView
-  GET|HEAD        models/{model} .......................................................... models.show › AssetModelsController@show
-  PUT|PATCH       models/{model} ...................................................... models.update › AssetModelsController@update
-  DELETE          models/{model} .................................................... models.destroy › AssetModelsController@destroy
-  GET|HEAD        models/{model}/clone ........................................ models.clone.create › AssetModelsController@getClone
-  POST            models/{model}/clone ....................................... models.clone.store › AssetModelsController@postCreate
-  GET|HEAD        models/{model}/edit ..................................................... models.edit › AssetModelsController@edit
-  POST            notes ........................................................................ notes.store › NotesController@store
-  GET|HEAD        oauth/authorize ......... passport.authorizations.authorize › Laravel\Passport › AuthorizationController@authorize
-  POST            oauth/authorize ...... passport.authorizations.approve › Laravel\Passport › ApproveAuthorizationController@approve
-  DELETE          oauth/authorize ............... passport.authorizations.deny › Laravel\Passport › DenyAuthorizationController@deny
-  GET|HEAD        oauth/clients ............................... passport.clients.index › Laravel\Passport › ClientController@forUser
-  POST            oauth/clients ................................. passport.clients.store › Laravel\Passport › ClientController@store
-  PUT             oauth/clients/{client_id} ................... passport.clients.update › Laravel\Passport › ClientController@update
-  DELETE          oauth/clients/{client_id} ................. passport.clients.destroy › Laravel\Passport › ClientController@destroy
-  GET|HEAD        oauth/personal-access-tokens passport.personal.tokens.index › Laravel\Passport › PersonalAccessTokenController@fo…
-  POST            oauth/personal-access-tokens passport.personal.tokens.store › Laravel\Passport › PersonalAccessTokenController@st…
-  DELETE          oauth/personal-access-tokens/{token_id} passport.personal.tokens.destroy › Laravel\Passport › PersonalAccessToken…
-  GET|HEAD        oauth/scopes ...................................... passport.scopes.index › Laravel\Passport › ScopeController@all
-  POST            oauth/token ................................. passport.token › Laravel\Passport › AccessTokenController@issueToken
-  POST            oauth/token/refresh ................. passport.token.refresh › Laravel\Passport › TransientTokenController@refresh
-  GET|HEAD        oauth/tokens .................. passport.tokens.index › Laravel\Passport › AuthorizedAccessTokenController@forUser
-  DELETE          oauth/tokens/{token_id} ..... passport.tokens.destroy › Laravel\Passport › AuthorizedAccessTokenController@destroy
-  POST            password/email ................................. password.email › Auth\ForgotPasswordController@sendResetLinkEmail
-  GET|HEAD        password/reset .............................. password.request › Auth\ForgotPasswordController@showLinkRequestForm
-  POST            password/reset .............................................. password.update › Auth\ResetPasswordController@reset
-  GET|HEAD        password/reset/{token} ............................... password.reset › Auth\ResetPasswordController@showResetForm
-  GET|HEAD        reports/accessories ................................... reports/accessories › ReportsController@getAccessoryReport
-  GET|HEAD        reports/activity .......................................... reports.activity › ReportsController@getActivityReport
-  POST            reports/activity .................................... reports.activity.post › ReportsController@postActivityReport
-  GET|HEAD        reports/audit ............................................................ reports.audit › ReportsController@audit
-  GET|HEAD        reports/custom ................................................ reports/custom › ReportsController@getCustomReport
-  POST            reports/custom ................................................ reports.post-custom › ReportsController@postCustom
-  GET|HEAD        reports/depreciation ............................... reports/depreciation › ReportsController@getDeprecationReport
-  GET|HEAD        reports/export/accessories .................. reports/export/accessories › ReportsController@exportAccessoryReport
-  GET|HEAD        reports/export/depreciation .............. reports/export/depreciation › ReportsController@exportDeprecationReport
-  GET|HEAD        reports/export/licenses .......................... reports/export/licenses › ReportsController@exportLicenseReport
-  GET|HEAD        reports/export/maintenances ............. reports/export/maintenances › ReportsController@exportMaintenancesReport
-  GET|HEAD        reports/licenses ........................................... reports/licenses › ReportsController@getLicenseReport
-  GET|HEAD        reports/maintenances ........................... ui.reports.maintenances › ReportsController@getMaintenancesReport
-  POST            reports/templates ....................................... report-templates.store › ReportTemplatesController@store
-  GET|HEAD        reports/templates/{reportTemplate} ........................ report-templates.show › ReportTemplatesController@show
-  POST            reports/templates/{reportTemplate} .................... report-templates.update › ReportTemplatesController@update
-  DELETE          reports/templates/{reportTemplate} .................. report-templates.destroy › ReportTemplatesController@destroy
-  GET|HEAD        reports/templates/{reportTemplate}/edit ................... report-templates.edit › ReportTemplatesController@edit
-  POST            reports/unaccepted_assets/sent_reminder reports/unaccepted_assets_sent_reminder › ReportsController@sentAssetAcce…
-  DELETE          reports/unaccepted_assets/{acceptanceId}/delete reports/unaccepted_assets_delete › ReportsController@deleteAssetA…
-  GET|HEAD        reports/unaccepted_assets/{deleted?} ...... reports/unaccepted_assets › ReportsController@getAssetAcceptanceReport
-  POST            reports/unaccepted_assets/{deleted?} reports/export/unaccepted_assets › ReportsController@postAssetAcceptanceRepo…
-  GET|POST|HEAD   saml/acs ...................................................................... saml.acs › Auth\SamlController@acs
-  GET|HEAD        saml/metadata ....................................................... saml.metadata › Auth\SamlController@metadata
-  GET|HEAD        saml/sls ...................................................................... saml.sls › Auth\SamlController@sls
-  GET|HEAD        scim/v1 .................................................. ArieTimmerman\Laravel › ResourceController@wrongVersion
-  GET|HEAD        scim/v1/{fallbackPlaceholder} ............................ ArieTimmerman\Laravel › ResourceController@wrongVersion
-  POST            scim/v2/.search ........................................ ArieTimmerman\Laravel › ResourceController@notImplemented
-  GET|HEAD        scim/v2/Me .............................................. scim.me.get › ArieTimmerman\Laravel › MeController@getMe
-  PUT             scim/v2/Me .......................................... scim.me.put › ArieTimmerman\Laravel › MeController@replaceMe
-  GET|HEAD        scim/v2/ResourceTypes ...................................... ArieTimmerman\Laravel › ResourceTypesController@index
-  GET|HEAD        scim/v2/ResourceTypes/{id} .............. scim.resourcetype › ArieTimmerman\Laravel › ResourceTypesController@show
-  GET|HEAD        scim/v2/Schemas ................................................... ArieTimmerman\Laravel › SchemaController@index
-  GET|HEAD        scim/v2/Schemas/{id} ................................ scim.schemas › ArieTimmerman\Laravel › SchemaController@show
-  GET|HEAD        scim/v2/ServiceProviderConfig scim.serviceproviderconfig › ArieTimmerman\Laravel › ServiceProviderController@index
-  GET|HEAD        scim/v2/{fallbackPlaceholder} .......................... ArieTimmerman\Laravel › ResourceController@notImplemented
-  GET|HEAD        scim/v2/{resourceType} ......................... scim.resources › ArieTimmerman\Laravel › ResourceController@index
-  POST            scim/v2/{resourceType} ......................................... ArieTimmerman\Laravel › ResourceController@create
-  GET|HEAD        scim/v2/{resourceType}/{resourceObject} .......... scim.resource › ArieTimmerman\Laravel › ResourceController@show
-  PUT             scim/v2/{resourceType}/{resourceObject} ....................... ArieTimmerman\Laravel › ResourceController@replace
-  PATCH           scim/v2/{resourceType}/{resourceObject} ........................ ArieTimmerman\Laravel › ResourceController@update
-  DELETE          scim/v2/{resourceType}/{resourceObject} ........................ ArieTimmerman\Laravel › ResourceController@delete
-  GET|HEAD        setup ................................................................... setup › SettingsController@getSetupIndex
-  GET|HEAD        setup/done .......................................................... setup.done › SettingsController@getSetupDone
-  GET|HEAD        setup/mailtest ................................................. setup.mailtest › SettingsController@ajaxTestEmail
-  GET|HEAD        setup/migrate ................................................. setup.migrate › SettingsController@getSetupMigrate
-  GET|HEAD        setup/user .......................................................... setup.user › SettingsController@getSetupUser
-  POST            setup/user ............................................... setup.user.save › SettingsController@postSaveFirstAdmin
-  GET|HEAD        statuslabels ................................................... statuslabels.index › StatuslabelsController@index
-  POST            statuslabels ................................................... statuslabels.store › StatuslabelsController@store
-  GET|HEAD        statuslabels/create .......................................... statuslabels.create › StatuslabelsController@create
-  GET|HEAD        statuslabels/{statuslabel} ....................................... statuslabels.show › StatuslabelsController@show
-  PUT|PATCH       statuslabels/{statuslabel} ................................... statuslabels.update › StatuslabelsController@update
-  DELETE          statuslabels/{statuslabel} ................................. statuslabels.destroy › StatuslabelsController@destroy
-  GET|HEAD        statuslabels/{statuslabel}/edit .................................. statuslabels.edit › StatuslabelsController@edit
-  GET|HEAD        stored-eula-file/{filename} .......................... log.storedeula.download › ActionlogController@getStoredEula
-  GET|HEAD        suppliers ............................................................ suppliers.index › SuppliersController@index
-  POST            suppliers ............................................................ suppliers.store › SuppliersController@store
-  POST            suppliers/bulk/delete .................................... suppliers.bulk.delete › BulkSuppliersController@destroy
-  GET|HEAD        suppliers/create ................................................... suppliers.create › SuppliersController@create
-  GET|HEAD        suppliers/{supplier} ................................................... suppliers.show › SuppliersController@show
-  PUT|PATCH       suppliers/{supplier} ............................................... suppliers.update › SuppliersController@update
-  DELETE          suppliers/{supplier} ............................................. suppliers.destroy › SuppliersController@destroy
-  GET|HEAD        suppliers/{supplier}/edit .............................................. suppliers.edit › SuppliersController@edit
-  GET|HEAD        test-email ....................................................................................................... 
-  GET|HEAD        two-factor .................................................... two-factor › Auth\LoginController@getTwoFactorAuth
-  POST            two-factor ................................................................ Auth\LoginController@postTwoFactorAuth
-  GET|HEAD        two-factor-enroll .................................... two-factor-enroll › Auth\LoginController@getTwoFactorEnroll
-  GET|HEAD        users .................................................................. users.index › Users\UsersController@index
-  POST            users .................................................................. users.store › Users\UsersController@store
-  POST            users/bulkedit ................................................... users/bulkedit › Users\BulkUsersController@edit
-  POST            users/bulkeditsave ......................................... users/bulkeditsave › Users\BulkUsersController@update
-  POST            users/bulksave ................................................ users/bulksave › Users\BulkUsersController@destroy
-  GET|HEAD        users/create ......................................................... users.create › Users\UsersController@create
-  GET|HEAD        users/export ............................................... users.export › Users\UsersController@getExportUserCsv
-  GET|HEAD        users/ldap ......................................................... ldap/user › Users\LDAPImportController@create
-  POST            users/ldap ...................................................................... Users\LDAPImportController@store
-  POST            users/merge ................................................... users.merge.save › Users\BulkUsersController@merge
-  POST            users/{userId}/email .......................................... users.email › Users\UsersController@emailAssetList
-  POST            users/{userId}/password ................................. users.password › Users\UsersController@sendPasswordReset
-  GET|HEAD        users/{userId}/print .......................................... users.print › Users\UsersController@printInventory
-  POST            users/{userId}/restore .................................... users.restore.store › Users\UsersController@getRestore
-  GET|HEAD        users/{userId}/unsuspend ..................................... unsuspend/user › Users\UsersController@getUnsuspend
-  GET|HEAD        users/{user} ............................................................. users.show › Users\UsersController@show
-  PUT|PATCH       users/{user} ......................................................... users.update › Users\UsersController@update
-  DELETE          users/{user} ....................................................... users.destroy › Users\UsersController@destroy
-  GET|HEAD        users/{user}/clone ............................................. users.clone.show › Users\UsersController@getClone
-  POST            users/{user}/clone .......................................... users.clone.store › Users\UsersController@postCreate
-  GET|HEAD        users/{user}/edit ........................................................ users.edit › Users\UsersController@edit
-  POST            {object_type}/{id}/files .......................................... ui.files.store › UploadedFilesController@store
-  GET|HEAD        {object_type}/{id}/files/{file_id} .................................. ui.files.show › UploadedFilesController@show
-  DELETE          {object_type}/{id}/files/{file_id}/delete ..................... ui.files.destroy › UploadedFilesController@destroy
+  GET|HEAD        / ................................................................................................ home › DashboardController@index
+  GET|HEAD        _debugbar/assets/javascript ........................................... debugbar.assets.js › Barryvdh\Debugbar › AssetController@js
+  GET|HEAD        _debugbar/assets/stylesheets ........................................ debugbar.assets.css › Barryvdh\Debugbar › AssetController@css
+  DELETE          _debugbar/cache/{key}/{tags?} .................................. debugbar.cache.delete › Barryvdh\Debugbar › CacheController@delete
+  GET|HEAD        _debugbar/clockwork/{id} ................................. debugbar.clockwork › Barryvdh\Debugbar › OpenHandlerController@clockwork
+  GET|HEAD        _debugbar/open ............................................ debugbar.openhandler › Barryvdh\Debugbar › OpenHandlerController@handle
+  POST            _debugbar/queries/explain ................................ debugbar.queries.explain › Barryvdh\Debugbar › QueriesController@explain
+  GET|HEAD        _debugbar/telescope/{id} ........................................ debugbar.telescope › Barryvdh\Debugbar › TelescopeController@show
+  POST            _ignition/execute-solution .......................... ignition.executeSolution › Spatie\LaravelIgnition › ExecuteSolutionController
+  GET|HEAD        _ignition/health-check ...................................... ignition.healthCheck › Spatie\LaravelIgnition › HealthCheckController
+  POST            _ignition/update-config ................................... ignition.updateConfig › Spatie\LaravelIgnition › UpdateConfigController
+  GET|HEAD        accessories ........................................................... accessories.index › Accessories\AccessoriesController@index
+  POST            accessories ........................................................... accessories.store › Accessories\AccessoriesController@store
+  GET|HEAD        accessories/create .................................................. accessories.create › Accessories\AccessoriesController@create
+  GET|HEAD        accessories/{accessoryID}/checkin/{backto?} .............. accessories.checkin.show › Accessories\AccessoryCheckinController@create
+  POST            accessories/{accessoryID}/checkin/{backto?} .............. accessories.checkin.store › Accessories\AccessoryCheckinController@store
+  GET|HEAD        accessories/{accessoryID}/checkout ..................... accessories.checkout.show › Accessories\AccessoryCheckoutController@create
+  POST            accessories/{accessoryId}/clone ...................................................... Accessories\AccessoriesController@postCreate
+  GET|HEAD        accessories/{accessory} ................................................. accessories.show › Accessories\AccessoriesController@show
+  PUT|PATCH       accessories/{accessory} ............................................. accessories.update › Accessories\AccessoriesController@update
+  DELETE          accessories/{accessory} ........................................... accessories.destroy › Accessories\AccessoriesController@destroy
+  POST            accessories/{accessory}/checkout ....................... accessories.checkout.store › Accessories\AccessoryCheckoutController@store
+  GET|HEAD        accessories/{accessory}/clone ...................................... clone/accessories › Accessories\AccessoriesController@getClone
+  GET|HEAD        accessories/{accessory}/edit ............................................ accessories.edit › Accessories\AccessoriesController@edit
+  GET|HEAD        account ................................................................................... account › ViewAssetsController@getIndex
+  GET|HEAD        account/accept ................................................................ account.accept › Account\AcceptanceController@index
+  GET|HEAD        account/accept/{id} ..................................................... account.accept.item › Account\AcceptanceController@create
+  POST            account/accept/{id} ................................................. account.store-acceptance › Account\AcceptanceController@store
+  GET|HEAD        account/accept_bulk/{id} ...................................... account.accept.item_bulk › Account\AcceptanceController@create_bulk
+  POST            account/accept_bulk/{id} ................................... account.store-acceptance-bulk › Account\AcceptanceController@storeBulk
+  GET|HEAD        account/api ...................................................................................... user.api › ProfileController@api
+  GET|HEAD        account/display-sig/{filename} .............................................. profile.signature.view › ProfileController@displaySig
+  POST            account/email ............................................................. profile.email_assets › ProfileController@emailAssetList
+  GET|HEAD        account/menu ................................................................... account.menuprefs › ProfileController@getMenuState
+  GET|HEAD        account/password .............................................................. account.password.index › ProfileController@password
+  POST            account/password ......................................................... account.password.update › ProfileController@passwordSave
+  GET|HEAD        account/print .................................................................... profile.print › ProfileController@printInventory
+  GET|HEAD        account/profile .............................................................................. profile › ProfileController@getIndex
+  POST            account/profile ...................................................................... profile.update › ProfileController@postIndex
+  POST            account/request-asset/{asset} .................................................. account.request-asset › ViewAssetsController@store
+  POST            account/request-asset/{asset}/cancel .................................. account.request-asset.cancel › ViewAssetsController@destroy
+  POST            account/request/{itemType}/{itemId}/{cancel_by_admin?}/{requestingUser?} account/request-item › ViewAssetsController@getRequestItem
+  GET|HEAD        account/requestable-assets .......................................... requestable-assets › ViewAssetsController@getRequestableIndex
+  GET|HEAD        account/requested ..................................................... account.requested › ViewAssetsController@getRequestedAssets
+  GET|HEAD        account/stored-eula-file/{filename} ................................. profile.storedeula.download › ProfileController@getStoredEula
+  GET|HEAD        account/view-assets ................................................................... view-assets › ViewAssetsController@getIndex
+  GET|HEAD        admin ................................................................................... settings.index › SettingsController@index
+  GET|HEAD        admin/asset_tags ...................................................... settings.asset_tags.index › SettingsController@getAssetTags
+  POST            admin/asset_tags ...................................................... settings.asset_tags.save › SettingsController@postAssetTags
+  POST            admin/backups ............................................................ settings.backups.create › SettingsController@postBackups
+  GET|HEAD        admin/backups .............................................................. settings.backups.index › SettingsController@getBackups
+  DELETE          admin/backups/delete/{filename} .......................................... settings.backups.destroy › SettingsController@deleteFile
+  GET|HEAD        admin/backups/download/{filename} ..................................... settings.backups.download › SettingsController@downloadFile
+  GET|HEAD        admin/backups/restore/{filename?} ................................................................................................. 
+  POST            admin/backups/restore/{filename} ........................................ settings.backups.restore › SettingsController@postRestore
+  POST            admin/backups/upload ................................................ settings.backups.upload › SettingsController@postUploadBackup
+  GET|HEAD        admin/branding ........................................................... settings.branding.index › SettingsController@getBranding
+  POST            admin/branding ........................................................... settings.branding.save › SettingsController@postBranding
+  GET|HEAD        admin/google .................................................... settings.google.index › SettingsController@getGoogleLoginSettings
+  POST            admin/google .................................................... settings.google.save › SettingsController@postGoogleLoginSettings
+  GET|HEAD        admin/groups ................................................................................ groups.index › GroupsController@index
+  POST            admin/groups ................................................................................ groups.store › GroupsController@store
+  GET|HEAD        admin/groups/create ....................................................................... groups.create › GroupsController@create
+  GET|HEAD        admin/groups/{group} .......................................................................... groups.show › GroupsController@show
+  PUT|PATCH       admin/groups/{group} ...................................................................... groups.update › GroupsController@update
+  DELETE          admin/groups/{group} .................................................................... groups.destroy › GroupsController@destroy
+  GET|HEAD        admin/groups/{group}/edit ..................................................................... groups.edit › GroupsController@edit
+  GET|HEAD        admin/labels ................................................................. settings.labels.index › SettingsController@getLabels
+  POST            admin/labels ................................................................. settings.labels.save › SettingsController@postLabels
+  GET|HEAD        admin/ldap ............................................................... settings.ldap.index › SettingsController@getLdapSettings
+  POST            admin/ldap ............................................................... settings.ldap.save › SettingsController@postLdapSettings
+  GET|HEAD        admin/localization ............................................... settings.localization.index › SettingsController@getLocalization
+  POST            admin/localization ............................................... settings.localization.save › SettingsController@postLocalization
+  GET|HEAD        admin/login-attempts .................................................. settings.logins.index › SettingsController@getLoginAttempts
+  GET|HEAD        admin/notifications .......................................................... settings.alerts.index › SettingsController@getAlerts
+  POST            admin/notifications .......................................................... settings.alerts.save › SettingsController@postAlerts
+  GET|HEAD        admin/oauth ......................................................................... settings.oauth.index › SettingsController@api
+  GET|HEAD        admin/phpinfo .............................................................. settings.phpinfo.index › SettingsController@getPhpInfo
+  GET|HEAD        admin/purge .................................................................... settings.purge.index › SettingsController@getPurge
+  POST            admin/purge .................................................................... settings.purge.save › SettingsController@postPurge
+  GET|HEAD        admin/saml ............................................................... settings.saml.index › SettingsController@getSamlSettings
+  POST            admin/saml ............................................................... settings.saml.save › SettingsController@postSamlSettings
+  GET|HEAD        admin/security ........................................................... settings.security.index › SettingsController@getSecurity
+  POST            admin/security ........................................................... settings.security.save › SettingsController@postSecurity
+  GET|HEAD        admin/settings ............................................................ settings.general.index › SettingsController@getSettings
+  POST            admin/settings ............................................................ settings.general.save › SettingsController@postSettings
+  GET|HEAD        admin/slack .................................................................... settings.slack.index › SettingsController@getSlack
+  POST            admin/slack .................................................................... settings.slack.save › SettingsController@postSlack
+  GET|HEAD        api/v1 ............................................................................................................................ 
+  GET|HEAD        api/v1/accessories ........................................................ api.accessories.index › Api\AccessoriesController@index
+  POST            api/v1/accessories ........................................................ api.accessories.store › Api\AccessoriesController@store
+  GET|HEAD        api/v1/accessories/selectlist ................................... api.accessories.selectlist › Api\AccessoriesController@selectlist
+  GET|HEAD        api/v1/accessories/{accessory} .............................................. api.accessories.show › Api\AccessoriesController@show
+  PUT|PATCH       api/v1/accessories/{accessory} .......................................... api.accessories.update › Api\AccessoriesController@update
+  DELETE          api/v1/accessories/{accessory} ........................................ api.accessories.destroy › Api\AccessoriesController@destroy
+  GET|HEAD        api/v1/accessories/{accessory}/checkedout ....................... api.accessories.checkedout › Api\AccessoriesController@checkedout
+  POST            api/v1/accessories/{accessory}/checkin ................................ api.accessories.checkin › Api\AccessoriesController@checkin
+  POST            api/v1/accessories/{accessory}/checkout ............................. api.accessories.checkout › Api\AccessoriesController@checkout
+  GET|HEAD        api/v1/account/eulas ................................................................. api.self.eulas › Api\ProfileController@eulas
+  POST            api/v1/account/personal-access-tokens ..................... api.personal-access-token.create › Api\ProfileController@createApiToken
+  GET|HEAD        api/v1/account/personal-access-tokens ....................... api.personal-access-token.index › Api\ProfileController@showApiTokens
+  DELETE          api/v1/account/personal-access-tokens/{tokenId} ........... api.personal-access-token.delete › Api\ProfileController@deleteApiToken
+  POST            api/v1/account/request/{asset} .............................................. api.assets.requests.store › Api\CheckoutRequest@store
+  POST            api/v1/account/request/{asset}/cancel ................................... api.assets.requests.destroy › Api\CheckoutRequest@destroy
+  GET|HEAD        api/v1/account/requestable/hardware ..................................... api.assets.requestable › Api\AssetsController@requestable
+  GET|HEAD        api/v1/account/requests .............................................. api.assets.requested › Api\ProfileController@requestedAssets
+  GET|HEAD        api/v1/categories ........................................................... api.categories.index › Api\CategoriesController@index
+  POST            api/v1/categories ........................................................... api.categories.store › Api\CategoriesController@store
+  GET|HEAD        api/v1/categories/{category} .................................................. api.categories.show › Api\CategoriesController@show
+  PUT|PATCH       api/v1/categories/{category} .............................................. api.categories.update › Api\CategoriesController@update
+  DELETE          api/v1/categories/{category} ............................................ api.categories.destroy › Api\CategoriesController@destroy
+  GET|HEAD        api/v1/categories/{item_type}/selectlist .......................... api.categories.selectlist › Api\CategoriesController@selectlist
+  GET|HEAD        api/v1/companies .............................................................. api.companies.index › Api\CompaniesController@index
+  POST            api/v1/companies .............................................................. api.companies.store › Api\CompaniesController@store
+  GET|HEAD        api/v1/companies/selectlist ......................................... api.companies.selectlist › Api\CompaniesController@selectlist
+  GET|HEAD        api/v1/companies/{company} ...................................................... api.companies.show › Api\CompaniesController@show
+  PUT|PATCH       api/v1/companies/{company} .................................................. api.companies.update › Api\CompaniesController@update
+  DELETE          api/v1/companies/{company} ................................................ api.companies.destroy › Api\CompaniesController@destroy
+  GET|HEAD        api/v1/components ........................................................... api.components.index › Api\ComponentsController@index
+  POST            api/v1/components ........................................................... api.components.store › Api\ComponentsController@store
+  GET|HEAD        api/v1/components/selectlist ...................................... api.components.selectlist › Api\ComponentsController@selectlist
+  GET|HEAD        api/v1/components/{component} ................................................. api.components.show › Api\ComponentsController@show
+  PUT|PATCH       api/v1/components/{component} ............................................. api.components.update › Api\ComponentsController@update
+  DELETE          api/v1/components/{component} ........................................... api.components.destroy › Api\ComponentsController@destroy
+  GET|HEAD        api/v1/components/{component}/assets ................................... api.components.assets › Api\ComponentsController@getAssets
+  POST            api/v1/components/{id}/checkin .......................................... api.components.checkin › Api\ComponentsController@checkin
+  POST            api/v1/components/{id}/checkout ....................................... api.components.checkout › Api\ComponentsController@checkout
+  GET|HEAD        api/v1/consumables ........................................................ api.consumables.index › Api\ConsumablesController@index
+  POST            api/v1/consumables ........................................................ api.consumables.store › Api\ConsumablesController@store
+  GET|HEAD        api/v1/consumables/selectlist ................................... api.consumables.selectlist › Api\ConsumablesController@selectlist
+  GET|HEAD        api/v1/consumables/{consumable} ............................................. api.consumables.show › Api\ConsumablesController@show
+  PUT|PATCH       api/v1/consumables/{consumable} ......................................... api.consumables.update › Api\ConsumablesController@update
+  DELETE          api/v1/consumables/{consumable} ....................................... api.consumables.destroy › Api\ConsumablesController@destroy
+  POST            api/v1/consumables/{consumable}/checkout ............................ api.consumables.checkout › Api\ConsumablesController@checkout
+  GET|HEAD        api/v1/consumables/{id}/users .................................. api.consumables.show.users › Api\ConsumablesController@getDataView
+  GET|HEAD        api/v1/departments ........................................................ api.departments.index › Api\DepartmentsController@index
+  POST            api/v1/departments ........................................................ api.departments.store › Api\DepartmentsController@store
+  GET|HEAD        api/v1/departments/selectlist ................................... api.departments.selectlist › Api\DepartmentsController@selectlist
+  GET|HEAD        api/v1/departments/{department} ............................................. api.departments.show › Api\DepartmentsController@show
+  PUT|PATCH       api/v1/departments/{department} ......................................... api.departments.update › Api\DepartmentsController@update
+  DELETE          api/v1/departments/{department} ....................................... api.departments.destroy › Api\DepartmentsController@destroy
+  GET|HEAD        api/v1/depreciations .................................................. api.depreciations.index › Api\DepreciationsController@index
+  POST            api/v1/depreciations .................................................. api.depreciations.store › Api\DepreciationsController@store
+  GET|HEAD        api/v1/depreciations/{depreciation_id} .................................. api.depreciations.show › Api\DepreciationsController@show
+  PUT|PATCH       api/v1/depreciations/{depreciation_id} .............................. api.depreciations.update › Api\DepreciationsController@update
+  DELETE          api/v1/depreciations/{depreciation_id} ............................ api.depreciations.destroy › Api\DepreciationsController@destroy
+  GET|HEAD        api/v1/fields ........................................................... api.customfields.index › Api\CustomFieldsController@index
+  POST            api/v1/fields ........................................................... api.customfields.store › Api\CustomFieldsController@store
+  POST            api/v1/fields/fieldsets/{id}/order ................................ api.customfields.order › Api\CustomFieldsController@postReorder
+  GET|HEAD        api/v1/fields/{field} ..................................................... api.customfields.show › Api\CustomFieldsController@show
+  PUT|PATCH       api/v1/fields/{field} ................................................. api.customfields.update › Api\CustomFieldsController@update
+  DELETE          api/v1/fields/{field} ............................................... api.customfields.destroy › Api\CustomFieldsController@destroy
+  POST            api/v1/fields/{field}/associate ................................. api.customfields.associate › Api\CustomFieldsController@associate
+  POST            api/v1/fields/{field}/disassociate ........................ api.customfields.disassociate › Api\CustomFieldsController@disassociate
+  GET|HEAD        api/v1/fieldsets ........................................................ api.fieldsets.index › Api\CustomFieldsetsController@index
+  POST            api/v1/fieldsets ........................................................ api.fieldsets.store › Api\CustomFieldsetsController@store
+  GET|HEAD        api/v1/fieldsets/{fieldset} ............................................... api.fieldsets.show › Api\CustomFieldsetsController@show
+  PUT|PATCH       api/v1/fieldsets/{fieldset} ........................................... api.fieldsets.update › Api\CustomFieldsetsController@update
+  DELETE          api/v1/fieldsets/{fieldset} ......................................... api.fieldsets.destroy › Api\CustomFieldsetsController@destroy
+  POST            api/v1/fieldsets/{fieldset}/fields .................................... api.fieldsets.fields › Api\CustomFieldsetsController@fields
+  POST            api/v1/fieldsets/{fieldset}/fields/{model} api.fieldsets.fields-with-default-value › Api\CustomFieldsetsController@fieldsWithDefau…
+  GET|HEAD        api/v1/groups ....................................................................... api.groups.index › Api\GroupsController@index
+  POST            api/v1/groups ....................................................................... api.groups.store › Api\GroupsController@store
+  GET|HEAD        api/v1/groups/{group} ................................................................. api.groups.show › Api\GroupsController@show
+  PUT|PATCH       api/v1/groups/{group} ............................................................. api.groups.update › Api\GroupsController@update
+  DELETE          api/v1/groups/{group} ........................................................... api.groups.destroy › Api\GroupsController@destroy
+  GET|HEAD        api/v1/hardware ..................................................................... api.assets.index › Api\AssetsController@index
+  POST            api/v1/hardware ..................................................................... api.assets.store › Api\AssetsController@store
+  POST            api/v1/hardware/audit ......................................................... api.asset.audit.legacy › Api\AssetsController@audit
+  GET|HEAD        api/v1/hardware/byserial/{any} ....................................... api.assets.show.byserial › Api\AssetsController@showBySerial
+  GET|HEAD        api/v1/hardware/bytag/{any} ................................................ api.assets.show.bytag › Api\AssetsController@showByTag
+  POST            api/v1/hardware/bytag/{any}/checkin ................................ api.asset.checkinbytagPath › Api\AssetsController@checkinbytag
+  POST            api/v1/hardware/bytag/{any}/checkout ............................... api.assets.checkout.bytag › Api\AssetsController@checkoutByTag
+  GET|HEAD        api/v1/hardware/bytag/{tag} .................................................... assets.show.bytag › Api\AssetsController@showByTag
+  POST            api/v1/hardware/checkinbytag ........................................... api.asset.checkinbytag › Api\AssetsController@checkinbytag
+  POST            api/v1/hardware/labels ......................................................... api.assets.labels › Api\AssetsController@getLabels
+  GET|HEAD        api/v1/hardware/selectlist .................................................... assets.selectlist › Api\AssetsController@selectlist
+  GET|HEAD        api/v1/hardware/{action}/{upcoming_status} .................................. api.assets.list-upcoming › Api\AssetsController@index
+  GET|HEAD        api/v1/hardware/{asset_id}/licenses ........................................ api.assets.licenselist › Api\AssetsController@licenses
+  POST            api/v1/hardware/{asset_id}/restore .............................................. api.assets.restore › Api\AssetsController@restore
+  PATCH           api/v1/hardware/{asset} ........................................................... api.assets.update › Api\AssetsController@update
+  PUT             api/v1/hardware/{asset} ....................................................... api.assets.put-update › Api\AssetsController@update
+  GET|HEAD        api/v1/hardware/{asset}/assigned/accessories ........... api.assets.assigned_accessories › Api\AssetsController@assignedAccessories
+  GET|HEAD        api/v1/hardware/{asset}/assigned/assets .......................... api.assets.assigned_assets › Api\AssetsController@assignedAssets
+  GET|HEAD        api/v1/hardware/{asset}/assigned/components .............. api.assets.assigned_components › Api\AssetsController@assignedComponents
+  POST            api/v1/hardware/{asset}/audit ........................................................ api.asset.audit › Api\AssetsController@audit
+  GET|HEAD        api/v1/hardware/{hardware} ............................................................ api.assets.show › Api\AssetsController@show
+  DELETE          api/v1/hardware/{hardware} ...................................................... api.assets.destroy › Api\AssetsController@destroy
+  POST            api/v1/hardware/{id}/checkin ..................................................... api.asset.checkin › Api\AssetsController@checkin
+  POST            api/v1/hardware/{id}/checkout .................................................. api.asset.checkout › Api\AssetsController@checkout
+  GET|HEAD        api/v1/imports ..................................................................... api.imports.index › Api\ImportController@index
+  POST            api/v1/imports ..................................................................... api.imports.store › Api\ImportController@store
+  POST            api/v1/imports/process/{import} ............................................. api.imports.importFile › Api\ImportController@process
+  GET|HEAD        api/v1/imports/{import} .............................................................. api.imports.show › Api\ImportController@show
+  PUT|PATCH       api/v1/imports/{import} .......................................................... api.imports.update › Api\ImportController@update
+  DELETE          api/v1/imports/{import} ........................................................ api.imports.destroy › Api\ImportController@destroy
+  GET|HEAD        api/v1/kits ................................................................... api.kits.index › Api\PredefinedKitsController@index
+  POST            api/v1/kits ................................................................... api.kits.store › Api\PredefinedKitsController@store
+  GET|HEAD        api/v1/kits/{kit_id}/accessories ....................... api.kits.accessories.index › Api\PredefinedKitsController@indexAccessories
+  POST            api/v1/kits/{kit_id}/accessories ......................... api.kits.accessories.store › Api\PredefinedKitsController@storeAccessory
+  PUT             api/v1/kits/{kit_id}/accessories/{accessory_id} ........ api.kits.accessories.update › Api\PredefinedKitsController@updateAccessory
+  DELETE          api/v1/kits/{kit_id}/accessories/{accessory_id} ....... api.kits.accessories.destroy › Api\PredefinedKitsController@detachAccessory
+  GET|HEAD        api/v1/kits/{kit_id}/consumables ....................... api.kits.consumables.index › Api\PredefinedKitsController@indexConsumables
+  POST            api/v1/kits/{kit_id}/consumables ........................ api.kits.consumables.store › Api\PredefinedKitsController@storeConsumable
+  PUT             api/v1/kits/{kit_id}/consumables/{consumable_id} ...... api.kits.consumables.update › Api\PredefinedKitsController@updateConsumable
+  DELETE          api/v1/kits/{kit_id}/consumables/{consumable_id} ..... api.kits.consumables.destroy › Api\PredefinedKitsController@detachConsumable
+  GET|HEAD        api/v1/kits/{kit_id}/licenses ................................ api.kits.licenses.index › Api\PredefinedKitsController@indexLicenses
+  POST            api/v1/kits/{kit_id}/licenses ................................. api.kits.licenses.store › Api\PredefinedKitsController@storeLicense
+  PUT             api/v1/kits/{kit_id}/licenses/{license_id} .................. api.kits.licenses.update › Api\PredefinedKitsController@updateLicense
+  DELETE          api/v1/kits/{kit_id}/licenses/{license_id} ................. api.kits.licenses.destroy › Api\PredefinedKitsController@detachLicense
+  GET|HEAD        api/v1/kits/{kit_id}/models ...................................... api.kits.models.index › Api\PredefinedKitsController@indexModels
+  POST            api/v1/kits/{kit_id}/models ....................................... api.kits.models.store › Api\PredefinedKitsController@storeModel
+  PUT             api/v1/kits/{kit_id}/models/{model_id} ......................... api.kits.models.update › Api\PredefinedKitsController@updateModels
+  DELETE          api/v1/kits/{kit_id}/models/{model_id} ........................ api.kits.models.destroy › Api\PredefinedKitsController@detachModels
+  GET|HEAD        api/v1/kits/{kit} ............................................................... api.kits.show › Api\PredefinedKitsController@show
+  PUT|PATCH       api/v1/kits/{kit} ........................................................... api.kits.update › Api\PredefinedKitsController@update
+  DELETE          api/v1/kits/{kit} ......................................................... api.kits.destroy › Api\PredefinedKitsController@destroy
+  GET|HEAD        api/v1/labels ....................................................................... api.labels.index › Api\LabelsController@index
+  GET|HEAD        api/v1/labels/{name} .................................................................. api.labels.show › Api\LabelsController@show
+  GET|HEAD        api/v1/licenses ................................................................. api.licenses.index › Api\LicensesController@index
+  POST            api/v1/licenses ................................................................. api.licenses.store › Api\LicensesController@store
+  GET|HEAD        api/v1/licenses/selectlist ............................................ api.licenses.selectlist › Api\LicensesController@selectlist
+  GET|HEAD        api/v1/licenses/{license_id} ...................................................... api.licenses.show › Api\LicensesController@show
+  PUT|PATCH       api/v1/licenses/{license_id} .................................................. api.licenses.update › Api\LicensesController@update
+  DELETE          api/v1/licenses/{license_id} ................................................ api.licenses.destroy › Api\LicensesController@destroy
+  GET|HEAD        api/v1/licenses/{license}/seats ....................................... api.licenses.seats.index › Api\LicenseSeatsController@index
+  GET|HEAD        api/v1/licenses/{license}/seats/{seat} .................................. api.licenses.seats.show › Api\LicenseSeatsController@show
+  PUT|PATCH       api/v1/licenses/{license}/seats/{seat} .............................. api.licenses.seats.update › Api\LicenseSeatsController@update
+  GET|HEAD        api/v1/locations .............................................................. api.locations.index › Api\LocationsController@index
+  POST            api/v1/locations .............................................................. api.locations.store › Api\LocationsController@store
+  GET|HEAD        api/v1/locations/selectlist ......................................... api.locations.selectlist › Api\LocationsController@selectlist
+  GET|HEAD        api/v1/locations/{location} ..................................................... api.locations.show › Api\LocationsController@show
+  PUT|PATCH       api/v1/locations/{location} ................................................. api.locations.update › Api\LocationsController@update
+  DELETE          api/v1/locations/{location} ............................................... api.locations.destroy › Api\LocationsController@destroy
+  GET|HEAD        api/v1/locations/{location}/assets ...................................... api.locations.viewassets › Api\LocationsController@assets
+  GET|HEAD        api/v1/locations/{location}/assigned/accessories . api.locations.assigned_accessories › Api\LocationsController@assignedAccessories
+  GET|HEAD        api/v1/locations/{location}/assigned/assets ................ api.locations.assigned_assets › Api\LocationsController@assignedAssets
+  GET|HEAD        api/v1/locations/{location}/users .............................. api.locations.viewusers › Api\LocationsController@getDataViewUsers
+  GET|HEAD        api/v1/maintenances ..................................................... api.maintenances.index › Api\MaintenancesController@index
+  POST            api/v1/maintenances ..................................................... api.maintenances.store › Api\MaintenancesController@store
+  GET|HEAD        api/v1/maintenances/{maintenance} ......................................... api.maintenances.show › Api\MaintenancesController@show
+  PUT|PATCH       api/v1/maintenances/{maintenance} ..................................... api.maintenances.update › Api\MaintenancesController@update
+  DELETE          api/v1/maintenances/{maintenance} ................................... api.maintenances.destroy › Api\MaintenancesController@destroy
+  GET|HEAD        api/v1/manufacturers .................................................. api.manufacturers.index › Api\ManufacturersController@index
+  POST            api/v1/manufacturers .................................................. api.manufacturers.store › Api\ManufacturersController@store
+  GET|HEAD        api/v1/manufacturers/selectlist ............................. api.manufacturers.selectlist › Api\ManufacturersController@selectlist
+  POST            api/v1/manufacturers/{id}/restore ................................. api.manufacturers.restore › Api\ManufacturersController@restore
+  GET|HEAD        api/v1/manufacturers/{manufacturer} ..................................... api.manufacturers.show › Api\ManufacturersController@show
+  PUT|PATCH       api/v1/manufacturers/{manufacturer} ................................. api.manufacturers.update › Api\ManufacturersController@update
+  DELETE          api/v1/manufacturers/{manufacturer} ............................... api.manufacturers.destroy › Api\ManufacturersController@destroy
+  GET|HEAD        api/v1/models .................................................................. api.models.index › Api\AssetModelsController@index
+  POST            api/v1/models .................................................................. api.models.store › Api\AssetModelsController@store
+  GET|HEAD        api/v1/models/assets ......................................................... api.models.assets › Api\AssetModelsController@assets
+  GET|HEAD        api/v1/models/selectlist ............................................. api.models.selectlist › Api\AssetModelsController@selectlist
+  POST            api/v1/models/{id}/restore ................................................. api.models.restore › Api\AssetModelsController@restore
+  GET|HEAD        api/v1/models/{model} ............................................................ api.models.show › Api\AssetModelsController@show
+  PUT|PATCH       api/v1/models/{model} ........................................................ api.models.update › Api\AssetModelsController@update
+  DELETE          api/v1/models/{model} ...................................................... api.models.destroy › Api\AssetModelsController@destroy
+  GET|HEAD        api/v1/notes/{asset}/index ............................................................ api.notes.index › Api\NotesController@index
+  POST            api/v1/notes/{asset}/store ............................................................ api.notes.store › Api\NotesController@store
+  GET|HEAD        api/v1/reports/activity .......................................................... api.activity.index › Api\ReportsController@index
+  GET|HEAD        api/v1/reports/depreciation ............................................ api.depreciation-report.index › Api\AssetsController@index
+  POST            api/v1/settings ................................................................. api.settings.store › Api\SettingsController@store
+  GET|HEAD        api/v1/settings/backups ........................................... api.settings.backups.index › Api\SettingsController@listBackups
+  GET|HEAD        api/v1/settings/backups/download/latest ................. api.settings.backups.latest › Api\SettingsController@downloadLatestBackup
+  GET|HEAD        api/v1/settings/backups/download/{file} ..................... api.settings.backups.download › Api\SettingsController@downloadBackup
+  GET|HEAD        api/v1/settings/ldaptest .................................................. api.settings.ldaptest › Api\SettingsController@ldaptest
+  POST            api/v1/settings/ldaptestlogin ................................... api.settings.ldaptestlogin › Api\SettingsController@ldaptestlogin
+  GET|HEAD        api/v1/settings/login-attempts ............................. api.settings.login_attempts › Api\SettingsController@showLoginAttempts
+  POST            api/v1/settings/mailtest ............................................. api.settings.mailtest › Api\SettingsController@ajaxTestEmail
+  POST            api/v1/settings/purge_barcodes .................................. api.settings.purgebarcodes › Api\SettingsController@purgeBarcodes
+  POST            api/v1/settings/slacktest ............................................... api.settings.slacktest › Api\SettingsController@slacktest
+  GET|HEAD        api/v1/settings/{setting} ......................................................... api.settings.show › Api\SettingsController@show
+  PUT|PATCH       api/v1/settings/{setting} ..................................................... api.settings.update › Api\SettingsController@update
+  GET|HEAD        api/v1/statuslabels ..................................................... api.statuslabels.index › Api\StatuslabelsController@index
+  POST            api/v1/statuslabels ..................................................... api.statuslabels.store › Api\StatuslabelsController@store
+  GET|HEAD        api/v1/statuslabels/assets/name ............ api.statuslabels.assets.byname › Api\StatuslabelsController@getAssetCountByStatuslabel
+  GET|HEAD        api/v1/statuslabels/assets/type ............. api.statuslabels.assets.bytype › Api\StatuslabelsController@getAssetCountByMetaStatus
+  GET|HEAD        api/v1/statuslabels/selectlist ................................ api.statuslabels.selectlist › Api\StatuslabelsController@selectlist
+  GET|HEAD        api/v1/statuslabels/{id}/assetlist .................................... api.statuslabels.assets › Api\StatuslabelsController@assets
+  GET|HEAD        api/v1/statuslabels/{statuslabel} ......................................... api.statuslabels.show › Api\StatuslabelsController@show
+  PUT|PATCH       api/v1/statuslabels/{statuslabel} ..................................... api.statuslabels.update › Api\StatuslabelsController@update
+  DELETE          api/v1/statuslabels/{statuslabel} ................................... api.statuslabels.destroy › Api\StatuslabelsController@destroy
+  GET|HEAD        api/v1/statuslabels/{statuslabel}/deployable ........... api.statuslabels.deployable › Api\StatuslabelsController@checkIfDeployable
+  GET|HEAD        api/v1/suppliers .............................................................. api.suppliers.index › Api\SuppliersController@index
+  POST            api/v1/suppliers .............................................................. api.suppliers.store › Api\SuppliersController@store
+  GET|HEAD        api/v1/suppliers/selectlist ......................................... api.suppliers.selectlist › Api\SuppliersController@selectlist
+  GET|HEAD        api/v1/suppliers/{supplier} ..................................................... api.suppliers.show › Api\SuppliersController@show
+  PUT|PATCH       api/v1/suppliers/{supplier} ................................................. api.suppliers.update › Api\SuppliersController@update
+  DELETE          api/v1/suppliers/{supplier} ............................................... api.suppliers.destroy › Api\SuppliersController@destroy
+  GET|HEAD        api/v1/users .......................................................................... api.users.index › Api\UsersController@index
+  POST            api/v1/users .......................................................................... api.users.store › Api\UsersController@store
+  POST            api/v1/users/ldapsync ...................................................... api.users.ldapsync › Api\UsersController@syncLdapUsers
+  GET|HEAD        api/v1/users/list/{status?} ..................................................... api.users.list › Api\UsersController@getDatatable
+  GET|HEAD        api/v1/users/me ............................................................. api.users.me › Api\UsersController@getCurrentUserInfo
+  GET|HEAD        api/v1/users/selectlist ..................................................... api.users.selectlist › Api\UsersController@selectlist
+  POST            api/v1/users/two_factor_reset ................................. api.users.two_factor_reset › Api\UsersController@postTwoFactorReset
+  GET|HEAD        api/v1/users/{user} ..................................................................... api.users.show › Api\UsersController@show
+  PUT|PATCH       api/v1/users/{user} ................................................................. api.users.update › Api\UsersController@update
+  DELETE          api/v1/users/{user} ............................................................... api.users.destroy › Api\UsersController@destroy
+  GET|HEAD        api/v1/users/{user}/accessories ....................................... api.users.accessorieslist › Api\UsersController@accessories
+  GET|HEAD        api/v1/users/{user}/assets ....................................................... api.users.assetlist › Api\UsersController@assets
+  POST            api/v1/users/{user}/email ............................................. api.users.email_assets › Api\UsersController@emailAssetList
+  GET|HEAD        api/v1/users/{user}/eulas .............................................................. api.user.eulas › Api\UsersController@eulas
+  GET|HEAD        api/v1/users/{user}/licenses ................................................. api.users.licenselist › Api\UsersController@licenses
+  POST            api/v1/users/{user}/restore ....................................................... api.users.restore › Api\UsersController@restore
+  GET|HEAD        api/v1/version .................................................................................................................... 
+  GET|HEAD        api/v1/{fallbackPlaceholder} ...................................................................................................... 
+  GET|HEAD        api/v1/{object_type}/{id}/files ............................................... api.files.index › Api\UploadedFilesController@index
+  POST            api/v1/{object_type}/{id}/files ............................................... api.files.store › Api\UploadedFilesController@store
+  GET|HEAD        api/v1/{object_type}/{id}/files/{file_id} ....................................... api.files.show › Api\UploadedFilesController@show
+  DELETE          api/v1/{object_type}/{id}/files/{file_id}/delete .......................... api.files.destroy › Api\UploadedFilesController@destroy
+  GET|HEAD        asset_public/{asset_tag} ....................................................... asset_public › PublicController@getAssetFromPublic
+  GET|HEAD        auth/signin ............................................................................... Auth\LoginController@legacyAuthRedirect
+  GET|HEAD        callback_sso ............................................................................ sso_callback › SSOController@callback_sso
+  GET|HEAD        categories .......................................................................... categories.index › CategoriesController@index
+  POST            categories .......................................................................... categories.store › CategoriesController@store
+  POST            categories/bulk/delete .................................................. categories.bulk.delete › BulkCategoriesController@destroy
+  GET|HEAD        categories/create ................................................................. categories.create › CategoriesController@create
+  GET|HEAD        categories/{category} ................................................................. categories.show › CategoriesController@show
+  PUT|PATCH       categories/{category} ............................................................. categories.update › CategoriesController@update
+  DELETE          categories/{category} ........................................................... categories.destroy › CategoriesController@destroy
+  GET|HEAD        categories/{category}/edit ............................................................ categories.edit › CategoriesController@edit
+  GET|HEAD        companies ............................................................................. companies.index › CompaniesController@index
+  POST            companies ............................................................................. companies.store › CompaniesController@store
+  GET|HEAD        companies/create .................................................................... companies.create › CompaniesController@create
+  GET|HEAD        companies/{company} ..................................................................... companies.show › CompaniesController@show
+  PUT|PATCH       companies/{company} ................................................................. companies.update › CompaniesController@update
+  DELETE          companies/{company} ............................................................... companies.destroy › CompaniesController@destroy
+  GET|HEAD        companies/{company}/edit ................................................................ companies.edit › CompaniesController@edit
+  GET|HEAD        components ............................................................... components.index › Components\ComponentsController@index
+  POST            components ............................................................... components.store › Components\ComponentsController@store
+  GET|HEAD        components/create ...................................................... components.create › Components\ComponentsController@create
+  GET|HEAD        components/{componentID}/checkin/{backto?} ................. components.checkin.show › Components\ComponentCheckinController@create
+  POST            components/{componentID}/checkin/{backto?} ................. components.checkin.store › Components\ComponentCheckinController@store
+  GET|HEAD        components/{componentID}/checkout ........................ components.checkout.show › Components\ComponentCheckoutController@create
+  POST            components/{componentID}/checkout ........................ components.checkout.store › Components\ComponentCheckoutController@store
+  GET|HEAD        components/{component} ..................................................... components.show › Components\ComponentsController@show
+  PUT|PATCH       components/{component} ................................................. components.update › Components\ComponentsController@update
+  DELETE          components/{component} ............................................... components.destroy › Components\ComponentsController@destroy
+  GET|HEAD        components/{component}/edit ................................................ components.edit › Components\ComponentsController@edit
+  GET|HEAD        consumables ........................................................... consumables.index › Consumables\ConsumablesController@index
+  POST            consumables ........................................................... consumables.store › Consumables\ConsumablesController@store
+  GET|HEAD        consumables/create .................................................. consumables.create › Consumables\ConsumablesController@create
+  GET|HEAD        consumables/{consumablesID}/checkout .................. consumables.checkout.show › Consumables\ConsumableCheckoutController@create
+  POST            consumables/{consumablesID}/checkout .................. consumables.checkout.store › Consumables\ConsumableCheckoutController@store
+  GET|HEAD        consumables/{consumable} ................................................ consumables.show › Consumables\ConsumablesController@show
+  PUT|PATCH       consumables/{consumable} ............................................ consumables.update › Consumables\ConsumablesController@update
+  DELETE          consumables/{consumable} .......................................... consumables.destroy › Consumables\ConsumablesController@destroy
+  GET|HEAD        consumables/{consumable}/clone ................................. consumables.clone.create › Consumables\ConsumablesController@clone
+  GET|HEAD        consumables/{consumable}/edit ........................................... consumables.edit › Consumables\ConsumablesController@edit
+  GET|HEAD        departments ....................................................................... departments.index › DepartmentsController@index
+  POST            departments ....................................................................... departments.store › DepartmentsController@store
+  GET|HEAD        departments/create .............................................................. departments.create › DepartmentsController@create
+  GET|HEAD        departments/{department} ............................................................ departments.show › DepartmentsController@show
+  PUT|PATCH       departments/{department} ........................................................ departments.update › DepartmentsController@update
+  DELETE          departments/{department} ...................................................... departments.destroy › DepartmentsController@destroy
+  GET|HEAD        departments/{department}/edit ....................................................... departments.edit › DepartmentsController@edit
+  GET|HEAD        depreciations ................................................................. depreciations.index › DepreciationsController@index
+  POST            depreciations ................................................................. depreciations.store › DepreciationsController@store
+  GET|HEAD        depreciations/create ........................................................ depreciations.create › DepreciationsController@create
+  GET|HEAD        depreciations/{depreciation} .................................................... depreciations.show › DepreciationsController@show
+  PUT|PATCH       depreciations/{depreciation} ................................................ depreciations.update › DepreciationsController@update
+  DELETE          depreciations/{depreciation} .............................................. depreciations.destroy › DepreciationsController@destroy
+  GET|HEAD        depreciations/{depreciation}/edit ............................................... depreciations.edit › DepreciationsController@edit
+  GET|HEAD        display-sig/{filename} ........................................................ log.signature.view › ActionlogController@displaySig
+  GET|HEAD        fields ................................................................................ fields.index › CustomFieldsController@index
+  POST            fields ................................................................................ fields.store › CustomFieldsController@store
+  GET|HEAD        fields/create ....................................................................... fields.create › CustomFieldsController@create
+  GET|HEAD        fields/fieldsets ................................................................ fieldsets.index › CustomFieldsetsController@index
+  POST            fields/fieldsets ................................................................ fieldsets.store › CustomFieldsetsController@store
+  GET|HEAD        fields/fieldsets/create ....................................................... fieldsets.create › CustomFieldsetsController@create
+  GET|HEAD        fields/fieldsets/{fieldset} ....................................................... fieldsets.show › CustomFieldsetsController@show
+  PUT|PATCH       fields/fieldsets/{fieldset} ................................................... fieldsets.update › CustomFieldsetsController@update
+  DELETE          fields/fieldsets/{fieldset} ................................................. fieldsets.destroy › CustomFieldsetsController@destroy
+  GET|HEAD        fields/fieldsets/{fieldset}/edit .................................................. fieldsets.edit › CustomFieldsetsController@edit
+  POST            fields/fieldsets/{id}/associate ......................................... fieldsets.associate › CustomFieldsetsController@associate
+  POST            fields/optional/{fieldset_id}/{field_id} ............................ fields.optional › CustomFieldsetsController@makeFieldOptional
+  POST            fields/required/{fieldset_id}/{field_id} ............................ fields.required › CustomFieldsetsController@makeFieldRequired
+  POST            fields/{field_id}/fieldset/{fieldset_id}/disassociate ........ fields.disassociate › CustomFieldsController@deleteFieldFromFieldset
+  PUT|PATCH       fields/{field} ...................................................................... fields.update › CustomFieldsController@update
+  DELETE          fields/{field} .................................................................... fields.destroy › CustomFieldsController@destroy
+  GET|HEAD        fields/{field}/edit ..................................................................... fields.edit › CustomFieldsController@edit
+  GET|HEAD        google .................................................................... google.redirect › GoogleAuthController@redirectToGoogle
+  GET|HEAD        google/callback ....................................................... google.callback › GoogleAuthController@handleGoogleCallback
+  GET|HEAD        hardware ........................................................................... hardware.index › Assets\AssetsController@index
+  POST            hardware ........................................................................... hardware.store › Assets\AssetsController@store
+  GET|HEAD        hardware/audit/due ......................................................... assets.audit.due › Assets\AssetsController@dueForAudit
+  GET|HEAD        hardware/bulkaudit ........................................................... assets.bulkaudit › Assets\AssetsController@quickScan
+  GET|HEAD        hardware/bulkcheckout ....................................... hardware.bulkcheckout.show › Assets\BulkAssetsController@showCheckout
+  POST            hardware/bulkcheckout ..................................... hardware.bulkcheckout.store › Assets\BulkAssetsController@storeCheckout
+  POST            hardware/bulkdelete ..................................................... hardware/bulkdelete › Assets\BulkAssetsController@destroy
+  POST            hardware/bulkedit ............................................................ hardware/bulkedit › Assets\BulkAssetsController@edit
+  POST            hardware/bulkrestore ................................................... hardware/bulkrestore › Assets\BulkAssetsController@restore
+  POST            hardware/bulksave .......................................................... hardware/bulksave › Assets\BulkAssetsController@update
+  GET|HEAD        hardware/byserial/{any?} ......................................... findbyserial/hardware › Assets\AssetsController@getAssetBySerial
+  GET|HEAD        hardware/bytag/{any?} .................................................. findbytag/hardware › Assets\AssetsController@getAssetByTag
+  GET|HEAD        hardware/checkins/due ................................................. assets.checkins.due › Assets\AssetsController@dueForCheckin
+  GET|HEAD        hardware/create .................................................................. hardware.create › Assets\AssetsController@create
+  GET|HEAD        hardware/history .................................................. asset.import-history › Assets\AssetsController@getImportHistory
+  POST            hardware/history ......................................... asset.process-import-history › Assets\AssetsController@postImportHistory
+  GET|HEAD        hardware/quickscancheckin .................................... hardware/quickscancheckin › Assets\AssetsController@quickScanCheckin
+  GET|HEAD        hardware/requested ................................................... assets.requested › Assets\AssetsController@getRequestedIndex
+  POST            hardware/{assetId}/checkin/{backto?} ................................. hardware.checkin.store › Assets\AssetCheckinController@store
+  POST            hardware/{assetId}/checkout ........................................ hardware.checkout.store › Assets\AssetCheckoutController@store
+  GET|HEAD        hardware/{assetId}/label ........................................................ label/hardware › Assets\AssetsController@getLabel
+  GET|HEAD        hardware/{assetId}/view ........................................................................................................... 
+  GET|HEAD        hardware/{asset} ..................................................................... hardware.show › Assets\AssetsController@show
+  PUT|PATCH       hardware/{asset} ................................................................. hardware.update › Assets\AssetsController@update
+  DELETE          hardware/{asset} ............................................................... hardware.destroy › Assets\AssetsController@destroy
+  GET|HEAD        hardware/{asset}/audit ......................................................... asset.audit.create › Assets\AssetsController@audit
+  POST            hardware/{asset}/audit ..................................................... asset.audit.store › Assets\AssetsController@auditStore
+  GET|HEAD        hardware/{asset}/barcode .................................................... barcode/hardware › Assets\AssetsController@getBarCode
+  GET|HEAD        hardware/{asset}/checkin/{backto?} ................................. hardware.checkin.create › Assets\AssetCheckinController@create
+  GET|HEAD        hardware/{asset}/checkout ........................................ hardware.checkout.create › Assets\AssetCheckoutController@create
+  GET|HEAD        hardware/{asset}/clone .......................................................... clone/hardware › Assets\AssetsController@getClone
+  GET|HEAD        hardware/{asset}/edit ................................................................ hardware.edit › Assets\AssetsController@edit
+  GET|HEAD        hardware/{asset}/qr_code ..................................................... qr_code/hardware › Assets\AssetsController@getQrCode
+  POST            hardware/{asset}/restore .................................................... restore/hardware › Assets\AssetsController@getRestore
+  GET|HEAD        health .............................................................................................. health › HealthController@get
+  GET|HEAD        ht/{any?} ..................................................................... ht/assetTag › Assets\AssetsController@getAssetByTag
+  GET|HEAD        impersonate/leave ............................................ impersonate.leave › Lab404\Impersonate › ImpersonateController@leave
+  GET|HEAD        impersonate/take/{id}/{guardName?} .................................. impersonate › Lab404\Impersonate › ImpersonateController@take
+  GET|HEAD        import ...................................................................................... imports.index › App\Livewire\Importer
+  GET|HEAD        kits ............................................................................. kits.index › Kits\PredefinedKitsController@index
+  POST            kits ............................................................................. kits.store › Kits\PredefinedKitsController@store
+  GET|HEAD        kits/create .................................................................... kits.create › Kits\PredefinedKitsController@create
+  GET|HEAD        kits/{kit} ......................................................................... kits.show › Kits\PredefinedKitsController@show
+  PUT|PATCH       kits/{kit} ..................................................................... kits.update › Kits\PredefinedKitsController@update
+  DELETE          kits/{kit} ................................................................... kits.destroy › Kits\PredefinedKitsController@destroy
+  PUT             kits/{kit}/accessories/{accessory_id} ..................... kits.accessories.update › Kits\PredefinedKitsController@updateAccessory
+  DELETE          kits/{kit}/accessories/{accessory_id} ..................... kits.accessories.detach › Kits\PredefinedKitsController@detachAccessory
+  GET|HEAD        kits/{kit}/accessories/{accessory_id}/edit .................... kits.accessories.edit › Kits\PredefinedKitsController@editAccessory
+  GET|HEAD        kits/{kit}/checkout .................................................. kits.checkout.show › Kits\CheckoutKitController@showCheckout
+  POST            kits/{kit}/checkout ........................................................ kits.checkout.store › Kits\CheckoutKitController@store
+  PUT             kits/{kit}/consumables/{consumable_id} ................... kits.consumables.update › Kits\PredefinedKitsController@updateConsumable
+  DELETE          kits/{kit}/consumables/{consumable_id} ................... kits.consumables.detach › Kits\PredefinedKitsController@detachConsumable
+  GET|HEAD        kits/{kit}/consumables/{consumable_id}/edit .................. kits.consumables.edit › Kits\PredefinedKitsController@editConsumable
+  GET|HEAD        kits/{kit}/edit .................................................................... kits.edit › Kits\PredefinedKitsController@edit
+  PUT             kits/{kit}/licenses .............................................. kits.licenses.store › Kits\PredefinedKitsController@storeLicense
+  PUT             kits/{kit}/licenses/{license_id} ............................... kits.licenses.update › Kits\PredefinedKitsController@updateLicense
+  DELETE          kits/{kit}/licenses/{license_id} ............................... kits.licenses.detach › Kits\PredefinedKitsController@detachLicense
+  GET|HEAD        kits/{kit}/licenses/{license_id}/edit .............................. kits.licenses.edit › Kits\PredefinedKitsController@editLicense
+  PUT             kits/{kit}/models/{model_id} ....................................... kits.models.update › Kits\PredefinedKitsController@updateModel
+  DELETE          kits/{kit}/models/{model_id} ....................................... kits.models.detach › Kits\PredefinedKitsController@detachModel
+  GET|HEAD        kits/{kit}/models/{model_id}/edit ...................................... kits.models.edit › Kits\PredefinedKitsController@editModel
+  GET|HEAD        labels/{labelName} ............................................................................ labels.show › LabelsController@show
+  GET|HEAD        licenses ....................................................................... licenses.index › Licenses\LicensesController@index
+  POST            licenses ....................................................................... licenses.store › Licenses\LicensesController@store
+  GET|HEAD        licenses/create .............................................................. licenses.create › Licenses\LicensesController@create
+  GET|HEAD        licenses/export ................................................ licenses.export › Licenses\LicensesController@getExportLicensesCsv
+  POST            licenses/{licenseId}/bulkcheckin ............................. licenses.bulkcheckin › Licenses\LicenseCheckinController@bulkCheckin
+  POST            licenses/{licenseId}/bulkcheckout ......................... licenses.bulkcheckout › Licenses\LicenseCheckoutController@bulkCheckout
+  POST            licenses/{licenseId}/checkin/{backto?} ............................ licenses.checkin.save › Licenses\LicenseCheckinController@store
+  POST            licenses/{licenseId}/checkout/{seatId?} .................................................. Licenses\LicenseCheckoutController@store
+  GET|HEAD        licenses/{licenseId}/clone ................................................... clone/license › Licenses\LicensesController@getClone
+  GET|HEAD        licenses/{licenseId}/freecheckout .............................. licenses.freecheckout › Licenses\LicensesController@getFreeLicense
+  GET|HEAD        licenses/{licenseSeat}/checkin/{backto?} .............................. licenses.checkin › Licenses\LicenseCheckinController@create
+  GET|HEAD        licenses/{license} ............................................................... licenses.show › Licenses\LicensesController@show
+  PUT|PATCH       licenses/{license} ........................................................... licenses.update › Licenses\LicensesController@update
+  DELETE          licenses/{license} ......................................................... licenses.destroy › Licenses\LicensesController@destroy
+  GET|HEAD        licenses/{license}/checkout/{seatId?} ............................... licenses.checkout › Licenses\LicenseCheckoutController@create
+  GET|HEAD        licenses/{license}/edit .......................................................... licenses.edit › Licenses\LicensesController@edit
+  GET|HEAD        livewire/livewire.js .................................................. Livewire\Mechanisms › FrontendAssets@returnJavaScriptAsFile
+  GET|HEAD        livewire/livewire.min.js.map ............................................................ Livewire\Mechanisms › FrontendAssets@maps
+  GET|HEAD        livewire/preview-file/{filename} ......................... livewire.preview-file › Livewire\Features › FilePreviewController@handle
+  POST            livewire/update ............................................... livewire.update › Livewire\Mechanisms › HandleRequests@handleUpdate
+  POST            livewire/upload-file ....................................... livewire.upload-file › Livewire\Features › FileUploadController@handle
+  GET|HEAD        locations ............................................................................. locations.index › LocationsController@index
+  POST            locations ............................................................................. locations.store › LocationsController@store
+  POST            locations/bulkdelete ............................................... locations.bulkdelete.show › LocationsController@postBulkDelete
+  POST            locations/bulkedit ........................................... locations.bulkdelete.store › LocationsController@postBulkDeleteStore
+  GET|HEAD        locations/create .................................................................... locations.create › LocationsController@create
+  GET|HEAD        locations/{locationId}/clone ........................................................ clone/location › LocationsController@getClone
+  GET|HEAD        locations/{locationId}/printallassigned ..................... locations.print_all_assigned › LocationsController@print_all_assigned
+  GET|HEAD        locations/{locationId}/printassigned ................................ locations.print_assigned › LocationsController@print_assigned
+  GET|HEAD        locations/{location} .................................................................... locations.show › LocationsController@show
+  PUT|PATCH       locations/{location} ................................................................ locations.update › LocationsController@update
+  DELETE          locations/{location} .............................................................. locations.destroy › LocationsController@destroy
+  GET|HEAD        locations/{location}/edit ............................................................... locations.edit › LocationsController@edit
+  POST            locations/{location}/restore .................................................. locations.restore › LocationsController@postRestore
+  GET|HEAD        log-viewer ................................................ log-viewer::dashboard › Arcanedev\LogViewer › LogViewerController@index
+  GET|HEAD        log-viewer/logs ........................................ log-viewer::logs.list › Arcanedev\LogViewer › LogViewerController@listLogs
+  DELETE          log-viewer/logs/delete ................................. log-viewer::logs.delete › Arcanedev\LogViewer › LogViewerController@delete
+  GET|HEAD        log-viewer/logs/{date} ..................................... log-viewer::logs.show › Arcanedev\LogViewer › LogViewerController@show
+  GET|HEAD        log-viewer/logs/{date}/download .................... log-viewer::logs.download › Arcanedev\LogViewer › LogViewerController@download
+  GET|HEAD        log-viewer/logs/{date}/{level} .................... log-viewer::logs.filter › Arcanedev\LogViewer › LogViewerController@showByLevel
+  GET|HEAD        log-viewer/logs/{date}/{level}/search .................. log-viewer::logs.search › Arcanedev\LogViewer › LogViewerController@search
+  GET|HEAD        login .................................................................................. login › Auth\LoginController@showLoginForm
+  POST            login .................................................................................................. Auth\LoginController@login
+  GET|HEAD        login/saml ................................................................................. saml.login › Auth\SamlController@login
+  GET|HEAD        logout ................................................................................... logout.get › Auth\LoginController@logout
+  POST            logout .................................................................................. logout.post › Auth\LoginController@logout
+  GET|HEAD        maintenances .................................................................... maintenances.index › MaintenancesController@index
+  POST            maintenances .................................................................... maintenances.store › MaintenancesController@store
+  GET|HEAD        maintenances/create ........................................................... maintenances.create › MaintenancesController@create
+  GET|HEAD        maintenances/{maintenance} ........................................................ maintenances.show › MaintenancesController@show
+  PUT|PATCH       maintenances/{maintenance} .................................................... maintenances.update › MaintenancesController@update
+  DELETE          maintenances/{maintenance} .................................................. maintenances.destroy › MaintenancesController@destroy
+  GET|HEAD        maintenances/{maintenance}/edit ................................................... maintenances.edit › MaintenancesController@edit
+  GET|HEAD        manufacturers ................................................................. manufacturers.index › ManufacturersController@index
+  POST            manufacturers ................................................................. manufacturers.store › ManufacturersController@store
+  POST            manufacturers/bulk/delete ......................................... manufacturers.bulk.delete › BulkManufacturersController@destroy
+  GET|HEAD        manufacturers/create ........................................................ manufacturers.create › ManufacturersController@create
+  POST            manufacturers/seed .............................................................. manufacturers.seed › ManufacturersController@seed
+  POST            manufacturers/{manufacturers_id}/restore ................................... restore/manufacturer › ManufacturersController@restore
+  GET|HEAD        manufacturers/{manufacturer} .................................................... manufacturers.show › ManufacturersController@show
+  PUT|PATCH       manufacturers/{manufacturer} ................................................ manufacturers.update › ManufacturersController@update
+  DELETE          manufacturers/{manufacturer} .............................................. manufacturers.destroy › ManufacturersController@destroy
+  GET|HEAD        manufacturers/{manufacturer}/edit ............................................... manufacturers.edit › ManufacturersController@edit
+  GET|HEAD        modals/{type}/{itemId?} ......................................................................... modal.show › ModalController@show
+  GET|HEAD        models ................................................................................. models.index › AssetModelsController@index
+  POST            models ................................................................................. models.store › AssetModelsController@store
+  POST            models/bulkdelete ..................................................... models.bulkdelete.store › BulkAssetModelsController@destroy
+  POST            models/bulkedit ............................................................ models.bulkedit.index › BulkAssetModelsController@edit
+  POST            models/bulksave .......................................................... models.bulkedit.store › BulkAssetModelsController@update
+  GET|HEAD        models/create ........................................................................ models.create › AssetModelsController@create
+  POST            models/{modelID}/restore .................................................. models.restore.store › AssetModelsController@getRestore
+  GET|HEAD        models/{modelId}/custom_fields ........................................ custom_fields/model › AssetModelsController@getCustomFields
+  GET|HEAD        models/{modelId}/view .................................................................. view/model › AssetModelsController@getView
+  GET|HEAD        models/{model} ........................................................................... models.show › AssetModelsController@show
+  PUT|PATCH       models/{model} ....................................................................... models.update › AssetModelsController@update
+  DELETE          models/{model} ..................................................................... models.destroy › AssetModelsController@destroy
+  GET|HEAD        models/{model}/clone ......................................................... models.clone.create › AssetModelsController@getClone
+  POST            models/{model}/clone ........................................................ models.clone.store › AssetModelsController@postCreate
+  GET|HEAD        models/{model}/edit ...................................................................... models.edit › AssetModelsController@edit
+  POST            notes ......................................................................................... notes.store › NotesController@store
+  GET|HEAD        oauth/authorize .......................... passport.authorizations.authorize › Laravel\Passport › AuthorizationController@authorize
+  POST            oauth/authorize ....................... passport.authorizations.approve › Laravel\Passport › ApproveAuthorizationController@approve
+  DELETE          oauth/authorize ................................ passport.authorizations.deny › Laravel\Passport › DenyAuthorizationController@deny
+  GET|HEAD        oauth/clients ................................................ passport.clients.index › Laravel\Passport › ClientController@forUser
+  POST            oauth/clients .................................................. passport.clients.store › Laravel\Passport › ClientController@store
+  PUT             oauth/clients/{client_id} .................................... passport.clients.update › Laravel\Passport › ClientController@update
+  DELETE          oauth/clients/{client_id} .................................. passport.clients.destroy › Laravel\Passport › ClientController@destroy
+  GET|HEAD        oauth/personal-access-tokens ............ passport.personal.tokens.index › Laravel\Passport › PersonalAccessTokenController@forUser
+  POST            oauth/personal-access-tokens .............. passport.personal.tokens.store › Laravel\Passport › PersonalAccessTokenController@store
+  DELETE          oauth/personal-access-tokens/{token_id} passport.personal.tokens.destroy › Laravel\Passport › PersonalAccessTokenController@destroy
+  GET|HEAD        oauth/scopes ....................................................... passport.scopes.index › Laravel\Passport › ScopeController@all
+  POST            oauth/token .................................................. passport.token › Laravel\Passport › AccessTokenController@issueToken
+  POST            oauth/token/refresh .................................. passport.token.refresh › Laravel\Passport › TransientTokenController@refresh
+  GET|HEAD        oauth/tokens ................................... passport.tokens.index › Laravel\Passport › AuthorizedAccessTokenController@forUser
+  DELETE          oauth/tokens/{token_id} ...................... passport.tokens.destroy › Laravel\Passport › AuthorizedAccessTokenController@destroy
+  POST            password/email .................................................. password.email › Auth\ForgotPasswordController@sendResetLinkEmail
+  GET|HEAD        password/reset ............................................... password.request › Auth\ForgotPasswordController@showLinkRequestForm
+  POST            password/reset ............................................................... password.update › Auth\ResetPasswordController@reset
+  GET|HEAD        password/reset/{token} ................................................ password.reset › Auth\ResetPasswordController@showResetForm
+  GET|HEAD        pdf ................................................................................................... sso_pdf › SSOController@pdf
+  GET|HEAD        reports/accessories .................................................... reports/accessories › ReportsController@getAccessoryReport
+  GET|HEAD        reports/activity ........................................................... reports.activity › ReportsController@getActivityReport
+  POST            reports/activity ..................................................... reports.activity.post › ReportsController@postActivityReport
+  GET|HEAD        reports/audit ............................................................................. reports.audit › ReportsController@audit
+  GET|HEAD        reports/custom ................................................................. reports/custom › ReportsController@getCustomReport
+  POST            reports/custom ................................................................. reports.post-custom › ReportsController@postCustom
+  GET|HEAD        reports/depreciation ................................................ reports/depreciation › ReportsController@getDeprecationReport
+  GET|HEAD        reports/export/accessories ................................... reports/export/accessories › ReportsController@exportAccessoryReport
+  GET|HEAD        reports/export/depreciation ............................... reports/export/depreciation › ReportsController@exportDeprecationReport
+  GET|HEAD        reports/export/licenses ........................................... reports/export/licenses › ReportsController@exportLicenseReport
+  GET|HEAD        reports/export/maintenances .............................. reports/export/maintenances › ReportsController@exportMaintenancesReport
+  GET|HEAD        reports/licenses ............................................................ reports/licenses › ReportsController@getLicenseReport
+  GET|HEAD        reports/maintenances ............................................ ui.reports.maintenances › ReportsController@getMaintenancesReport
+  POST            reports/templates ........................................................ report-templates.store › ReportTemplatesController@store
+  GET|HEAD        reports/templates/{reportTemplate} ......................................... report-templates.show › ReportTemplatesController@show
+  POST            reports/templates/{reportTemplate} ..................................... report-templates.update › ReportTemplatesController@update
+  DELETE          reports/templates/{reportTemplate} ................................... report-templates.destroy › ReportTemplatesController@destroy
+  GET|HEAD        reports/templates/{reportTemplate}/edit .................................... report-templates.edit › ReportTemplatesController@edit
+  POST            reports/unaccepted_assets/sent_reminder ... reports/unaccepted_assets_sent_reminder › ReportsController@sentAssetAcceptanceReminder
+  DELETE          reports/unaccepted_assets/{acceptanceId}/delete ........ reports/unaccepted_assets_delete › ReportsController@deleteAssetAcceptance
+  GET|HEAD        reports/unaccepted_assets/{deleted?} ....................... reports/unaccepted_assets › ReportsController@getAssetAcceptanceReport
+  POST            reports/unaccepted_assets/{deleted?} ............... reports/export/unaccepted_assets › ReportsController@postAssetAcceptanceReport
+  GET|POST|HEAD   saml/acs ....................................................................................... saml.acs › Auth\SamlController@acs
+  GET|HEAD        saml/metadata ........................................................................ saml.metadata › Auth\SamlController@metadata
+  GET|HEAD        saml/sls ....................................................................................... saml.sls › Auth\SamlController@sls
+  GET|HEAD        scim/v1 ................................................................... ArieTimmerman\Laravel › ResourceController@wrongVersion
+  GET|HEAD        scim/v1/{fallbackPlaceholder} ............................................. ArieTimmerman\Laravel › ResourceController@wrongVersion
+  POST            scim/v2/.search ......................................................... ArieTimmerman\Laravel › ResourceController@notImplemented
+  GET|HEAD        scim/v2/Me ............................................................... scim.me.get › ArieTimmerman\Laravel › MeController@getMe
+  PUT             scim/v2/Me ........................................................... scim.me.put › ArieTimmerman\Laravel › MeController@replaceMe
+  GET|HEAD        scim/v2/ResourceTypes ....................................................... ArieTimmerman\Laravel › ResourceTypesController@index
+  GET|HEAD        scim/v2/ResourceTypes/{id} ............................... scim.resourcetype › ArieTimmerman\Laravel › ResourceTypesController@show
+  GET|HEAD        scim/v2/Schemas .................................................................... ArieTimmerman\Laravel › SchemaController@index
+  GET|HEAD        scim/v2/Schemas/{id} ................................................. scim.schemas › ArieTimmerman\Laravel › SchemaController@show
+  GET|HEAD        scim/v2/ServiceProviderConfig ................ scim.serviceproviderconfig › ArieTimmerman\Laravel › ServiceProviderController@index
+  GET|HEAD        scim/v2/{fallbackPlaceholder} ........................................... ArieTimmerman\Laravel › ResourceController@notImplemented
+  GET|HEAD        scim/v2/{resourceType} .......................................... scim.resources › ArieTimmerman\Laravel › ResourceController@index
+  POST            scim/v2/{resourceType} .......................................................... ArieTimmerman\Laravel › ResourceController@create
+  GET|HEAD        scim/v2/{resourceType}/{resourceObject} ........................... scim.resource › ArieTimmerman\Laravel › ResourceController@show
+  PUT             scim/v2/{resourceType}/{resourceObject} ........................................ ArieTimmerman\Laravel › ResourceController@replace
+  PATCH           scim/v2/{resourceType}/{resourceObject} ......................................... ArieTimmerman\Laravel › ResourceController@update
+  DELETE          scim/v2/{resourceType}/{resourceObject} ......................................... ArieTimmerman\Laravel › ResourceController@delete
+  GET|HEAD        setup .................................................................................... setup › SettingsController@getSetupIndex
+  GET|HEAD        setup/done ........................................................................... setup.done › SettingsController@getSetupDone
+  GET|HEAD        setup/mailtest .................................................................. setup.mailtest › SettingsController@ajaxTestEmail
+  GET|HEAD        setup/migrate .................................................................. setup.migrate › SettingsController@getSetupMigrate
+  GET|HEAD        setup/user ........................................................................... setup.user › SettingsController@getSetupUser
+  POST            setup/user ................................................................ setup.user.save › SettingsController@postSaveFirstAdmin
+  GET|HEAD        statuslabels .................................................................... statuslabels.index › StatuslabelsController@index
+  POST            statuslabels .................................................................... statuslabels.store › StatuslabelsController@store
+  GET|HEAD        statuslabels/create ........................................................... statuslabels.create › StatuslabelsController@create
+  GET|HEAD        statuslabels/{statuslabel} ........................................................ statuslabels.show › StatuslabelsController@show
+  PUT|PATCH       statuslabels/{statuslabel} .................................................... statuslabels.update › StatuslabelsController@update
+  DELETE          statuslabels/{statuslabel} .................................................. statuslabels.destroy › StatuslabelsController@destroy
+  GET|HEAD        statuslabels/{statuslabel}/edit ................................................... statuslabels.edit › StatuslabelsController@edit
+  GET|HEAD        stored-eula-file/{filename} ........................................... log.storedeula.download › ActionlogController@getStoredEula
+  GET|HEAD        suppliers ............................................................................. suppliers.index › SuppliersController@index
+  POST            suppliers ............................................................................. suppliers.store › SuppliersController@store
+  POST            suppliers/bulk/delete ..................................................... suppliers.bulk.delete › BulkSuppliersController@destroy
+  GET|HEAD        suppliers/create .................................................................... suppliers.create › SuppliersController@create
+  GET|HEAD        suppliers/{supplier} .................................................................... suppliers.show › SuppliersController@show
+  PUT|PATCH       suppliers/{supplier} ................................................................ suppliers.update › SuppliersController@update
+  DELETE          suppliers/{supplier} .............................................................. suppliers.destroy › SuppliersController@destroy
+  GET|HEAD        suppliers/{supplier}/edit ............................................................... suppliers.edit › SuppliersController@edit
+  POST            telescope/telescope-api/batches .................................................. Laravel\Telescope › QueueBatchesController@index
+  GET|HEAD        telescope/telescope-api/batches/{telescopeEntryId} ................................ Laravel\Telescope › QueueBatchesController@show
+  POST            telescope/telescope-api/cache ........................................................... Laravel\Telescope › CacheController@index
+  GET|HEAD        telescope/telescope-api/cache/{telescopeEntryId} ......................................... Laravel\Telescope › CacheController@show
+  POST            telescope/telescope-api/client-requests ......................................... Laravel\Telescope › ClientRequestController@index
+  GET|HEAD        telescope/telescope-api/client-requests/{telescopeEntryId} ....................... Laravel\Telescope › ClientRequestController@show
+  POST            telescope/telescope-api/commands ..................................................... Laravel\Telescope › CommandsController@index
+  GET|HEAD        telescope/telescope-api/commands/{telescopeEntryId} ................................... Laravel\Telescope › CommandsController@show
+  POST            telescope/telescope-api/dumps ............................................................ Laravel\Telescope › DumpController@index
+  DELETE          telescope/telescope-api/entries ..................................................... Laravel\Telescope › EntriesController@destroy
+  POST            telescope/telescope-api/events ......................................................... Laravel\Telescope › EventsController@index
+  GET|HEAD        telescope/telescope-api/events/{telescopeEntryId} ....................................... Laravel\Telescope › EventsController@show
+  POST            telescope/telescope-api/exceptions .................................................. Laravel\Telescope › ExceptionController@index
+  GET|HEAD        telescope/telescope-api/exceptions/{telescopeEntryId} ................................ Laravel\Telescope › ExceptionController@show
+  PUT             telescope/telescope-api/exceptions/{telescopeEntryId} .............................. Laravel\Telescope › ExceptionController@update
+  POST            telescope/telescope-api/gates ........................................................... Laravel\Telescope › GatesController@index
+  GET|HEAD        telescope/telescope-api/gates/{telescopeEntryId} ......................................... Laravel\Telescope › GatesController@show
+  POST            telescope/telescope-api/jobs ............................................................ Laravel\Telescope › QueueController@index
+  GET|HEAD        telescope/telescope-api/jobs/{telescopeEntryId} .......................................... Laravel\Telescope › QueueController@show
+  POST            telescope/telescope-api/logs .............................................................. Laravel\Telescope › LogController@index
+  GET|HEAD        telescope/telescope-api/logs/{telescopeEntryId} ............................................ Laravel\Telescope › LogController@show
+  POST            telescope/telescope-api/mail ............................................................. Laravel\Telescope › MailController@index
+  GET|HEAD        telescope/telescope-api/mail/{telescopeEntryId} ........................................... Laravel\Telescope › MailController@show
+  GET|HEAD        telescope/telescope-api/mail/{telescopeEntryId}/download ............................... Laravel\Telescope › MailEmlController@show
+  GET|HEAD        telescope/telescope-api/mail/{telescopeEntryId}/preview ............................... Laravel\Telescope › MailHtmlController@show
+  POST            telescope/telescope-api/models ......................................................... Laravel\Telescope › ModelsController@index
+  GET|HEAD        telescope/telescope-api/models/{telescopeEntryId} ....................................... Laravel\Telescope › ModelsController@show
+  GET|HEAD        telescope/telescope-api/monitored-tags ........................................... Laravel\Telescope › MonitoredTagController@index
+  POST            telescope/telescope-api/monitored-tags ........................................... Laravel\Telescope › MonitoredTagController@store
+  POST            telescope/telescope-api/monitored-tags/delete .................................. Laravel\Telescope › MonitoredTagController@destroy
+  POST            telescope/telescope-api/notifications ........................................... Laravel\Telescope › NotificationsController@index
+  GET|HEAD        telescope/telescope-api/notifications/{telescopeEntryId} ......................... Laravel\Telescope › NotificationsController@show
+  POST            telescope/telescope-api/queries ....................................................... Laravel\Telescope › QueriesController@index
+  GET|HEAD        telescope/telescope-api/queries/{telescopeEntryId} ..................................... Laravel\Telescope › QueriesController@show
+  POST            telescope/telescope-api/redis ........................................................... Laravel\Telescope › RedisController@index
+  GET|HEAD        telescope/telescope-api/redis/{telescopeEntryId} ......................................... Laravel\Telescope › RedisController@show
+  POST            telescope/telescope-api/requests ..................................................... Laravel\Telescope › RequestsController@index
+  GET|HEAD        telescope/telescope-api/requests/{telescopeEntryId} ................................... Laravel\Telescope › RequestsController@show
+  POST            telescope/telescope-api/schedule ..................................................... Laravel\Telescope › ScheduleController@index
+  GET|HEAD        telescope/telescope-api/schedule/{telescopeEntryId} ................................... Laravel\Telescope › ScheduleController@show
+  POST            telescope/telescope-api/toggle-recording ........................................... Laravel\Telescope › RecordingController@toggle
+  POST            telescope/telescope-api/views ........................................................... Laravel\Telescope › ViewsController@index
+  GET|HEAD        telescope/telescope-api/views/{telescopeEntryId} ......................................... Laravel\Telescope › ViewsController@show
+  GET|HEAD        telescope/{view?} ............................................................ telescope › Laravel\Telescope › HomeController@index
+  GET|HEAD        test-email ........................................................................................................................ 
+  GET|HEAD        two-factor ..................................................................... two-factor › Auth\LoginController@getTwoFactorAuth
+  POST            two-factor ................................................................................. Auth\LoginController@postTwoFactorAuth
+  GET|HEAD        two-factor-enroll ..................................................... two-factor-enroll › Auth\LoginController@getTwoFactorEnroll
+  GET|HEAD        users ................................................................................... users.index › Users\UsersController@index
+  POST            users ................................................................................... users.store › Users\UsersController@store
+  POST            users/bulkedit .................................................................... users/bulkedit › Users\BulkUsersController@edit
+  POST            users/bulkeditsave .......................................................... users/bulkeditsave › Users\BulkUsersController@update
+  POST            users/bulksave ................................................................. users/bulksave › Users\BulkUsersController@destroy
+  GET|HEAD        users/create .......................................................................... users.create › Users\UsersController@create
+  GET|HEAD        users/export ................................................................ users.export › Users\UsersController@getExportUserCsv
+  GET|HEAD        users/ldap .......................................................................... ldap/user › Users\LDAPImportController@create
+  POST            users/ldap ....................................................................................... Users\LDAPImportController@store
+  POST            users/merge .................................................................... users.merge.save › Users\BulkUsersController@merge
+  POST            users/{userId}/email ........................................................... users.email › Users\UsersController@emailAssetList
+  POST            users/{userId}/password .................................................. users.password › Users\UsersController@sendPasswordReset
+  GET|HEAD        users/{userId}/print ........................................................... users.print › Users\UsersController@printInventory
+  POST            users/{userId}/restore ..................................................... users.restore.store › Users\UsersController@getRestore
+  GET|HEAD        users/{userId}/unsuspend ...................................................... unsuspend/user › Users\UsersController@getUnsuspend
+  GET|HEAD        users/{user} .............................................................................. users.show › Users\UsersController@show
+  PUT|PATCH       users/{user} .......................................................................... users.update › Users\UsersController@update
+  DELETE          users/{user} ........................................................................ users.destroy › Users\UsersController@destroy
+  GET|HEAD        users/{user}/clone .............................................................. users.clone.show › Users\UsersController@getClone
+  POST            users/{user}/clone ........................................................... users.clone.store › Users\UsersController@postCreate
+  GET|HEAD        users/{user}/edit ......................................................................... users.edit › Users\UsersController@edit
+  POST            {object_type}/{id}/files ........................................................... ui.files.store › UploadedFilesController@store
+  GET|HEAD        {object_type}/{id}/files/{file_id} ................................................... ui.files.show › UploadedFilesController@show
+  DELETE          {object_type}/{id}/files/{file_id}/delete ...................................... ui.files.destroy › UploadedFilesController@destroy
 
-                                                                                                                Showing [634] routes
+                                                                                                                                 Showing [683] routes
 

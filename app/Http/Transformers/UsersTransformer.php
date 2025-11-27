@@ -91,6 +91,7 @@ class UsersTransformer
                 'end_date' => Helper::getFormattedDateObject($user->end_date, 'date'),
                 'last_login' => Helper::getFormattedDateObject($user->last_login, 'datetime'),
                 'deleted_at' => ($user->deleted_at) ? Helper::getFormattedDateObject($user->deleted_at, 'datetime') : null,
+                'impersonate' => (int) $user->id,
             ];
 
         $permissions_array['available_actions'] = [

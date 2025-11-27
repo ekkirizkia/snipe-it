@@ -422,6 +422,11 @@ dir="{{ Helper::determineLanguageDirection() }}">
                                             </form>
 
                                         </li>
+                                        @impersonating($guard = null)
+                                            <li>
+                                                <a href="{{ route('impersonate.leave') }}">Leave impersonation</a>
+                                            </li>
+                                        @endImpersonating
                                     </ul>
                                 </li>
                             @endif

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\AssetCheckoutRequest;
+use App\Models\BulkAsset;
 use App\Models\CustomField;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -705,7 +706,13 @@ class BulkAssetsController extends Controller
             
             $errors = [];
             DB::transaction(function () use ($target, $admin, $checkout_at, $expected_checkin, &$errors, $assets, $request) { //NOTE: $errors is passsed by reference!
-                $bulk_id = count($assets) > 1 ? uuid_create():null;
+                if (count($assets) > 1) {
+                    $bulk_asset = new BulkAsset();
+                    $bulk_asset->save();
+                    $bulk_id = $bulk_asset->id;
+                }else{
+                    $bulk_id = null;
+                }
                 foreach ($assets as $asset) {
                     $this->authorize('checkout', $asset);
 

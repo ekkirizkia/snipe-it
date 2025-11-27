@@ -351,6 +351,8 @@ class AcceptanceController extends Controller
             foreach ($acceptances as $acceptance) {
                 $item = $acceptance->checkoutable_type::find($acceptance->checkoutable_id);
                 $acceptance->accept($sig_filename, $item->getEula(), $pdf_filename, $request->input('note'));
+                $acceptance->bulk_id = $id;
+                event(new CheckoutAccepted($acceptance));
             }
 
             // Send the PDF to the signing user
@@ -369,7 +371,6 @@ class AcceptanceController extends Controller
             // } catch (\Exception $e) {
             //     Log::warning($e);
             // }
-            event(new CheckoutAccepted($acceptance));
 
             $return_msg = trans('admin/users/message.accepted');
 

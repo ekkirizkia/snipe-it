@@ -431,6 +431,16 @@ class UserPresenter extends Presenter
                 'formatter' => 'usersActionsFormatter',
                 'printIgnore' => true,
             ],
+            [
+                'field' => 'impersonate',
+                'searchable' => false,
+                'sortable' => false,
+                'switchable' => false,
+                'title' => 'Impersonate',
+                'visible' => true,
+                'formatter' => 'impersonateFormatter',
+                'printIgnore' => true,
+            ],
         ];
 
         return json_encode($layout);
